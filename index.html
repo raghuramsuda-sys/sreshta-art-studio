@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sreshta's Art Studio — Draw Like a Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--teal:#0e7c86;--teal2:#15919e;--deep:#0b5563;--marigold:#f4a91f;--terra:#e2725b;--cream:#fff6e6;--paper:#fffdf4;--ink:#2e2a26;--gold:#c9962e;--goldL:#ecd27c;--green:#2f9e44;--mut:#8a7a63}
+body{margin:0;font-family:'Nunito',sans-serif;color:var(--ink);background:linear-gradient(180deg,#fdf3da 0%,var(--cream) 45%,#fdeeda 100%);min-height:100dvh}
+h1,h2,h3,.baloo{font-family:'Baloo 2',cursive}
+.scr{display:none;max-width:480px;margin:0 auto;padding:12px 14px 32px;min-height:100dvh}
+.scr.on{display:block}
+.topbar{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.topbar .tb{background:#fff;border:2px solid var(--teal2);color:var(--deep);border-radius:999px;padding:5px 13px;font-weight:800;font-size:14px;cursor:pointer;font-family:'Nunito'}
+.topbar .crumb{font-size:13px;font-weight:800;color:var(--deep);opacity:.85}
+.center{text-align:center}
+h1.title{margin:4px 0 0;font-size:30px;line-height:1.1;background:linear-gradient(90deg,var(--deep),var(--teal2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tagline{font-weight:800;color:var(--terra);letter-spacing:.4px;margin:2px 0 8px}
+.piaRow{display:flex;gap:10px;align-items:flex-end;margin:8px 0}
+.piaWrap{flex:0 0 138px;cursor:pointer;animation:bob 3.2s ease-in-out infinite}
+.piaWrap svg{width:138px;height:auto;display:block}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.piaWrap.hop{animation:hop .55s ease}
+@keyframes hop{30%{transform:translateY(-15px) rotate(-3deg)}60%{transform:translateY(0)}}
+.bubble{position:relative;background:#fff;border:3px solid var(--gold);border-radius:22px;padding:12px 14px;font-family:'Baloo 2',cursive;font-size:17px;line-height:1.35;flex:1;box-shadow:0 4px 0 rgba(201,150,46,.25);min-width:0;overflow-wrap:break-word}
+.bubble:after{content:"";position:absolute;left:-13px;bottom:22px;width:20px;height:20px;background:#fff;border-left:3px solid var(--gold);border-bottom:3px solid var(--gold);transform:rotate(45deg);border-bottom-left-radius:6px}
+.card{background:#fff;border-radius:20px;padding:14px;box-shadow:0 4px 14px rgba(160,120,30,.13);margin:10px 0}
+.btn{display:block;width:100%;border:none;cursor:pointer;border-radius:999px;padding:13px 16px;font-family:'Baloo 2',cursive;font-size:18px;font-weight:800;background:var(--teal);color:#fff;box-shadow:0 4px 0 var(--deep);margin:8px 0}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 var(--deep)}
+.btn.gold{background:var(--marigold);color:#4a3200;box-shadow:0 4px 0 #b97a06}
+.btn.terra{background:var(--terra);color:#fff;box-shadow:0 4px 0 #b14e38}
+.btn.ghost{background:#fff;color:var(--deep);border:2px solid var(--teal2);box-shadow:none}
+.btn:disabled{opacity:.45}
+.entry{display:flex;align-items:center;gap:12px;background:#fff;border:3px solid var(--teal2);border-radius:18px;padding:12px 14px;width:100%;cursor:pointer;font-family:'Baloo 2',cursive;font-size:19px;font-weight:800;color:var(--ink);margin:8px 0;text-align:left}
+.entry .face{font-size:30px}
+.entry small{display:block;font-family:'Nunito';font-size:12px;color:var(--mut);font-weight:700}
+.pinDots{display:flex;gap:10px;justify-content:center;margin:14px 0}
+.pinDots span{width:18px;height:18px;border-radius:50%;border:3px solid var(--teal);background:#fff}
+.pinDots span.f{background:var(--marigold)}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:280px;margin:0 auto}
+.pad button{font-family:'Baloo 2';font-size:22px;font-weight:800;padding:12px 0;border-radius:16px;border:2px solid var(--teal2);background:#fff;color:var(--ink);cursor:pointer}
+#pinMsg{text-align:center;font-weight:800;color:var(--terra);min-height:22px}
+.poster{background:linear-gradient(135deg,var(--teal),#39b5a3);color:#fff;border-radius:22px;padding:13px 15px;box-shadow:0 6px 16px rgba(14,124,134,.35);margin:8px 0}
+.poster h3{margin:0 0 2px;font-size:13px;letter-spacing:1.2px}
+.poster .ct{font-family:'Baloo 2';font-size:21px;font-weight:800;line-height:1.2}
+.poster .sub{font-size:13px;font-weight:700;opacity:.92}
+.poster button{background:#fff;color:var(--deep);border:none;border-radius:999px;padding:8px 18px;font-family:'Baloo 2';font-weight:800;font-size:16px;cursor:pointer;margin-top:8px}
+.gframe{background:linear-gradient(135deg,#f2d778,var(--gold) 55%,#a8751a);padding:7px;border-radius:10px;box-shadow:0 4px 10px rgba(140,100,20,.35)}
+.gframe .mat{background:var(--paper);padding:7px;border-radius:4px}
+.gframe .art{background:#fdf8ea;border-radius:3px;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:86px}
+.gframe .art img{width:100%;height:118px;object-fit:cover;display:block}
+.gframe .art svg{width:100%;height:auto;display:block}
+.gframe .cap{font-family:'Baloo 2';font-weight:800;font-size:13px;text-align:center;padding:5px 2px 1px;color:#5b4306;line-height:1.2;overflow-wrap:break-word}
+.gframe.big .art img{height:auto;max-height:56dvh;object-fit:contain}
+.gframe.big .art svg{max-height:56dvh}
+.wallGrid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:8px 0}
+.wallGrid .empty .art{min-height:86px;background:repeating-linear-gradient(45deg,#fdf8ea,#fdf8ea 8px,#f7eed3 8px,#f7eed3 16px);color:var(--mut);font-family:'Baloo 2';font-weight:800;font-size:13px;text-align:center;padding:10px}
+.room{display:flex;gap:11px;align-items:center;background:#fff;border-radius:16px;padding:11px 12px;margin:8px 0;box-shadow:0 3px 10px rgba(160,120,30,.12);width:100%;border:3px solid transparent;text-align:left;cursor:pointer;font-family:'Nunito';color:var(--ink)}
+.room .ic{font-size:28px;flex:0 0 34px;text-align:center}
+.room .nm{font-family:'Baloo 2';font-weight:800;font-size:17px;line-height:1.15}
+.room .rk{font-size:12px;font-weight:800;color:var(--mut)}
+.room.lock{opacity:.55;cursor:default}
+.room.act{border-color:var(--marigold)}
+.bar{height:8px;background:#f0e4c8;border-radius:99px;overflow:hidden;margin-top:5px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal2),var(--marigold));border-radius:99px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:#fff;border-radius:16px;padding:9px;text-align:center;box-shadow:0 3px 10px rgba(160,120,30,.12)}
+.stat .n{font-family:'Baloo 2';font-size:21px;font-weight:800;color:var(--deep)}
+.stat .l{font-size:12px;font-weight:800;color:var(--mut)}
+.weekRow{display:flex;gap:6px;margin:8px 0}
+.dayDot{flex:1;text-align:center}
+.dayDot .d{width:34px;height:34px;margin:0 auto;border-radius:50%;border:3px dashed #d9c896;display:flex;align-items:center;justify-content:center;font-size:16px;background:#fff}
+.dayDot.on .d{border:3px solid var(--marigold);background:#fff3cf}
+.dayDot .dl{font-size:10.5px;font-weight:800;color:var(--mut);margin-top:3px}
+.secttl{font-family:'Baloo 2';font-size:19px;font-weight:800;margin:12px 0 3px;color:var(--deep)}
+.lesRow{display:flex;align-items:center;gap:10px;background:#fff;border-radius:14px;padding:10px 12px;margin:6px 0;box-shadow:0 2px 8px rgba(160,120,30,.1);width:100%;border:none;text-align:left;cursor:pointer;font-family:'Nunito';color:var(--ink)}
+.lesRow .no{font-family:'Baloo 2';font-weight:800;background:var(--teal2);color:#fff;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex:0 0 30px;font-size:14px}
+.lesRow.done .no{background:var(--green)}
+.lesRow.master .no{background:var(--gold)}
+.lesRow.lock{opacity:.55;cursor:default}
+.lesRow .tt{font-weight:800;font-size:15px;line-height:1.2}
+.lesRow .st{margin-left:auto;font-size:17px;flex:0 0 auto}
+.stepDots{display:flex;gap:6px;justify-content:center;margin:8px 0;flex-wrap:wrap}
+.stepDots span{font-size:11px;font-weight:800;padding:4px 9px;border-radius:999px;background:#f0e4c8;color:var(--mut)}
+.stepDots span.cur{background:var(--marigold);color:#4a3200}
+.stepDots span.done{background:#cdeeda;color:#1c6b2e}
+.demoBox{background:#fff;border:3px solid var(--goldL);border-radius:18px;padding:12px;box-shadow:0 4px 12px rgba(160,120,30,.12)}
+.demoBox svg{width:100%;height:auto;display:block;background:#fffdf4;border-radius:10px}
+.demoCap{font-family:'Baloo 2';font-weight:800;font-size:16px;text-align:center;margin:8px 0 2px;line-height:1.3}
+.navRow{display:flex;gap:9px}
+.navRow .btn{flex:1}
+.chk{display:flex;gap:10px;align-items:flex-start;background:#fff;border:2px solid #eadfae;border-radius:14px;padding:11px 12px;margin:7px 0;cursor:pointer;font-weight:800;font-size:15px;line-height:1.35}
+.chk input{width:22px;height:22px;flex:0 0 22px;accent-color:var(--teal)}
+.chk.done{border-color:var(--green);background:#f2fbf0}
+input[type=text],input[type=date],textarea,select{width:100%;padding:11px;border:2px solid var(--teal2);border-radius:12px;font-family:'Nunito';font-weight:700;font-size:15px;background:#fff;color:var(--ink)}
+textarea{min-height:64px;resize:vertical}
+label.lbl{font-size:13px;font-weight:800;color:var(--deep);display:block;margin:10px 0 4px}
+.foot{font-size:11.5px;color:#a08b62;font-weight:700;text-align:center;margin-top:16px;line-height:1.5}
+.celebrate{text-align:center;padding:12px 0}
+.celebrate .big{font-size:46px}
+.stamp{display:inline-block;border:5px solid var(--gold);color:#8a6108;font-family:'Baloo 2';font-weight:800;font-size:24px;padding:5px 18px;border-radius:14px;transform:rotate(-6deg);background:#fff8dc;margin:10px 0}
+.confetti{font-size:22px;letter-spacing:8px;animation:bob 1.2s ease-in-out infinite}
+.dashTabs{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.dashTabs button{border:2px solid var(--teal2);background:#fff;color:var(--deep);font-family:'Baloo 2';font-weight:800;font-size:14px;border-radius:999px;padding:7px 13px;cursor:pointer}
+.dashTabs button.cur{background:var(--teal);color:#fff}
+.dashSec{display:none}.dashSec.on{display:block}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{padding:7px 6px;border-bottom:1px solid #f0e4c8;text-align:left;font-weight:700;vertical-align:top}
+th{color:var(--deep)}
+.pill{display:inline-block;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:800;background:#fdf0d0;color:#8a6108;margin:2px 2px 2px 0}
+.rateRow{display:flex;gap:5px;flex-wrap:wrap;margin:4px 0 8px}
+.rateRow button{border:2px solid #d9c896;background:#fff;border-radius:999px;padding:5px 11px;font-family:'Nunito';font-weight:800;font-size:13px;cursor:pointer;color:var(--ink)}
+.rateRow button.sel{background:var(--marigold);border-color:var(--gold);color:#4a3200}
+.kitRow{display:flex;gap:9px;align-items:center;padding:8px 0;border-bottom:1px solid #f0e4c8;font-weight:800;font-size:14.5px}
+.kitRow input{width:21px;height:21px;accent-color:var(--teal)}
+.hidden{display:none!important}
+.thumbArt svg{width:100%;height:auto;display:block}
+</style>
+</head>
+<body>
+
+<!-- ACCESS -->
+<section class="scr" id="scr-access">
+  <div class="center"><div style="font-size:40px">🖼️</div>
+    <h1 class="title">Sreshta's Art Studio</h1>
+    <div class="tagline">Draw Like a Pro 🎨</div></div>
+  <div class="piaRow"><div class="piaWrap" id="piaAccess"></div><div class="bubble" id="accessBubble">Hello, Artist Sreshta! I am Pia. Our Golden Gallery is waiting for your masterpieces!</div></div>
+  <button class="entry" onclick="openPin('child')"><span class="face">🎨</span><span>Sreshta<small>Artist entry — your secret PIN</small></span></button>
+  <button class="entry" onclick="openPin('parent')"><span class="face">🔑</span><span>Parents<small>Gallery reports &amp; reviews</small></span></button>
+  <p class="foot">A golden gallery for Artist Sreshta and her family.</p>
+</section>
+
+<!-- PIN -->
+<section class="scr" id="scr-pin">
+  <div class="topbar"><button class="tb" onclick="show('scr-access')">← Back</button><span class="crumb">Secret PIN</span></div>
+  <h2 class="baloo" style="text-align:center" id="pinTitle">Sreshta's PIN</h2>
+  <div class="pinDots" id="pinDots"><span></span><span></span><span></span><span></span></div>
+  <div id="pinMsg"></div>
+  <div class="pad" id="pinPad"></div>
+</section>
+
+<!-- CHILD HOME -->
+<section class="scr" id="scr-home">
+  <div class="topbar"><button class="tb" onclick="show('scr-access')">🚪 Exit</button><span class="crumb">The Golden Gallery</span><span style="margin-left:auto" class="crumb" id="homeStars"></span></div>
+  <div class="piaRow"><div class="piaWrap" id="piaHome"></div><div class="bubble" id="homeBubble">Welcome to your gallery, Sreshta!</div></div>
+  <div id="praiseCard"></div>
+  <div id="baselineCard"></div>
+  <div class="poster" id="todayPoster"></div>
+  <div class="grid2">
+    <div class="stat"><div class="n" id="statTitle">Sketch Artist</div><div class="l">My Artist Title</div></div>
+    <div class="stat"><div class="n" id="statFrames">0</div><div class="l">Framed Masterpieces</div></div>
+  </div>
+  <div class="secttl">🖼️ My Gallery Wall</div>
+  <div class="wallGrid" id="wallGrid"></div>
+  <button class="btn gold" onclick="openGallery()">🖼️ Open My Full Gallery</button>
+  <div class="secttl">🚪 My Studio Rooms</div>
+  <div id="roomList"></div>
+  <div class="secttl">📓 My Daily Sketchbook</div>
+  <div class="card" id="sketchCard"></div>
+  <div class="secttl">🌟 My Art Days</div>
+  <div class="weekRow" id="weekRow"></div>
+  <div class="card" id="rewardCard"></div>
+</section>
+
+<!-- BASELINE -->
+<section class="scr" id="scr-baseline">
+  <div class="topbar"><button class="tb" onclick="goHome()">← Gallery</button><span class="crumb">Day 1 — My First Three</span></div>
+  <div class="piaRow"><div class="piaWrap" id="piaBase"></div><div class="bubble">Before our lessons begin, draw these three all by yourself — no help at all! This is how every great artist starts: with their very first frames.</div></div>
+  <div id="baseList"></div>
+  <button class="btn gold" id="baseFinish" onclick="finishBaseline()" disabled>✨ Frame My First Three</button>
+  <p class="foot">Draw each one on real paper, then add a photo — or tick "Done on paper".</p>
+</section>
+
+<!-- STAGE -->
+<section class="scr" id="scr-stage">
+  <div class="topbar"><button class="tb" onclick="goHome()">← Gallery</button><span class="crumb" id="stageCrumb">Studio Room</span></div>
+  <h2 class="baloo" id="stageTitle" style="margin:2px 0"></h2>
+  <p id="stageSub" style="font-weight:800;color:var(--mut);margin:2px 0 8px"></p>
+  <div id="lesList"></div>
+</section>
+
+<!-- LESSON -->
+<section class="scr" id="scr-lesson">
+  <div class="topbar"><button class="tb" id="lesBack">← Room</button><span class="crumb" id="lesCrumb">Lesson</span></div>
+  <h2 class="baloo" id="lesTitle" style="margin:2px 0"></h2>
+  <div class="stepDots" id="stepDots"></div>
+  <div id="lesBody"></div>
+</section>
+
+<!-- CELEBRATION -->
+<section class="scr" id="scr-celeb">
+  <div class="celebrate">
+    <div class="confetti">🎉 ✨ 🎨 ✨ 🎉</div>
+    <h2 class="baloo" id="celebTitle">Framed!</h2>
+    <div class="piaRow" style="text-align:left"><div class="piaWrap" id="piaCeleb"></div><div class="bubble" id="celebBubble">Wonderful!</div></div>
+    <div id="celebFrame"></div>
+    <div class="stamp" id="celebStamp">IN THE GALLERY ⭐</div>
+    <button class="btn gold" onclick="goHome()">🖼️ Back to My Gallery</button>
+    <button class="btn ghost" onclick="openGallery()">See My Gallery Wall</button>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="scr" id="scr-gallery">
+  <div class="topbar"><button class="tb" onclick="goHome()">← Gallery Home</button><span class="crumb">My Portfolio</span></div>
+  <h2 class="baloo" style="margin:2px 0">🖼️ Sreshta's Portfolio</h2>
+  <div id="firstLatest"></div>
+  <div class="secttl">All My Framed Works</div>
+  <div class="wallGrid" id="galGrid"></div>
+</section>
+
+<!-- VIEW WORK -->
+<section class="scr" id="scr-view">
+  <div class="topbar"><button class="tb" onclick="openGallery()">← Portfolio</button><span class="crumb" id="viewCrumb">Masterpiece</span></div>
+  <div id="viewBody"></div>
+</section>
+
+<!-- PARENT DASHBOARD -->
+<section class="scr" id="scr-dash">
+  <div class="topbar"><button class="tb" onclick="show('scr-access')">🚪 Exit</button><span class="crumb">Parents — Art Studio Reports</span></div>
+  <h2 class="baloo" style="margin:2px 0">🎨 Parent Dashboard</h2>
+  <div class="dashTabs" id="dashTabs">
+    <button data-t="ov" class="cur" onclick="dashGo('ov')">Overview</button>
+    <button data-t="rev" onclick="dashGo('rev')">Reviews</button>
+    <button data-t="skills" onclick="dashGo('skills')">Skill Map</button>
+    <button data-t="exhib" onclick="dashGo('exhib')">Exhibition</button>
+    <button data-t="ctrl" onclick="dashGo('ctrl')">Controls</button>
+  </div>
+  <div class="dashSec on" id="dsec-ov"></div>
+  <div class="dashSec" id="dsec-rev"></div>
+  <div class="dashSec" id="dsec-skills"></div>
+  <div class="dashSec" id="dsec-exhib"></div>
+  <div class="dashSec" id="dsec-ctrl"></div>
+  <p class="foot">All progress and photos live on this device only, in this browser. Nothing is uploaded anywhere.</p>
+</section>
+
+<script>
+"use strict";
+/* ================= PIA THE PEACOCK ================= */
+function piaSVG(level){
+  level=Math.max(0,Math.min(5,level|0));
+  var cols=["#7fb6ad","#2ea89b","#0e7c86","#17a398","#38b2a8","#15919e"];
+  var featherCols=["#9ad1c8","#2ea89b","#0e7c86","#f4a91f","#17a398","#0b5563","#38b2a8"];
+  var n=5+level; var feathers="";
+  for(var i=0;i<n;i++){
+    var ang=-78+(156/(n-1))*i; var c=featherCols[i%featherCols.length];
+    var eyeOp=(level>=1||i%2===0)?1:.45;
+    feathers+='<g transform="rotate('+ang.toFixed(1)+' 100 160)"><path d="M100 160 C 89 112, 90 58, 100 12 C 110 58, 111 112, 100 160 Z" fill="'+c+'" opacity=".95"/><ellipse cx="100" cy="32" rx="10.5" ry="15" fill="#f4a91f" opacity="'+eyeOp+'"/><ellipse cx="100" cy="34" rx="6.6" ry="10" fill="#0b5563" opacity="'+eyeOp+'"/><ellipse cx="100" cy="36" rx="3.2" ry="5.2" fill="#7de3f0" opacity="'+eyeOp+'"/></g>';
+  }
+  return '<svg viewBox="0 0 200 190" role="img" aria-label="Pia the Peacock">'
+  + feathers
+  + '<ellipse cx="100" cy="160" rx="31" ry="21" fill="#0b5563"/>'
+  + '<ellipse cx="100" cy="155" rx="25" ry="16" fill="#0e7c86"/>'
+  + '<path d="M110 148 C 124 132, 127 112, 121 96" stroke="#0e7c86" stroke-width="12.5" fill="none" stroke-linecap="round"/>'
+  + '<circle cx="120" cy="87" r="13.5" fill="#15919e"/>'
+  + '<g stroke="#c9962e" stroke-width="2.5" stroke-linecap="round"><line x1="113" y1="76" x2="107" y2="62"/><line x1="120" y1="74" x2="120" y2="59"/><line x1="127" y1="76" x2="133" y2="62"/></g>'
+  + '<g fill="#f4a91f"><circle cx="107" cy="60" r="3.8"/><circle cx="120" cy="57" r="4.2"/><circle cx="133" cy="60" r="3.8"/></g>'
+  + '<circle cx="125" cy="85" r="2.7" fill="#fff"/><circle cx="125.8" cy="85.8" r="1.4" fill="#1d2733"/>'
+  + '<path d="M132 87 L144 91 L132 96 Z" fill="#f4a91f"/>'
+  + '<path d="M88 178 q-5 6 -11 7 M112 178 q5 6 11 7" stroke="#c9962e" stroke-width="3" fill="none" stroke-linecap="round"/>'
+  + '</svg>';
+}
+var PIA_LINES=["Feathers up! Every pro artist began with one brave line.","Your gallery is growing, Artist Sreshta!","Show me what your pencil can do today!","A masterpiece is just small steps, done with love.","Look closely, draw slowly — that is the pro way!","I am saving the best gold frame for your next work!"];
+/* ================= DEMO HELPERS ================= */
+function demoWrap(inner){return '<svg viewBox="0 0 300 190">'+inner+'</svg>';}
+var INK="#3a342c",PAP="#fffdf4";
+/* ================= LESSON DATA ================= */
+/* steps: [caption, svgInner] cumulative, viewBox 300x190 */
+var STAGES=[
+{name:"Sketch Room",sub:"Pro Sketching & 3D Forms",icon:"✏️",skill:"Sketching & 3D Forms"},
+{name:"Light Room",sub:"Light, Shadow & Shading",icon:"💡",skill:"Light & Shading"},
+{name:"People Room",sub:"Faces, People & Characters",icon:"🧑‍🎨",skill:"Faces & People"},
+{name:"Perspective Hall",sub:"Perspective, Scenes & Composition",icon:"🛤️",skill:"Perspective & Scenes"},
+{name:"Painting Gallery",sub:"Colour Theory, Painting & Portfolio",icon:"🌈",skill:"Colour & Painting"}];
+var TITLES=["Sketch Artist","Shading Artist","Character Artist","Scene Artist","Colour Master","Young Master Artist"];
+var LESSONS=[
+/* ---------- STAGE 1 : SKETCH ROOM ---------- */
+{s:1,n:1,t:"The Magic Sphere",mats:["HB pencil","2B pencil","drawing sheet","eraser"],
+ steps:[["Every round thing starts as a simple circle.",'<circle cx="150" cy="95" r="58" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["Add a soft moon of mid-tone on the side away from the light.",'<circle cx="150" cy="95" r="58" fill="none" stroke="'+INK+'" stroke-width="3"/><path d="M178 48 A58 58 0 0 1 178 142 A44 58 0 0 0 178 48Z" fill="#cbbfa5"/>'],
+ ["Deepen the far edge, leave a bright window of light — it pops into a ball!",'<circle cx="150" cy="95" r="58" fill="#e8dfc9"/><path d="M178 48 A58 58 0 0 1 178 142 A44 58 0 0 0 178 48Z" fill="#b3a586"/><path d="M190 55 A58 58 0 0 1 190 135 A30 58 0 0 0 190 55Z" fill="#7d6f52"/><ellipse cx="122" cy="66" rx="15" ry="10" fill="#fffdf4" transform="rotate(-24 122 66)"/><circle cx="150" cy="95" r="58" fill="none" stroke="'+INK+'" stroke-width="3"/>']],
+ trickName:"Light lives on one side",trick:"Pick where your light comes from. The side facing the light stays bright, the far side goes dark. One rule, and flat circles turn into real balls.",
+ drill:"Draw 4 circles. Turn each one into a ball — bright left, dark right. 10 minutes, nice and slow.",
+ guided:["Draw a big, light circle in the middle of your page.","Choose your light side — let us keep the light on the left.","Shade a soft moon shape down the right side with your 2B.","Press a little darker right at the far edge.","Rub one tiny bright window clean with your eraser on the left."],
+ task:"Draw a Magic Sphere as big as your fist, then place a small star sticker-spot of light on it. Title it like a pro."},
+{s:1,n:2,t:"Cube, the Building Block",mats:["HB pencil","ruler","drawing sheet"],
+ steps:[["Start with one honest square.",'<rect x="95" y="70" width="80" height="80" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["Slide a second square up and across, then join the corners.",'<rect x="95" y="70" width="80" height="80" fill="none" stroke="'+INK+'" stroke-width="3"/><rect x="135" y="38" width="80" height="80" fill="none" stroke="'+INK+'" stroke-width="3"/><path d="M95 70 L135 38 M175 70 L215 38 M95 150 L135 118 M175 150 L215 118" stroke="'+INK+'" stroke-width="3"/>'],
+ ["Three faces, three tones — top lightest, front middle, side darkest.",'<polygon points="95,70 135,38 215,38 175,70" fill="#f2e8cd"/><polygon points="95,70 175,70 175,150 95,150" fill="#d9cba6"/><polygon points="175,70 215,38 215,118 175,150" fill="#a08c5f"/><path d="M95 70 L135 38 H215 V118 L175 150 H95 Z M135 38 V118 M95 70 H175 V150" fill="none" stroke="'+INK+'" stroke-width="3"/>']],
+ trickName:"Three faces, three tones",trick:"A cube shows three faces, and each face catches different light. Never shade all three the same — light, middle, dark.",
+ drill:"Draw 3 cubes in a row. Shade each one: light top, middle front, dark side. 10 minutes.",
+ guided:["Draw a square. Draw the same square again, up and to the right.","Join corner to corner with 4 straight lines.","Shade the top face lightest — barely touch the paper.","Shade the front face a medium grey. Shade the side face darkest."],
+ task:"Build a tiny tower of 3 cubes and shade every face with the three-tone rule."},
+{s:1,n:3,t:"Cylinder Cup",mats:["2B pencil","drawing sheet","a real cup to look at"],
+ steps:[["A cylinder is two ellipses — one for the top, one hiding at the bottom.",'<ellipse cx="150" cy="55" rx="55" ry="14" fill="none" stroke="'+INK+'" stroke-width="3"/><path d="M95 55 V135 A55 14 0 0 0 205 135 V55" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["Its sides shade like a ball stretched tall — bright band, dark bands.",'<path d="M95 55 V135 A55 14 0 0 0 205 135 V55 Z" fill="#e8dfc9"/><rect x="168" y="55" width="37" height="80" fill="#b3a586"/><rect x="188" y="55" width="17" height="80" fill="#7d6f52"/><ellipse cx="150" cy="55" rx="55" ry="14" fill="#f7efdb" stroke="'+INK+'" stroke-width="3"/><path d="M95 55 V135 A55 14 0 0 0 205 135 V55" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["Add a shining stripe and a rim — suddenly it is a cup you could drink from!",'<path d="M95 55 V135 A55 14 0 0 0 205 135 V55 Z" fill="#e8dfc9"/><rect x="168" y="55" width="37" height="81" fill="#b3a586"/><rect x="188" y="55" width="17" height="81" fill="#7d6f52"/><rect x="112" y="58" width="11" height="74" fill="#fffdf4"/><ellipse cx="150" cy="55" rx="55" ry="14" fill="#efe3c2" stroke="'+INK+'" stroke-width="3"/><ellipse cx="150" cy="55" rx="40" ry="9" fill="#c9b586"/><path d="M95 55 V135 A55 14 0 0 0 205 135 V55" fill="none" stroke="'+INK+'" stroke-width="3"/>']],
+ trickName:"The shining stripe",trick:"On any tube shape — a cup, a trunk, a leg — the light makes one bright stripe down the side. Find that stripe and the whole shape turns round.",
+ drill:"Draw 3 tube shapes (a straw, a bottle, a tree trunk). Give each one a bright stripe. 10 minutes.",
+ guided:["Draw an ellipse for the top of the cup.","Drop two straight lines down and curve the bottom.","Shade the right side in soft bands, darkest at the edge.","Leave a clean bright stripe on the left and draw the inside ellipse."],
+ task:"Sit a real cup in front of you and draw it with its shining stripe. Look more than you draw!"},
+{s:1,n:4,t:"The Happy Cone",mats:["HB pencil","2B pencil","colour pencils"],
+ steps:[["A cone is a triangle wearing a curved smile at the bottom.",'<path d="M150 30 L200 145 A50 13 0 0 1 100 145 Z" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["Shade one side so the cone stands up and turns.",'<path d="M150 30 L200 145 A50 13 0 0 1 100 145 Z" fill="#e8dfc9"/><path d="M150 30 L200 145 A50 13 0 0 1 160 152 A120 120 0 0 0 150 30Z" fill="#a08c5f"/>'],
+ ["Add stripes and a pom-pom — a party hat!",'<path d="M150 30 L200 145 A50 13 0 0 1 100 145 Z" fill="#ffd9d2"/><path d="M150 30 L200 145 A50 13 0 0 1 160 152 A120 120 0 0 0 150 30Z" fill="#e2725b" opacity=".55"/><path d="M128 92 L178 84 M114 120 L190 112" stroke="#0e7c86" stroke-width="6"/><circle cx="150" cy="28" r="11" fill="#f4a91f" stroke="'+INK+'" stroke-width="2.5"/><path d="M150 30 L200 145 A50 13 0 0 1 100 145 Z" fill="none" stroke="'+INK+'" stroke-width="3"/>']],
+ trickName:"One side always darker",trick:"Every 3D shape — ball, box, cone — obeys the same law: one side darker, one side bright. Learn it once, use it on everything forever.",
+ drill:"Draw a cone, a ball and a cube in one row. Shade all three with the SAME light side. 10 minutes.",
+ guided:["Draw a tall triangle and give it a curved smile at the bottom.","Shade the right half gently, darkest near the edge.","Add two bright stripes across with colour pencils.","Finish with a round pom-pom on top."],
+ task:"Invent your own cone: an ice-cream cone with two scoops, using the darker-side rule on every part."},
+{s:1,n:5,t:"Pyramid of the Sun",mats:["ruler","HB pencil","2B pencil"],
+ steps:[["Two triangles sharing one tall corner make a pyramid.",'<path d="M150 35 L90 150 L210 150 Z M150 35 L210 150" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["The sunny face stays light. The shady face goes deep and dark.",'<polygon points="150,35 90,150 150,150" fill="#f2e8cd"/><polygon points="150,35 150,150 210,150" fill="#8f7c50"/><path d="M150 35 L90 150 H210 Z M150 35 V150" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["Stone lines and a little door — an ancient wonder!",'<polygon points="150,35 90,150 150,150" fill="#f2e8cd"/><polygon points="150,35 150,150 210,150" fill="#8f7c50"/><path d="M128 82 H172 M112 112 H188" stroke="#b3a586" stroke-width="3"/><rect x="140" y="122" width="18" height="28" fill="#5d4f33"/><path d="M150 35 L90 150 H210 Z M150 35 V150" fill="none" stroke="'+INK+'" stroke-width="3"/><circle cx="52" cy="42" r="16" fill="#f4a91f"/>']],
+ trickName:"Big shapes first",trick:"Pros never start with tiny details. They block the BIG shape first, get it standing strong, and only then add small things like stones and doors.",
+ drill:"Draw 3 pyramids of different sizes. Shade the same side dark on all three. 10 minutes.",
+ guided:["Draw a tall triangle. Split it down the middle with one line.","Shade the left face light, the right face dark.","Add two stone lines across each face.","Draw a tiny doorway at the bottom and a sun in the corner."],
+ task:"Draw a pyramid scene: big pyramid, small pyramid behind, sun above — all with the same light rule."},
+{s:1,n:6,t:"My Mug from Real Life",mats:["a real mug","2B pencil","4B pencil","drawing sheet"],
+ steps:[["Start with the cylinder you already know.",'<ellipse cx="140" cy="55" rx="52" ry="13" fill="none" stroke="'+INK+'" stroke-width="3"/><path d="M88 55 V132 A52 13 0 0 0 192 132 V55" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["A handle is a letter D hugging the side.",'<ellipse cx="140" cy="55" rx="52" ry="13" fill="none" stroke="'+INK+'" stroke-width="3"/><path d="M88 55 V132 A52 13 0 0 0 192 132 V55 M192 72 C 232 66, 232 118, 190 116" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["Shade it, stripe it, ground it — your own mug, drawn like a pro.",'<path d="M88 55 V132 A52 13 0 0 0 192 132 V55 Z" fill="#dff2f4"/><rect x="163" y="56" width="29" height="78" fill="#9fc6cc"/><rect x="104" y="58" width="10" height="72" fill="#fffdf4"/><ellipse cx="140" cy="55" rx="52" ry="13" fill="#bfe0e5" stroke="'+INK+'" stroke-width="3"/><path d="M192 72 C 232 66, 232 118, 190 116" fill="none" stroke="#0e7c86" stroke-width="7"/><ellipse cx="145" cy="152" rx="86" ry="9" fill="#d8cbae"/><path d="M88 55 V132 A52 13 0 0 0 192 132 V55" fill="none" stroke="'+INK+'" stroke-width="3"/>']],
+ trickName:"Look, draw, look again",trick:"Pros spend more time LOOKING than drawing. Look at the real thing, hold it in your mind, draw one part, look again. That is the whole secret.",
+ drill:"Put a spoon on the table. Look for 1 full minute. Then draw it without rushing. 10 minutes total.",
+ guided:["Place your real mug in front of you, handle to the right.","Draw the top ellipse and the body, lightly.","Add the D-shaped handle.","Shade the far side, add the bright stripe and the soft shadow under the mug."],
+ task:"Draw the same mug again — but now decorate it with a pattern of your own design, like a mug you invented."},
+{s:1,n:7,t:"The Book Tower",mats:["ruler","HB pencil","colour pencils","real books to stack"],
+ steps:[["One book is a flat box lying down.",'<polygon points="80,120 210,120 228,102 98,102" fill="none" stroke="'+INK+'" stroke-width="3"/><path d="M80 120 V138 L228 138 V102 M228 138 V120" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["Stack a second book, turned a little — towers feel alive when nothing is perfectly straight.",'<polygon points="80,120 210,120 228,102 98,102" fill="#e2725b"/><path d="M80 120 V138 L228 138 V102" fill="none" stroke="'+INK+'" stroke-width="3"/><polygon points="92,84 206,90 218,74 104,68" fill="#0e7c86"/><path d="M92 84 V100 L218 106 V74 M92 100 L218 90" fill="none" stroke="'+INK+'" stroke-width="2.5"/>'],
+ ["A third small book, bookmarks and titles — a tower with a story!",'<polygon points="80,120 210,120 228,102 98,102" fill="#e2725b"/><path d="M80 120 V138 L228 138 V102" fill="none" stroke="'+INK+'" stroke-width="3"/><polygon points="92,84 206,90 218,74 104,68" fill="#0e7c86"/><path d="M92 84 V100 L218 106 V74" fill="none" stroke="'+INK+'" stroke-width="2.5"/><polygon points="112,52 190,56 198,42 120,38" fill="#f4a91f"/><path d="M112 52 V64 L198 68 V42" fill="none" stroke="'+INK+'" stroke-width="2.5"/><path d="M170 106 v22 l7 -6 l7 6 v-22" fill="#ffd94d" stroke="'+INK+'" stroke-width="1.8"/><text x="112" y="128" font-size="13" font-weight="bold" fill="#fff">STORIES</text>']],
+ trickName:"Turn things a little",trick:"Perfectly straight stacks look stiff. Real things lean and turn by tiny amounts. Small turns make drawings feel true.",
+ drill:"Draw the same box 4 times, each turned a little differently. 10 minutes.",
+ guided:["Stack 3 real books in front of you, each turned a little.","Draw the bottom book: top face, then front face.","Add the second book, turned. Then the small top book.","Colour the covers and add a bookmark ribbon slipping out."],
+ task:"Build your dream Book Tower: 5 books about things you love, with titles written on the spines."},
+{s:1,n:8,t:"Ball Meets Box",mats:["2B pencil","drawing sheet","a ball and a box to look at"],
+ steps:[["Place a cube first — strong and still.",'<polygon points="60,78 130,54 200,78 130,102" fill="none" stroke="'+INK+'" stroke-width="2.5"/><path d="M60 78 V146 L130 168 V102 M200 78 V146 L130 168" fill="none" stroke="'+INK+'" stroke-width="2.5"/>'],
+ ["Now roll a sphere in front of it. Two friends, two shapes.",'<polygon points="60,78 130,54 200,78 130,102" fill="#d9cba6"/><path d="M60 78 V146 L130 168 V102 M200 78 V146 L130 168" fill="none" stroke="'+INK+'" stroke-width="2.5"/><circle cx="196" cy="132" r="34" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["Shade both with the SAME light, and let their shadows meet on the ground.",'<polygon points="60,78 130,54 200,78 130,102" fill="#e9dfc4"/><polygon points="60,78 130,102 130,168 60,146" fill="#c9b98f"/><polygon points="130,102 200,78 200,146 130,168" fill="#a08c5f"/><circle cx="196" cy="132" r="34" fill="#e8dfc9"/><path d="M212 102 A34 34 0 0 1 212 162 A26 34 0 0 0 212 102Z" fill="#7d6f52"/><ellipse cx="200" cy="168" rx="60" ry="7" fill="#d8cbae"/><path d="M60 78 L130 54 L200 78 V146 L130 168 L60 146 Z M60 78 L130 102 L200 78 M130 102 V168" fill="none" stroke="'+INK+'" stroke-width="2.5"/><circle cx="196" cy="132" r="34" fill="none" stroke="'+INK+'" stroke-width="3"/>']],
+ trickName:"One light for the whole page",trick:"Everything in one picture shares one sun. If the ball is dark on the right, the box must be dark on the right too. One light rule holds the picture together.",
+ drill:"Draw a ball beside a cube twice — once with light from the left, once from the right. 10 minutes.",
+ guided:["Draw the cube lightly, three faces showing.","Draw the sphere in front, overlapping a corner.","Pick ONE light side and shade both shapes to match.","Add the ground shadow where they stand."],
+ task:"Ball Meets Box, your way: add a cylinder friend too — a cup standing with them. All three, one light."},
+{s:1,n:9,t:"An Apple with a Secret",mats:["2B pencil","4B pencil","a real apple or orange"],
+ steps:[["An apple is a sphere with a gentle dip at the top.",'<path d="M150 62 C 118 40, 84 62, 88 104 C 92 146, 122 164, 150 156 C 178 164, 208 146, 212 104 C 216 62, 182 40, 150 62Z" fill="none" stroke="'+INK+'" stroke-width="3"/><path d="M150 58 C 150 44, 158 36, 168 32" stroke="#7a5b2e" stroke-width="5" fill="none"/>'],
+ ["Shade round — follow the curve with your pencil strokes.",'<path d="M150 62 C 118 40, 84 62, 88 104 C 92 146, 122 164, 150 156 C 178 164, 208 146, 212 104 C 216 62, 182 40, 150 62Z" fill="#f0d9c8"/><path d="M196 66 C 214 84, 212 128, 186 148 A70 70 0 0 0 196 66Z" fill="#c89b78"/><path d="M150 58 C 150 44, 158 36, 168 32" stroke="#7a5b2e" stroke-width="5" fill="none"/><path d="M150 62 C 118 40, 84 62, 88 104 C 92 146, 122 164, 150 156 C 178 164, 208 146, 212 104 C 216 62, 182 40, 150 62Z" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["Its secret? A leaf, a highlight, and a shadow that hugs the table.",'<path d="M150 62 C 118 40, 84 62, 88 104 C 92 146, 122 164, 150 156 C 178 164, 208 146, 212 104 C 216 62, 182 40, 150 62Z" fill="#f3b8a0"/><path d="M196 66 C 214 84, 212 128, 186 148 A70 70 0 0 0 196 66Z" fill="#c96f4a"/><path d="M168 32 C 188 20, 204 28, 202 34 C 190 46, 172 42, 168 32Z" fill="#58a05c"/><path d="M150 58 C 150 44, 158 36, 168 32" stroke="#7a5b2e" stroke-width="5" fill="none"/><ellipse cx="118" cy="88" rx="13" ry="8" fill="#fff3e2" transform="rotate(-20 118 88)"/><ellipse cx="152" cy="168" rx="70" ry="8" fill="#d8cbae"/><path d="M150 62 C 118 40, 84 62, 88 104 C 92 146, 122 164, 150 156 C 178 164, 208 146, 212 104 C 216 62, 182 40, 150 62Z" fill="none" stroke="'+INK+'" stroke-width="3"/>']],
+ trickName:"Strokes follow the shape",trick:"Curved things need curved pencil strokes. Let your shading bend around the apple like a hug, and it will feel round under your fingers.",
+ drill:"Fill a page strip with curved stroke rows — like rainbows stacked. Then shade one circle using only curved strokes. 10 minutes.",
+ guided:["Draw the apple outline with its top dip and stem.","Shade with CURVED strokes following the roundness.","Darken the far edge and the dip under the stem.","Add the leaf, the bright highlight, and the hug-shadow below."],
+ task:"Draw two fruits side by side — one apple, one orange — both shaded round, sharing one light."},
+{s:1,n:10,t:"STAGE MASTERPIECE: My First Still Life",mats:["2B & 4B pencils","drawing sheet","a vase, a fruit and a cup to arrange"],
+ steps:[["Arrange three friends: something tall, something round, something tubed.",'<path d="M96 150 V84 C 96 66, 112 62, 112 48 H128 C 128 62, 144 66, 144 84 V150" fill="none" stroke="'+INK+'" stroke-width="2.5"/><circle cx="196" cy="126" r="26" fill="none" stroke="'+INK+'" stroke-width="2.5"/><ellipse cx="52" cy="104" rx="26" ry="8" fill="none" stroke="'+INK+'" stroke-width="2.5"/><path d="M26 104 V138 A26 8 0 0 0 78 138 V104" fill="none" stroke="'+INK+'" stroke-width="2.5"/><line x1="14" y1="152" x2="286" y2="152" stroke="'+INK+'" stroke-width="2.5"/>'],
+ ["Shade every shape with one shared light.",'<path d="M96 150 V84 C 96 66, 112 62, 112 48 H128 C 128 62, 144 66, 144 84 V150 Z" fill="#bfe0e5"/><path d="M126 60 C 140 70, 144 90, 144 110 V150 H126 Z" fill="#7fb2ba"/><circle cx="196" cy="126" r="26" fill="#f3b8a0"/><path d="M210 104 A26 26 0 0 1 210 148 A20 26 0 0 0 210 104Z" fill="#c96f4a"/><path d="M26 104 V138 A26 8 0 0 0 78 138 V104 Z" fill="#e8dfc9"/><rect x="60" y="104" width="18" height="36" fill="#a08c5f"/><ellipse cx="52" cy="104" rx="26" ry="8" fill="#f7efdb" stroke="'+INK+'" stroke-width="2.5"/><path d="M96 150 V84 C 96 66, 112 62, 112 48 H128 C 128 62, 144 66, 144 84 V150 M26 104 V138 A26 8 0 0 0 78 138 V104" fill="none" stroke="'+INK+'" stroke-width="2.5"/><circle cx="196" cy="126" r="26" fill="none" stroke="'+INK+'" stroke-width="2.5"/><line x1="14" y1="152" x2="286" y2="152" stroke="'+INK+'" stroke-width="2.5"/>'],
+ ["Ground shadows and tiny sparkles of light — a real still life, ready to frame!",'<path d="M96 150 V84 C 96 66, 112 62, 112 48 H128 C 128 62, 144 66, 144 84 V150 Z" fill="#bfe0e5"/><path d="M126 60 C 140 70, 144 90, 144 110 V150 H126 Z" fill="#7fb2ba"/><circle cx="196" cy="126" r="26" fill="#f3b8a0"/><path d="M210 104 A26 26 0 0 1 210 148 A20 26 0 0 0 210 104Z" fill="#c96f4a"/><ellipse cx="186" cy="114" rx="6" ry="4" fill="#fff3e2"/><path d="M26 104 V138 A26 8 0 0 0 78 138 V104 Z" fill="#e8dfc9"/><rect x="60" y="104" width="18" height="36" fill="#a08c5f"/><rect x="34" y="106" width="6" height="32" fill="#fffdf4"/><ellipse cx="52" cy="104" rx="26" ry="8" fill="#f7efdb" stroke="'+INK+'" stroke-width="2.5"/><ellipse cx="150" cy="158" rx="130" ry="7" fill="#d8cbae"/><path d="M96 150 V84 C 96 66, 112 62, 112 48 H128 C 128 62, 144 66, 144 84 V150 M26 104 V138 A26 8 0 0 0 78 138 V104" fill="none" stroke="'+INK+'" stroke-width="2.5"/><circle cx="196" cy="126" r="26" fill="none" stroke="'+INK+'" stroke-width="2.5"/><line x1="14" y1="152" x2="286" y2="152" stroke="'+INK+'" stroke-width="2.5"/>']],
+ trickName:"Arrange before you draw",trick:"A still life is a tiny stage you design: tall at the back, round in the middle, small in front, everything touching or overlapping a little. Pros arrange first, draw second.",
+ drill:"Arrange 3 things from your desk three different ways. Pick the arrangement that looks most like a story. 10 minutes.",
+ guided:["Arrange a vase (or bottle), a fruit and a cup like a tiny stage.","Lightly draw all three shapes first — no shading yet.","Shade each with the SAME light side.","Add ground shadows, highlights, and sign your name in the corner like a pro."],
+ task:"Your official Stage 1 Masterpiece: arrange YOUR three objects, draw the full still life, and give it a grand title."},
+
+/* ---------- STAGE 2 : LIGHT ROOM ---------- */
+{s:2,n:1,t:"Where the Light Lives",mats:["2B & 4B pencils","drawing sheet"],
+ steps:[["Meet the sun arrow — it always tells your pencil where to go.",'<circle cx="60" cy="40" r="17" fill="#f4a91f"/><path d="M86 52 L128 76" stroke="#f4a91f" stroke-width="5" marker-end="url(#arw)"/><defs><marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L7 3 L0 6Z" fill="#f4a91f"/></marker></defs><circle cx="180" cy="112" r="48" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["The ball wears three things: bright where light lands, mid-tone in between, dark where light cannot reach.",'<circle cx="60" cy="40" r="17" fill="#f4a91f"/><path d="M86 52 L128 76" stroke="#f4a91f" stroke-width="5"/><circle cx="180" cy="112" r="48" fill="#f7efdb"/><path d="M204 74 A48 48 0 0 1 204 150 A36 48 0 0 0 204 74Z" fill="#cbbfa5"/><circle cx="180" cy="112" r="48" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["At the very far edge lives the darkest dark, and just beside the bright patch a twinkling highlight.",'<circle cx="60" cy="40" r="17" fill="#f4a91f"/><path d="M86 52 L128 76" stroke="#f4a91f" stroke-width="5"/><circle cx="180" cy="112" r="48" fill="#f2e8cd"/><path d="M204 74 A48 48 0 0 1 204 150 A36 48 0 0 0 204 74Z" fill="#b3a586"/><path d="M216 82 A48 48 0 0 1 216 142 A24 48 0 0 0 216 82Z" fill="#66593d"/><ellipse cx="152" cy="88" rx="12" ry="8" fill="#fffdf4" transform="rotate(-22 152 88)"/><circle cx="180" cy="112" r="48" fill="none" stroke="'+INK+'" stroke-width="3"/>']],
+ trickName:"Highlight, mid-tone, dark",trick:"Every lit thing wears exactly three tones. Find all three before you shade anything, and your drawing will never look flat again.",
+ drill:"Draw one ball. Label its three zones with tiny letters H, M, D before shading. Then shade. 10 minutes.",
+ guided:["Draw a sun in the corner and an arrow pointing at your circle.","Mark the highlight spot, the mid-tone moon, the dark edge.","Shade gently, lightest first, darkest last.","Press hardest only at the far edge."],
+ task:"Move the sun! Draw the same ball again with the sun on the other side — all three tones must move house."},
+{s:2,n:2,t:"The Three-Tone Ladder",mats:["HB, 2B, 4B, 6B pencils","drawing sheet"],
+ steps:[["A ladder of light: the first step is the paper itself, shining white.",'<rect x="40" y="70" width="44" height="60" fill="#fffdf4" stroke="'+INK+'" stroke-width="2.5"/>'],
+ ["Each step presses a little more: soft grey, mid grey, deep grey…",'<rect x="40" y="70" width="44" height="60" fill="#fffdf4" stroke="'+INK+'" stroke-width="2.5"/><rect x="88" y="70" width="44" height="60" fill="#e5dcc6" stroke="'+INK+'" stroke-width="2.5"/><rect x="136" y="70" width="44" height="60" fill="#bfb094" stroke="'+INK+'" stroke-width="2.5"/><rect x="184" y="70" width="44" height="60" fill="#7d6f52" stroke="'+INK+'" stroke-width="2.5"/>'],
+ ["…until the last step is your darkest dark. Five steps, five pencils' worth of pressure!",'<rect x="40" y="70" width="44" height="60" fill="#fffdf4" stroke="'+INK+'" stroke-width="2.5"/><rect x="88" y="70" width="44" height="60" fill="#e5dcc6" stroke="'+INK+'" stroke-width="2.5"/><rect x="136" y="70" width="44" height="60" fill="#bfb094" stroke="'+INK+'" stroke-width="2.5"/><rect x="184" y="70" width="44" height="60" fill="#7d6f52" stroke="'+INK+'" stroke-width="2.5"/><rect x="232" y="70" width="44" height="60" fill="#38301f" stroke="'+INK+'" stroke-width="2.5"/><text x="48" y="152" font-size="12" font-weight="bold" fill="'+INK+'">1</text><text x="100" y="152" font-size="12" font-weight="bold" fill="'+INK+'">2</text><text x="148" y="152" font-size="12" font-weight="bold" fill="'+INK+'">3</text><text x="196" y="152" font-size="12" font-weight="bold" fill="'+INK+'">4</text><text x="244" y="152" font-size="12" font-weight="bold" fill="'+INK+'">5</text>']],
+ trickName:"Pressure is a volume knob",trick:"One pencil can sing five notes. Feather-light touch for step 2, firm and slow for step 5. Control the pressure, control the tone.",
+ drill:"Make your own 5-step ladder. Steps must be even — no jumping from light to dark. Repeat until smooth. Two ladders, 10 minutes.",
+ guided:["Draw 5 boxes in a row, touching each other.","Leave box 1 as clean paper.","Shade box 2 with your lightest touch. Build up box by box.","Use 4B or 6B for the final darkest box."],
+ task:"Draw a staircase of 5 steps in a castle, each step a different tone from your ladder, lightest at the top."},
+{s:2,n:3,t:"Hatching Hills",mats:["2B pencil","drawing sheet"],
+ steps:[["Hatching is a family of lines standing together — far apart, they whisper light.",'<path d="M40 150 L110 60 L180 150" fill="none" stroke="'+INK+'" stroke-width="2.5"/><path d="M86 116 L92 124 M100 100 L106 108 M114 84 L120 92" stroke="#8d7c58" stroke-width="3"/>'],
+ ["Lines drawn closer together speak louder and darker.",'<path d="M40 150 L110 60 L180 150" fill="none" stroke="'+INK+'" stroke-width="2.5"/><path d="M120 78 L168 150 M134 96 L172 148 M106 92 L146 150 M148 116 L178 148" stroke="#6b5c3e" stroke-width="3"/><path d="M86 116 L92 124 M100 100 L106 108" stroke="#8d7c58" stroke-width="3"/>'],
+ ["A whole hill shaded with nothing but lines — that is hatching magic.",'<path d="M40 150 L110 60 L180 150 Z" fill="#f2e8cd"/><path d="M110 60 L180 150 H110 Z" fill="#d9cba6"/><path d="M150 96 L182 148 M140 108 L168 148 M128 118 L152 148 M160 82 L186 146 M120 128 L136 148" stroke="#6b5c3e" stroke-width="2.6"/><path d="M66 126 L84 148 M78 112 L98 143" stroke="#a08c5f" stroke-width="2.6"/><path d="M40 150 L110 60 L180 150" fill="none" stroke="'+INK+'" stroke-width="2.5"/><circle cx="248" cy="48" r="15" fill="#f4a91f"/>']],
+ trickName:"Closer lines, darker tone",trick:"You do not need to press harder to go darker — just move your lines closer together. Spacing is a secret darkness dial.",
+ drill:"Draw 4 squares. Fill each with hatching lines: wide apart, medium, close, very close. 10 minutes.",
+ guided:["Draw a big triangle hill and a small hill beside it.","Hatch the sunny side with wide-spaced lines.","Hatch the shady side with close lines, all slanting the same way.","Add a sun so everyone knows where your light lives."],
+ task:"Hatch a whole landscape: two hills and a house, shaded with lines only — no smudging allowed!"},
+{s:2,n:4,t:"Cross-Hatch Night",mats:["4B pencil","black pen (optional)","drawing sheet"],
+ steps:[["First, one family of lines lays down the evening.",'<rect x="70" y="40" width="160" height="110" fill="#e5dcc6"/><path d="M84 140 L226 52 M84 116 L210 44 M100 148 L230 76 M84 90 L186 44" stroke="#6b5c3e" stroke-width="2.4"/>'],
+ ["A second family crosses over it — and the tone doubles in darkness.",'<rect x="70" y="40" width="160" height="110" fill="#bfb094"/><path d="M84 140 L226 52 M84 116 L210 44 M100 148 L230 76 M84 90 L186 44" stroke="#5a4d33" stroke-width="2.4"/><path d="M84 52 L226 140 M84 76 L230 148 M100 44 L226 116 M134 44 L230 92" stroke="#5a4d33" stroke-width="2.4"/>'],
+ ["Where the moon shines, leave the paper bare. Cross-hatching builds the night around it.",'<rect x="70" y="40" width="160" height="110" fill="#8d7c58"/><path d="M84 140 L226 52 M84 116 L210 44 M100 148 L230 76 M84 90 L186 44 M84 52 L226 140 M84 76 L230 148 M100 44 L226 116 M134 44 L230 92" stroke="#38301f" stroke-width="2.4"/><circle cx="196" cy="66" r="17" fill="#fff6d8" stroke="#f4a91f" stroke-width="2.5"/><rect x="70" y="40" width="160" height="110" fill="none" stroke="'+INK+'" stroke-width="3"/>']],
+ trickName:"Crossing lines, double dark",trick:"One layer of lines makes grey. A second layer crossing it makes deep shadow — without ever pressing hard. Layers, not force.",
+ drill:"Make a cross-hatch ladder: 1 layer, 2 layers, 3 layers, 4 layers. Watch the dark grow. 10 minutes.",
+ guided:["Draw a rectangle window into the night.","Fill it with one direction of slanting lines.","Cross it with lines slanting the other way.","Leave one clean circle for the moon and add a star or two."],
+ task:"Draw a night window of your own: cross-hatched sky, a bright moon, and the dark shape of a tree or a cat sitting in it."},
+{s:2,n:5,t:"Blending the Moon",mats:["2B & 4B pencils","finger or tissue for blending","drawing sheet"],
+ steps:[["Lay down rough tones first — dark at the edge, light at the top. It looks messy. Good.",'<circle cx="150" cy="95" r="58" fill="#e5dcc6"/><path d="M182 52 A58 58 0 0 1 182 138 A40 58 0 0 0 182 52Z" fill="#8d7c58"/><circle cx="150" cy="95" r="58" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["Now blend: small circles with a fingertip or tissue melt the tones into silk.",'<defs><radialGradient id="moonG" cx="38%" cy="34%" r="80%"><stop offset="0%" stop-color="#fffdf4"/><stop offset="55%" stop-color="#d9cba6"/><stop offset="100%" stop-color="#66593d"/></radialGradient></defs><circle cx="150" cy="95" r="58" fill="url(#moonG)"/><circle cx="150" cy="95" r="58" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["Tiny craters and a soft glow — a moon you could almost touch.",'<defs><radialGradient id="moonG2" cx="38%" cy="34%" r="80%"><stop offset="0%" stop-color="#fffdf4"/><stop offset="55%" stop-color="#d9cba6"/><stop offset="100%" stop-color="#66593d"/></radialGradient></defs><rect x="0" y="0" width="300" height="190" fill="#22384f"/><circle cx="150" cy="95" r="62" fill="#f4e3ae" opacity=".35"/><circle cx="150" cy="95" r="58" fill="url(#moonG2)"/><circle cx="128" cy="82" r="7" fill="#cbbc97"/><circle cx="166" cy="112" r="5" fill="#cbbc97"/><circle cx="140" cy="126" r="4" fill="#cbbc97"/><circle cx="150" cy="95" r="58" fill="none" stroke="'+INK+'" stroke-width="3"/><path d="M52 40 l2.5 6 6 2.5 -6 2.5 -2.5 6 -2.5 -6 -6 -2.5 6 -2.5Z" fill="#fff6d8"/><path d="M246 140 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2Z" fill="#fff6d8"/>']],
+ trickName:"Blend from light to dark",trick:"Always blend starting in the light area, moving into the dark — never the other way. Dragging dark into light makes mud; light into dark makes silk.",
+ drill:"Shade one strip rough, then blend half of it. Compare the two halves. Blend a second strip fully. 10 minutes.",
+ guided:["Draw a big moon circle on a dark sky rectangle.","Shade the moon roughly: bright top-left, dark bottom-right.","Blend in tiny circles, light into dark.","Add two or three gentle crater circles and sparkle stars around."],
+ task:"Blend a whole night sky picture: silky moon, dark blended sky, and a sleepy owl shape sitting on a branch (just the dark shape!)."},
+{s:2,n:6,t:"Shadows that Hug the Ground",mats:["2B pencil","a torch or lamp","small toy to observe"],
+ steps:[["Objects float without shadows. Watch: this cup is flying!",'<ellipse cx="150" cy="50" rx="46" ry="11" fill="none" stroke="'+INK+'" stroke-width="3"/><path d="M104 50 V112 A46 11 0 0 0 196 112 V50" fill="none" stroke="'+INK+'" stroke-width="3"/><line x1="30" y1="150" x2="270" y2="150" stroke="'+INK+'" stroke-width="2.5"/>'],
+ ["A shadow pools right under it, soft and wide — now it lands.",'<ellipse cx="150" cy="50" rx="46" ry="11" fill="#f7efdb" stroke="'+INK+'" stroke-width="3"/><path d="M104 50 V112 A46 11 0 0 0 196 112 V50 Z" fill="#e8dfc9"/><ellipse cx="152" cy="140" rx="66" ry="9" fill="#c9b98f"/><line x1="30" y1="150" x2="270" y2="150" stroke="'+INK+'" stroke-width="2.5"/><path d="M104 50 V112 A46 11 0 0 0 196 112 V50" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["The shadow stretches AWAY from the light, darkest where it touches.",'<circle cx="48" cy="34" r="14" fill="#f4a91f"/><path d="M66 44 L92 56" stroke="#f4a91f" stroke-width="4"/><ellipse cx="150" cy="50" rx="46" ry="11" fill="#f7efdb" stroke="'+INK+'" stroke-width="3"/><path d="M104 50 V112 A46 11 0 0 0 196 112 V50 Z" fill="#e8dfc9"/><rect x="168" y="52" width="28" height="62" fill="#a08c5f"/><polygon points="196,116 268,146 210,148 160,124" fill="#8d7c58" opacity=".8"/><ellipse cx="152" cy="140" rx="60" ry="8" fill="#7d6f52"/><line x1="30" y1="150" x2="270" y2="150" stroke="'+INK+'" stroke-width="2.5"/><path d="M104 50 V112 A46 11 0 0 0 196 112 V50" fill="none" stroke="'+INK+'" stroke-width="3"/>']],
+ trickName:"Shadows run from the light",trick:"A shadow always falls on the side AWAY from the light, and it hugs darkest right where the object touches the ground. Miss the shadow, and everything floats.",
+ drill:"Shine a torch at a toy from the left, then the right. Sketch its shadow both times. 10 minutes.",
+ guided:["Draw a cup standing on a ground line.","Add its pool shadow right underneath, darkest at the touch point.","Draw your sun, then stretch the shadow away from it.","Soften the shadow's far edge with your finger."],
+ task:"Draw three objects on one ground line — a ball, a box, a bottle — all casting shadows away from one shared sun."},
+{s:2,n:7,t:"Shiny and Dull",mats:["2B & 4B pencils","drawing sheet"],
+ steps:[["Two balls, same light. The DULL one melts its tones together slowly…",'<circle cx="95" cy="95" r="46" fill="#e8dfc9"/><path d="M118 60 A46 46 0 0 1 118 130 A34 46 0 0 0 118 60Z" fill="#a08c5f"/><circle cx="95" cy="95" r="46" fill="none" stroke="'+INK+'" stroke-width="3"/><text x="62" y="164" font-size="13" font-weight="bold" fill="'+INK+'">DULL</text>'],
+ ["…while the SHINY one keeps a crisp, tiny, bright highlight with a hard edge.",'<circle cx="95" cy="95" r="46" fill="#e8dfc9"/><path d="M118 60 A46 46 0 0 1 118 130 A34 46 0 0 0 118 60Z" fill="#a08c5f"/><circle cx="95" cy="95" r="46" fill="none" stroke="'+INK+'" stroke-width="3"/><text x="62" y="164" font-size="13" font-weight="bold" fill="'+INK+'">DULL</text><circle cx="215" cy="95" r="46" fill="#e8dfc9"/><path d="M238 60 A46 46 0 0 1 238 130 A34 46 0 0 0 238 60Z" fill="#7d6f52"/><ellipse cx="192" cy="72" rx="10" ry="7" fill="#ffffff" stroke="#d9cba6" stroke-width="1.5" transform="rotate(-22 192 72)"/><circle cx="215" cy="95" r="46" fill="none" stroke="'+INK+'" stroke-width="3"/><text x="180" y="164" font-size="13" font-weight="bold" fill="'+INK+'">SHINY</text>'],
+ ["Steel spoon or wooden ball — now you can draw the DIFFERENCE between things, not just their shapes.",'<circle cx="95" cy="95" r="46" fill="#e8dfc9"/><path d="M118 60 A46 46 0 0 1 118 130 A34 46 0 0 0 118 60Z" fill="#a08c5f"/><ellipse cx="74" cy="74" rx="11" ry="7" fill="#fffdf4" opacity=".7" transform="rotate(-22 74 74)"/><circle cx="95" cy="95" r="46" fill="none" stroke="'+INK+'" stroke-width="3"/><text x="62" y="164" font-size="13" font-weight="bold" fill="'+INK+'">WOOD</text><circle cx="215" cy="95" r="46" fill="#dfe9ec"/><path d="M238 60 A46 46 0 0 1 238 130 A34 46 0 0 0 238 60Z" fill="#5f707a"/><ellipse cx="192" cy="72" rx="10" ry="7" fill="#ffffff" transform="rotate(-22 192 72)"/><rect x="186" y="112" width="7" height="24" rx="3" fill="#ffffff" opacity=".85"/><circle cx="215" cy="95" r="46" fill="none" stroke="'+INK+'" stroke-width="3"/><text x="178" y="164" font-size="13" font-weight="bold" fill="'+INK+'">STEEL</text>']],
+ trickName:"Hard edge = shiny, soft edge = dull",trick:"Shininess is not a colour — it is an EDGE. Crisp bright highlight with a hard border means shiny. A highlight that melts away means dull and soft.",
+ drill:"Draw 2 circles. Give one a hard-edge sticker highlight, the other a melted one. 10 minutes.",
+ guided:["Draw two balls in a row under one sun.","Shade both with three tones.","On ball one, blend the highlight softly away. On ball two, keep a crisp white highlight shape.","Add a thin reflected stripe on the shiny ball's dark side."],
+ task:"Draw a still life of two treasures: one shiny (a steel cup) and one dull (a clay pot) standing side by side."},
+{s:2,n:8,t:"The Lamp in My Room",mats:["4B pencil","yellow colour pencil","drawing sheet"],
+ steps:[["A room at night is just big soft shapes in the dark.",'<rect x="35" y="30" width="230" height="130" fill="#44586e"/><rect x="35" y="30" width="230" height="130" fill="none" stroke="'+INK+'" stroke-width="3"/><rect x="55" y="118" width="90" height="42" fill="#2e4055"/><rect x="185" y="52" width="52" height="62" fill="#2e4055"/>'],
+ ["The lamp is a small sun — draw its glow as a warm circle of light.",'<rect x="35" y="30" width="230" height="130" fill="#44586e"/><circle cx="150" cy="86" r="42" fill="#f7d774" opacity=".55"/><polygon points="132,86 168,86 178,112 122,112" fill="#ffd94d"/><rect x="146" y="112" width="8" height="24" fill="#2e4055"/><rect x="55" y="118" width="90" height="42" fill="#2e4055"/><rect x="185" y="52" width="52" height="62" fill="#2e4055"/><rect x="35" y="30" width="230" height="130" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["Things near the lamp glow bright; things far away melt into shadow. That distance is the whole picture.",'<rect x="35" y="30" width="230" height="130" fill="#44586e"/><circle cx="150" cy="86" r="52" fill="#f7d774" opacity=".4"/><circle cx="150" cy="86" r="34" fill="#ffe89a" opacity=".6"/><polygon points="132,86 168,86 178,112 122,112" fill="#ffd94d" stroke="'+INK+'" stroke-width="2"/><rect x="146" y="112" width="8" height="24" fill="#22334a"/><rect x="124" y="134" width="52" height="8" rx="3" fill="#22334a"/><rect x="55" y="118" width="90" height="42" fill="#31465e"/><rect x="185" y="52" width="52" height="62" fill="#22334a"/><path d="M192 60 h38 M192 76 h38 M192 92 h38" stroke="#31465e" stroke-width="3"/><rect x="35" y="30" width="230" height="130" fill="none" stroke="'+INK+'" stroke-width="3"/>']],
+ trickName:"Near the light, bright; far, dark",trick:"At night, brightness is about DISTANCE from the lamp, not about the object's real colour. A white bed far from the lamp is darker than a blue book beside it.",
+ drill:"Draw one circle of lamplight. Place 3 objects: one inside, one at the edge, one far outside. Shade by distance. 10 minutes.",
+ guided:["Draw your room as big simple shapes: bed, window, table.","Place the lamp and paint its glow circle with yellow.","Brighten everything inside the glow, darken everything outside.","Add one small detail inside the light — a book on the table."],
+ task:"Draw YOUR room at night with its lamp on. Pia wants to see where the light lives in your room!"},
+{s:2,n:9,t:"Fruit Under the Sun",mats:["2B & 4B pencils","a fruit in sunlight","drawing sheet"],
+ steps:[["Set one proud fruit in a patch of sun.",'<ellipse cx="152" cy="150" rx="86" ry="10" fill="#e7dcbd"/><path d="M150 62 C 120 44, 92 62, 96 100 C 100 136, 124 152, 150 144 C 176 152, 200 136, 204 100 C 208 62, 180 44, 150 62Z" fill="none" stroke="'+INK+'" stroke-width="3"/><path d="M150 58 C 150 46, 157 39, 166 35" stroke="#7a5b2e" stroke-width="5" fill="none"/>'],
+ ["Shade it round: highlight, mid-tone, the dark crescent, and a whisper of light bouncing back at the bottom edge.",'<ellipse cx="152" cy="150" rx="86" ry="10" fill="#d8cbae"/><path d="M150 62 C 120 44, 92 62, 96 100 C 100 136, 124 152, 150 144 C 176 152, 200 136, 204 100 C 208 62, 180 44, 150 62Z" fill="#f0d9c8"/><path d="M188 62 C 206 80, 205 122, 182 140 A66 66 0 0 0 188 62Z" fill="#a87c58"/><path d="M188 62 C 206 80, 205 122, 182 140 A66 66 0 0 0 188 62Z" fill="none"/><path d="M150 58 C 150 46, 157 39, 166 35" stroke="#7a5b2e" stroke-width="5" fill="none"/><ellipse cx="120" cy="86" rx="12" ry="8" fill="#fffdf4" transform="rotate(-20 120 86)"/><path d="M112 138 A58 40 0 0 0 168 146" stroke="#e8cdb2" stroke-width="5" fill="none"/>'],
+ ["Cast shadow stretching away, leaf shining — fruit fit for a gallery.",'<ellipse cx="170" cy="152" rx="95" ry="10" fill="#8d7c58"/><path d="M150 62 C 120 44, 92 62, 96 100 C 100 136, 124 152, 150 144 C 176 152, 200 136, 204 100 C 208 62, 180 44, 150 62Z" fill="#f3b8a0"/><path d="M188 62 C 206 80, 205 122, 182 140 A66 66 0 0 0 188 62Z" fill="#c96f4a"/><path d="M166 35 C 186 22, 202 30, 200 36 C 188 49, 170 45, 166 35Z" fill="#58a05c"/><path d="M150 58 C 150 46, 157 39, 166 35" stroke="#7a5b2e" stroke-width="5" fill="none"/><ellipse cx="120" cy="86" rx="12" ry="8" fill="#fff3e2" transform="rotate(-20 120 86)"/><path d="M150 62 C 120 44, 92 62, 96 100 C 100 136, 124 152, 150 144 C 176 152, 200 136, 204 100 C 208 62, 180 44, 150 62Z" fill="none" stroke="'+INK+'" stroke-width="3"/>']],
+ trickName:"The bounce-light whisper",trick:"Look at the darkest bottom edge of a sunlit fruit — it is NOT the darkest part! Light bounces off the table and whispers back up. Pros always leave that tiny bounce of light.",
+ drill:"Shade one ball fully, then lift a thin bounce-light line along its bottom edge with an eraser. 10 minutes.",
+ guided:["Place a real fruit where sunlight (or a lamp) hits it.","Draw the outline and mark highlight, mid-tone, dark crescent.","Shade round with curved strokes.","Add the cast shadow, then erase the thin bounce-light whisper at the bottom."],
+ task:"Two fruits in the sun — one whole, one cut in half showing its inside — both with bounce light."},
+{s:2,n:10,t:"STAGE MASTERPIECE: The Golden Fruit Bowl",mats:["2B, 4B & 6B pencils","gold colour pencil","drawing sheet","a real fruit bowl"],
+ steps:[["A bowl is a wide smile of an ellipse, holding a family of round fruits.",'<path d="M62 96 A88 26 0 0 0 238 96 Z" fill="none" stroke="'+INK+'" stroke-width="3"/><path d="M128 118 H172 L166 132 H134 Z" fill="none" stroke="'+INK+'" stroke-width="2.5"/><circle cx="112" cy="76" r="22" fill="none" stroke="'+INK+'" stroke-width="2.5"/><circle cx="152" cy="66" r="24" fill="none" stroke="'+INK+'" stroke-width="2.5"/><circle cx="192" cy="78" r="21" fill="none" stroke="'+INK+'" stroke-width="2.5"/><line x1="30" y1="140" x2="270" y2="140" stroke="'+INK+'" stroke-width="2.5"/>'],
+ ["Shade every fruit round, each with its own highlight, all sharing one sun.",'<circle cx="112" cy="76" r="22" fill="#f6cf7d"/><path d="M124 58 A22 22 0 0 1 124 94 A17 22 0 0 0 124 58Z" fill="#d99a2b"/><circle cx="152" cy="66" r="24" fill="#f3b8a0"/><path d="M166 46 A24 24 0 0 1 166 86 A18 24 0 0 0 166 46Z" fill="#c96f4a"/><ellipse cx="142" cy="56" rx="6" ry="4" fill="#fff3e2"/><circle cx="192" cy="78" r="21" fill="#b7d977"/><path d="M202 60 A21 21 0 0 1 202 96 A16 21 0 0 0 202 60Z" fill="#7ea63e"/><path d="M62 96 A88 26 0 0 0 238 96 Z" fill="#e8dfc9"/><path d="M150 96 A88 26 0 0 0 238 96 Z" fill="#b3a586"/><path d="M128 118 H172 L166 132 H134 Z" fill="#8f7c50"/><line x1="30" y1="140" x2="270" y2="140" stroke="'+INK+'" stroke-width="2.5"/><path d="M62 96 A88 26 0 0 0 238 96 M128 118 H172 L166 132 H134 Z" fill="none" stroke="'+INK+'" stroke-width="2.5"/><circle cx="112" cy="76" r="22" fill="none" stroke="'+INK+'" stroke-width="2.5"/><circle cx="152" cy="66" r="24" fill="none" stroke="'+INK+'" stroke-width="2.5"/><circle cx="192" cy="78" r="21" fill="none" stroke="'+INK+'" stroke-width="2.5"/>'],
+ ["Golden rim, deep shadows, bounce lights — the bowl glows like treasure.",'<ellipse cx="158" cy="144" rx="105" ry="8" fill="#8d7c58"/><circle cx="112" cy="76" r="22" fill="#f6cf7d"/><path d="M124 58 A22 22 0 0 1 124 94 A17 22 0 0 0 124 58Z" fill="#d99a2b"/><ellipse cx="104" cy="66" rx="6" ry="4" fill="#fff6da"/><circle cx="152" cy="66" r="24" fill="#f3b8a0"/><path d="M166 46 A24 24 0 0 1 166 86 A18 24 0 0 0 166 46Z" fill="#c96f4a"/><ellipse cx="142" cy="56" rx="6" ry="4" fill="#fff3e2"/><circle cx="192" cy="78" r="21" fill="#b7d977"/><path d="M202 60 A21 21 0 0 1 202 96 A16 21 0 0 0 202 60Z" fill="#7ea63e"/><path d="M62 96 A88 26 0 0 0 238 96 Z" fill="#d9cba6"/><path d="M150 96 A88 26 0 0 0 238 96 Z" fill="#8f7c50"/><path d="M62 96 A88 26 0 0 0 238 96" fill="none" stroke="#c9962e" stroke-width="5"/><path d="M128 118 H172 L166 132 H134 Z" fill="#66593d"/><line x1="30" y1="140" x2="270" y2="140" stroke="'+INK+'" stroke-width="2.5"/><circle cx="112" cy="76" r="22" fill="none" stroke="'+INK+'" stroke-width="2.5"/><circle cx="152" cy="66" r="24" fill="none" stroke="'+INK+'" stroke-width="2.5"/><circle cx="192" cy="78" r="21" fill="none" stroke="'+INK+'" stroke-width="2.5"/><path d="M128 118 H172 L166 132 H134 Z" fill="none" stroke="'+INK+'" stroke-width="2.5"/>']],
+ trickName:"Every fruit, its own light story",trick:"In a group, shade fruit by fruit — each one round, each with a highlight — but keep the sun the same for all. Many small stories, one big picture.",
+ drill:"Shade three overlapping circles as three fruits, hardest part: where they touch, each stays round. 10 minutes.",
+ guided:["Arrange a real bowl of fruits and study it quietly for a minute.","Draw the bowl, then the fruits as circles tucked together.","Shade each fruit round with its own highlight, darkest where fruits touch.","Add the golden rim, the cast shadow, and your signature."],
+ task:"Your Stage 2 Masterpiece: the full golden fruit bowl, shaded like treasure. Give it a title worthy of a gallery."},
+
+/* ---------- STAGE 3 : PEOPLE ROOM ---------- */
+{s:3,n:1,t:"The Face Map",mats:["HB pencil","mirror","drawing sheet"],
+ steps:[["Every face hides a map. Start with an egg — narrow at the chin.",'<ellipse cx="150" cy="95" rx="52" ry="66" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["The map lines: eyes live exactly HALFWAY down. Nose ends halfway after that. Mouth sits a little below.",'<ellipse cx="150" cy="95" rx="52" ry="66" fill="none" stroke="'+INK+'" stroke-width="3"/><line x1="100" y1="95" x2="200" y2="95" stroke="#e2725b" stroke-width="2.5" stroke-dasharray="6 4"/><line x1="100" y1="128" x2="200" y2="128" stroke="#0e7c86" stroke-width="2.5" stroke-dasharray="6 4"/><line x1="100" y1="144" x2="200" y2="144" stroke="#f4a91f" stroke-width="2.5" stroke-dasharray="6 4"/><line x1="150" y1="29" x2="150" y2="161" stroke="#cbbfa5" stroke-width="2" stroke-dasharray="4 4"/>'],
+ ["Now the features KNOW where to sit — eyes on their line, nose, then lips.",'<ellipse cx="150" cy="95" rx="52" ry="66" fill="#f6ddba" stroke="'+INK+'" stroke-width="3"/><line x1="100" y1="95" x2="200" y2="95" stroke="#e2725b" stroke-width="1.6" stroke-dasharray="5 4" opacity=".6"/><ellipse cx="128" cy="95" rx="9" ry="5.5" fill="#fff" stroke="'+INK+'" stroke-width="2"/><ellipse cx="172" cy="95" rx="9" ry="5.5" fill="#fff" stroke="'+INK+'" stroke-width="2"/><circle cx="128" cy="95" r="3.2" fill="'+INK+'"/><circle cx="172" cy="95" r="3.2" fill="'+INK+'"/><path d="M150 95 L144 126 Q150 131 156 126" fill="none" stroke="'+INK+'" stroke-width="2.2"/><path d="M132 144 Q150 152 168 144" stroke="#c2503f" stroke-width="3" fill="none"/>']],
+ trickName:"Eyes live halfway",trick:"The biggest face secret of all: the eyes are NOT near the top — they sit exactly in the MIDDLE of the head. Draw the halfway line first, always.",
+ drill:"Draw 3 egg heads. Mark the halfway eye line on each before adding anything else. 10 minutes.",
+ guided:["Draw a tall egg shape for the head.","Draw the halfway line — that is the eye line. Mark nose and mouth lines below it.","Place both eyes ON the line, one eye-width apart.","Add nose and lips gently on their lines."],
+ task:"Draw a face using the full Face Map — a family member or a hero from your imagination. Keep the map lines until the very end."},
+{s:3,n:2,t:"Eyes that Speak",mats:["HB & 2B pencils","mirror","drawing sheet"],
+ steps:[["An eye is an almond with a precious circle inside.",'<path d="M96 100 Q128 76 160 100 Q128 122 96 100Z" fill="#fff" stroke="'+INK+'" stroke-width="3"/><circle cx="128" cy="99" r="12" fill="#7a4a21"/><circle cx="128" cy="99" r="5.5" fill="#14100c"/>'],
+ ["A tiny white sparkle makes it alive — eyes shine because they are wet and round like tiny balls.",'<path d="M96 100 Q128 76 160 100 Q128 122 96 100Z" fill="#fff" stroke="'+INK+'" stroke-width="3"/><circle cx="128" cy="99" r="12" fill="#7a4a21"/><circle cx="128" cy="99" r="5.5" fill="#14100c"/><circle cx="124" cy="94" r="3.4" fill="#fff"/><path d="M96 100 Q128 74 160 100" fill="none" stroke="'+INK+'" stroke-width="4.5"/>'],
+ ["Eyebrows are the eye's storytellers — raised for surprise, flat for calm, slanted for brave.",'<path d="M58 108 Q90 86 122 108 Q90 128 58 108Z" fill="#fff" stroke="'+INK+'" stroke-width="2.6"/><circle cx="90" cy="107" r="10" fill="#7a4a21"/><circle cx="90" cy="107" r="4.5" fill="#14100c"/><circle cx="86.5" cy="103.5" r="3" fill="#fff"/><path d="M56 88 Q90 76 124 90" stroke="'+INK+'" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M178 100 Q210 82 242 100 Q210 120 178 100Z" fill="#fff" stroke="'+INK+'" stroke-width="2.6"/><circle cx="210" cy="99" r="10" fill="#7a4a21"/><circle cx="210" cy="99" r="4.5" fill="#14100c"/><circle cx="206.5" cy="95.5" r="3" fill="#fff"/><path d="M176 74 Q210 84 244 70" stroke="'+INK+'" stroke-width="5" fill="none" stroke-linecap="round"/><text x="66" y="150" font-size="13" font-weight="bold" fill="'+INK+'">CALM</text><text x="196" y="150" font-size="13" font-weight="bold" fill="'+INK+'">SURPRISE</text>']],
+ trickName:"The sparkle dot",trick:"Never colour an eye fully dark. Leave one tiny white sparkle — that single dot is the difference between a doll's eye and a living one.",
+ drill:"Draw 6 single eyes, big. Give each its sparkle. Change only the eyebrow to change the feeling. 10 minutes.",
+ guided:["Draw the almond shape, pointy at both ends.","Add the iris circle — a little hidden by the top lid, like real eyes.","Add the pupil and the tiny sparkle dot.","Draw the eyebrow above, matching a feeling you choose."],
+ task:"Draw a pair of eyes three ways — happy, surprised, brave — changing only brows, lids and sparkles."},
+{s:3,n:3,t:"Nose, Lips and a Smile",mats:["2B pencil","mirror","drawing sheet"],
+ steps:[["A nose is mostly SHADOW, not lines: two small nostril curves and a soft shade beneath.",'<path d="M150 70 L138 116 Q150 124 162 116" fill="none" stroke="'+INK+'" stroke-width="2.2"/><path d="M134 118 Q141 112 147 118 M153 118 Q159 112 166 118" stroke="'+INK+'" stroke-width="2.6" fill="none"/><ellipse cx="150" cy="122" rx="17" ry="5" fill="#e3c9a2"/>'],
+ ["Lips have a dark meeting line, a fuller bottom lip catching light, and a shadow tucked below.",'<path d="M112 92 Q131 80 150 90 Q169 80 188 92 Q170 106 150 105 Q130 106 112 92Z" fill="#e58a76"/><path d="M112 92 Q150 102 188 92" stroke="#a03d2c" stroke-width="2.6" fill="none"/><ellipse cx="150" cy="99" rx="14" ry="3.4" fill="#f6c6b4"/><ellipse cx="150" cy="112" rx="18" ry="4" fill="#e3c9a2"/>'],
+ ["A smile lifts the corners and crinkles the eyes — feelings travel across the whole face.",'<ellipse cx="150" cy="72" rx="46" ry="54" fill="#f6ddba"/><path d="M118 66 Q128 60 138 66 M162 66 Q172 60 182 66" stroke="'+INK+'" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M118 62 Q128 54 138 62 M162 62 Q172 54 182 62" stroke="'+INK+'" stroke-width="2.2" fill="none"/><path d="M150 70 L144 92 Q150 96 156 92" fill="none" stroke="'+INK+'" stroke-width="2"/><path d="M124 104 Q150 120 176 104 Q150 130 124 104Z" fill="#fff" stroke="#a03d2c" stroke-width="2.4"/><path d="M110 96 Q104 100 108 106 M190 96 Q196 100 192 106" stroke="#d9b78c" stroke-width="2.4" fill="none"/>']],
+ trickName:"Shadow, not outline",trick:"Beginners draw noses with hard lines and they look like stickers. Pros suggest the nose with soft shadows — a whisper, not a shout.",
+ drill:"Draw 4 noses using only shadows and two nostril curves — no side lines allowed. 10 minutes.",
+ guided:["Draw a light nose shadow shape: a soft blob under where the nose sits.","Add two small nostril curves inside it.","Draw the lips below: meeting line first, bottom lip second, shadow underneath.","Finish with a smile version — corners up!"],
+ task:"Draw the lower half of a face three times: smiling, giggling (mouth open a little), and thinking (lips pressed to one side)."},
+{s:3,n:4,t:"Hair in Big Shapes",mats:["2B & 4B pencils","drawing sheet"],
+ steps:[["Hair is NOT a hundred lines. It is ONE big shape sitting on the head like a helmet.",'<ellipse cx="150" cy="88" rx="50" ry="60" fill="#f6ddba"/><path d="M98 88 C 92 30, 208 30, 202 88 C 196 58, 172 44, 150 44 C 122 44, 104 60, 98 88Z" fill="#4a3120"/>'],
+ ["Inside the big shape, carve 3 or 4 shiny ribbons with your eraser or by leaving paper white.",'<ellipse cx="150" cy="88" rx="50" ry="60" fill="#f6ddba"/><path d="M98 88 C 92 30, 208 30, 202 88 C 196 58, 172 44, 150 44 C 122 44, 104 60, 98 88Z" fill="#4a3120"/><path d="M118 48 C 112 62, 112 74, 116 84" stroke="#a97c50" stroke-width="6" fill="none"/><path d="M150 42 C 146 56, 146 68, 149 78" stroke="#a97c50" stroke-width="6" fill="none"/><path d="M182 50 C 186 62, 186 72, 183 82" stroke="#a97c50" stroke-width="6" fill="none"/>'],
+ ["Flick a few brave strands at the edges and the hair turns silky.",'<ellipse cx="150" cy="88" rx="50" ry="60" fill="#f6ddba"/><path d="M98 92 C 90 28, 210 28, 202 92 C 198 62, 178 42, 150 42 C 120 42, 102 64, 98 92Z" fill="#3c2716"/><path d="M118 48 C 112 62, 112 74, 116 84 M150 42 C 146 56, 146 68, 149 78 M182 50 C 186 62, 186 72, 183 82" stroke="#c79a63" stroke-width="6" fill="none"/><path d="M100 88 q-6 14 -2 26 M200 88 q6 14 2 26 M124 118 q-2 10 2 18 M176 118 q2 10 -2 18" stroke="#3c2716" stroke-width="5" fill="none"/><circle cx="128" cy="84" r="3" fill="'+INK+'"/><circle cx="172" cy="84" r="3" fill="'+INK+'"/><path d="M138 108 Q150 114 162 108" stroke="#c2503f" stroke-width="2.6" fill="none"/>']],
+ trickName:"Shape first, strands last",trick:"Draw hair as one bold dark shape. Shine ribbons second. Single strands only at the very end, and only a few — that order is exactly how the pros do it.",
+ drill:"Draw 3 hair helmets (bob, ponytail, curly puff) as pure dark shapes, no face. Add ribbons of shine. 10 minutes.",
+ guided:["Draw a face oval lightly.","Draw the hair as ONE big shape sitting on top, a finger-width above the forehead.","Fill it dark with your 4B.","Lift out 3 shine ribbons and flick a few edge strands."],
+ task:"Draw the same face with three different hairstyles — change only the hair shape. A hairstyle fashion show!"},
+{s:3,n:5,t:"Three Feelings, Three Faces",mats:["2B pencil","mirror","drawing sheet"],
+ steps:[["Feeling 1 — HAPPY: brows curve up, eyes smile in crescents, mouth climbs.",'<ellipse cx="80" cy="70" rx="34" ry="40" fill="#f6ddba"/><path d="M58 66 Q66 58 74 66 M86 66 Q94 58 102 66" stroke="'+INK+'" stroke-width="3" fill="none"/><path d="M62 88 Q80 102 98 88" stroke="#c2503f" stroke-width="3" fill="none"/><text x="48" y="132" font-size="13" font-weight="bold" fill="'+INK+'">HAPPY</text>'],
+ ["Feeling 2 — SURPRISED: brows fly high, eyes go round, the mouth is a little O.",'<ellipse cx="80" cy="70" rx="34" ry="40" fill="#f6ddba"/><path d="M58 66 Q66 58 74 66 M86 66 Q94 58 102 66" stroke="'+INK+'" stroke-width="3" fill="none"/><path d="M62 88 Q80 102 98 88" stroke="#c2503f" stroke-width="3" fill="none"/><text x="48" y="132" font-size="13" font-weight="bold" fill="'+INK+'">HAPPY</text><ellipse cx="190" cy="70" rx="34" ry="40" fill="#f6ddba"/><path d="M168 48 Q176 42 184 48 M196 48 Q204 42 212 48" stroke="'+INK+'" stroke-width="3" fill="none"/><circle cx="176" cy="66" r="5" fill="'+INK+'"/><circle cx="204" cy="66" r="5" fill="'+INK+'"/><ellipse cx="190" cy="94" rx="8" ry="10" fill="#a03d2c"/><text x="152" y="132" font-size="13" font-weight="bold" fill="'+INK+'">SURPRISED</text>'],
+ ["Feeling 3 — BRAVE AND SURE: brows slant down-in, chin up, a small strong smile. Feelings are drawn with tiny changes!",'<ellipse cx="80" cy="70" rx="34" ry="40" fill="#f6ddba"/><path d="M58 66 Q66 58 74 66 M86 66 Q94 58 102 66" stroke="'+INK+'" stroke-width="3" fill="none"/><path d="M62 88 Q80 102 98 88" stroke="#c2503f" stroke-width="3" fill="none"/><text x="48" y="132" font-size="13" font-weight="bold" fill="'+INK+'">HAPPY</text><ellipse cx="190" cy="70" rx="34" ry="40" fill="#f6ddba"/><path d="M168 48 Q176 42 184 48 M196 48 Q204 42 212 48" stroke="'+INK+'" stroke-width="3" fill="none"/><circle cx="176" cy="66" r="5" fill="'+INK+'"/><circle cx="204" cy="66" r="5" fill="'+INK+'"/><ellipse cx="190" cy="94" rx="8" ry="10" fill="#a03d2c"/><text x="152" y="132" font-size="13" font-weight="bold" fill="'+INK+'">SURPRISED</text><ellipse cx="132" cy="160" rx="0" ry="0" fill="none"/><g transform="translate(118,96) scale(0.72)"><ellipse cx="80" cy="70" rx="34" ry="40" fill="#f6ddba"/><path d="M58 54 L84 62 M102 62 L76 54" stroke="'+INK+'" stroke-width="3.4" fill="none" transform="translate(0,0)"/><path d="M60 56 L86 64 M100 64 L74 56" stroke="'+INK+'" stroke-width="0" fill="none"/><circle cx="68" cy="72" r="3.6" fill="'+INK+'"/><circle cx="92" cy="72" r="3.6" fill="'+INK+'"/><path d="M66 94 Q80 100 94 94" stroke="#c2503f" stroke-width="3" fill="none"/></g><text x="128" y="182" font-size="13" font-weight="bold" fill="'+INK+'">BRAVE</text>']],
+ trickName:"Brows do the talking",trick:"Change ONLY the eyebrows and mouth, and the same face tells three stories. Actors use their faces like this — and so do artists.",
+ drill:"In a mirror, make happy, surprised and brave faces. Freeze each for a slow count of 10 and study your brows. Then draw from memory. 10 minutes.",
+ guided:["Draw three same-size face ovals in a row.","Give face one happy brows and a climbing smile.","Give face two high brows, round eyes, an O mouth.","Give face three slanted brave brows and a small sure smile."],
+ task:"Draw a feelings strip of FOUR faces: happy, surprised, brave, and sleepy — a story strip someone can read without any words."},
+{s:3,n:6,t:"Stick to Shape to Person",mats:["HB pencil","drawing sheet"],
+ steps:[["Pros begin people as stick figures — to catch the POSE before anything else.",'<line x1="150" y1="46" x2="150" y2="104" stroke="'+INK+'" stroke-width="3.4"/><circle cx="150" cy="32" r="14" fill="none" stroke="'+INK+'" stroke-width="3"/><path d="M150 62 L116 84 M150 62 L186 48 M150 104 L126 148 M150 104 L178 142" stroke="'+INK+'" stroke-width="3.4" fill="none"/>'],
+ ["Then they dress the sticks in simple shapes: an egg for the chest, tubes for arms and legs.",'<circle cx="150" cy="32" r="14" fill="#f6ddba" stroke="'+INK+'" stroke-width="2.4"/><ellipse cx="150" cy="80" rx="17" ry="26" fill="#bfe0e5" stroke="'+INK+'" stroke-width="2.4"/><path d="M140 58 L112 80 M160 58 L188 44 M140 102 L124 146 M160 102 L180 140" stroke="#bfe0e5" stroke-width="13" stroke-linecap="round"/><path d="M140 58 L112 80 M160 58 L188 44 M140 102 L124 146 M160 102 L180 140" stroke="'+INK+'" stroke-width="1.6" fill="none" stroke-dasharray="3 4"/>'],
+ ["Clothes, hair and a face — the stick has become a dancer caught mid-step!",'<circle cx="150" cy="30" r="14" fill="#f6ddba"/><path d="M136 28 C 134 10, 166 10, 164 28 C 158 18, 142 18, 136 28Z" fill="#3c2716"/><path d="M132 52 L168 52 L182 96 L118 96 Z" fill="#e2725b"/><path d="M136 56 L110 78 M164 56 L190 42" stroke="#f6ddba" stroke-width="8" stroke-linecap="round"/><path d="M136 96 L122 146 M164 96 L182 138" stroke="#f6ddba" stroke-width="8.5" stroke-linecap="round"/><path d="M110 146 h16 M176 138 l14 4" stroke="'+INK+'" stroke-width="3.4"/><circle cx="145" cy="30" r="1.9" fill="'+INK+'"/><circle cx="155" cy="30" r="1.9" fill="'+INK+'"/><path d="M145 37 Q150 40 155 37" stroke="#c2503f" stroke-width="1.8" fill="none"/>']],
+ trickName:"Pose first, person second",trick:"If the stick figure's pose does not dance, no amount of pretty clothes will save it. Always catch the movement with sticks first.",
+ drill:"Draw 5 stick figures: jumping, running, sitting, dancing, waving. Fast and free — 2 minutes each!",
+ guided:["Draw a stick figure in a dancing pose.","Dress it in shapes: chest egg, arm and leg tubes.","Add clothes over the shapes.","Finish with hair, face and dancing shoes."],
+ task:"Draw a whole dance scene of 3 stick-to-person dancers in different poses — a mini stage show."},
+{s:3,n:7,t:"The Hero's Hand",mats:["2B pencil","your own hand as the model","drawing sheet"],
+ steps:[["A hand hides a simple secret: a mitten-square for the palm, and a fan of fingers.",'<path d="M118 148 V84 Q118 66 136 66 H164 Q182 66 182 84 V148Z" fill="none" stroke="'+INK+'" stroke-width="3"/><path d="M124 66 V40 M141 62 V30 M158 62 V32 M175 68 V44" stroke="'+INK+'" stroke-width="7" stroke-linecap="round"/>'],
+ ["Fingers are tubes with two soft bends each — and the middle finger is the tallest king.",'<path d="M118 148 V84 Q118 66 136 66 H164 Q182 66 182 84 V148Z" fill="#f6ddba" stroke="'+INK+'" stroke-width="2.6"/><path d="M124 66 V42 M141 62 V32 M158 62 V34 M175 68 V46" stroke="#f6ddba" stroke-width="11" stroke-linecap="round"/><path d="M124 66 V42 M141 62 V32 M158 62 V34 M175 68 V46" stroke="'+INK+'" stroke-width="1.8" fill="none"/><path d="M114 52 h24 M133 46 h22 M149 48 h22 M166 58 h20" stroke="#d9b78c" stroke-width="2" transform="translate(-6,-8)"/>'],
+ ["Add the thumb crossing bravely, knuckle bumps and tiny nails — a hero's hand, waving hello!",'<path d="M118 148 V84 Q118 66 136 66 H164 Q182 66 182 84 V148Z" fill="#f6ddba"/><path d="M118 106 C 96 96, 92 76, 104 68 C 116 60, 126 74, 124 88 C 123 100, 118 108, 118 106Z" fill="#f6ddba" stroke="'+INK+'" stroke-width="2.4"/><path d="M124 66 V42 M141 62 V32 M158 62 V34 M175 68 V46" stroke="#f6ddba" stroke-width="11" stroke-linecap="round"/><path d="M124 66 V42 M141 62 V32 M158 62 V34 M175 68 V46 M118 148 V84 Q118 66 136 66 H164 Q182 66 182 84 V148" stroke="'+INK+'" stroke-width="2.2" fill="none"/><path d="M118 118 h64 M120 96 h8 M140 92 h8 M157 92 h8 M174 96 h7" stroke="#d9b78c" stroke-width="2"/><path d="M120 38 q4 -4 8 0 M137 28 q4 -4 8 0 M154 30 q4 -4 8 0 M171 42 q4 -4 8 0" stroke="'+INK+'" stroke-width="1.8" fill="none"/>']],
+ trickName:"Palm square + finger fan",trick:"Hands scare everyone because they look complicated. Pros cheat beautifully: one square palm, four tube fingers fanning out, one thumb. Complicated no more.",
+ drill:"Trace your own hand lightly. Inside the tracing, draw the palm square and finger tubes you can now see. 10 minutes.",
+ guided:["Hold your hand up, fingers spread, and look at it like a map.","Draw the palm as a rounded square.","Add four tube fingers — middle tallest — with two bend lines each.","Add the thumb crossing in front, knuckles and nails last."],
+ task:"Draw your hand doing something: holding a flower, waving, or giving a thumbs-up. Your hand, your hero pose."},
+{s:3,n:8,t:"My Family, Standing Tall",mats:["HB & 2B pencils","a family photo to smile at","drawing sheet"],
+ steps:[["Line up the heights first — heads are measuring sticks. Grown-ups are tall sticks, children shorter.",'<line x1="30" y1="160" x2="270" y2="160" stroke="'+INK+'" stroke-width="2.5"/><circle cx="84" cy="52" r="13" fill="none" stroke="'+INK+'" stroke-width="2.4"/><line x1="84" y1="65" x2="84" y2="116" stroke="'+INK+'" stroke-width="2.6"/><path d="M84 116 L72 160 M84 116 L96 160 M84 78 L62 96 M84 78 L104 94" stroke="'+INK+'" stroke-width="2.6"/><circle cx="150" cy="62" r="12" fill="none" stroke="'+INK+'" stroke-width="2.4"/><line x1="150" y1="74" x2="150" y2="120" stroke="'+INK+'" stroke-width="2.6"/><path d="M150 120 L140 160 M150 120 L160 160 M150 86 L132 102 M150 86 L168 100" stroke="'+INK+'" stroke-width="2.6"/><circle cx="212" cy="86" r="10" fill="none" stroke="'+INK+'" stroke-width="2.4"/><line x1="212" y1="96" x2="212" y2="130" stroke="'+INK+'" stroke-width="2.6"/><path d="M212 130 L204 160 M212 130 L220 160 M212 106 L196 118 M212 106 L228 116" stroke="'+INK+'" stroke-width="2.6"/>'],
+ ["Shapes make them people: dresses, shirts, trousers over the sticks.",'<line x1="30" y1="160" x2="270" y2="160" stroke="'+INK+'" stroke-width="2.5"/><g><circle cx="84" cy="50" r="13" fill="#f6ddba"/><path d="M70 48 C 68 30, 100 30, 98 48 C 92 40, 76 40, 70 48Z" fill="#3c2716"/><path d="M84 63 L84 116 M70 118 L98 118 L94 162 L74 162Z" fill="#0e7c86"/><path d="M84 78 L62 96 M84 78 L104 94" stroke="#f6ddba" stroke-width="7" stroke-linecap="round"/></g><g><circle cx="150" cy="60" r="12" fill="#f2c49b"/><path d="M138 58 C 140 44, 160 44, 162 58 L162 96 L186 118 L138 118 L140 94Z" fill="#e2725b" opacity=".0"/><path d="M138 96 L162 96 L172 122 L128 122Z" fill="#d94f70"/><path d="M150 72 L150 120 M150 84 L132 102 M150 84 L168 100" stroke="#f2c49b" stroke-width="6.5" stroke-linecap="round"/><path d="M144 120 L140 160 M156 120 L160 160" stroke="#f2c49b" stroke-width="6.5" stroke-linecap="round"/></g><g><circle cx="212" cy="84" r="10" fill="#f6ddba"/><path d="M202 82 C 200 68, 224 68, 222 82 C 218 74, 206 74, 202 82Z" fill="#3c2716"/><path d="M212 94 L198 134 L226 134Z" fill="#f4a91f"/><path d="M206 134 L204 160 M218 134 L220 160" stroke="#f6ddba" stroke-width="6" stroke-linecap="round"/><path d="M212 104 L196 118 M212 104 L228 116" stroke="#f6ddba" stroke-width="6" stroke-linecap="round"/></g>'],
+ ["Faces, smiles and everyone holding hands — a family, standing tall together.",'<line x1="30" y1="160" x2="270" y2="160" stroke="'+INK+'" stroke-width="2.5"/><g><circle cx="84" cy="50" r="13" fill="#f6ddba"/><path d="M70 48 C 68 30, 100 30, 98 48 C 92 40, 76 40, 70 48Z" fill="#3c2716"/><path d="M84 63 L84 116 M70 118 L98 118 L94 162 L74 162Z" fill="#0e7c86"/><path d="M84 78 L64 94 M84 78 L106 92" stroke="#f6ddba" stroke-width="7" stroke-linecap="round"/><circle cx="79" cy="50" r="1.8" fill="'+INK+'"/><circle cx="89" cy="50" r="1.8" fill="'+INK+'"/><path d="M79 56 Q84 59 89 56" stroke="#c2503f" stroke-width="1.7" fill="none"/></g><g><circle cx="150" cy="60" r="12" fill="#f2c49b"/><path d="M138 96 L162 96 L172 122 L128 122Z" fill="#d94f70"/><path d="M150 72 L150 120 M150 84 L130 100 M150 84 L170 100" stroke="#f2c49b" stroke-width="6.5" stroke-linecap="round"/><path d="M144 120 L140 160 M156 120 L160 160" stroke="#f2c49b" stroke-width="6.5" stroke-linecap="round"/><circle cx="145" cy="60" r="1.7" fill="'+INK+'"/><circle cx="155" cy="60" r="1.7" fill="'+INK+'"/><path d="M145 66 Q150 69 155 66" stroke="#c2503f" stroke-width="1.6" fill="none"/></g><g><circle cx="212" cy="84" r="10" fill="#f6ddba"/><path d="M202 82 C 200 68, 224 68, 222 82 C 218 74, 206 74, 202 82Z" fill="#3c2716"/><path d="M212 94 L198 134 L226 134Z" fill="#f4a91f"/><path d="M206 134 L204 160 M218 134 L220 160" stroke="#f6ddba" stroke-width="6" stroke-linecap="round"/><path d="M212 104 L194 116 M212 104 L230 114" stroke="#f6ddba" stroke-width="6" stroke-linecap="round"/><circle cx="208" cy="84" r="1.5" fill="'+INK+'"/><circle cx="216" cy="84" r="1.5" fill="'+INK+'"/><path d="M208 89 Q212 92 216 89" stroke="#c2503f" stroke-width="1.5" fill="none"/></g>']],
+ trickName:"Heads measure height",trick:"Pros measure people in HEADS. A grown-up is about 6-7 heads tall, a child of nine about 5-6. Line up everyone's head-heights first and nobody comes out a surprising size.",
+ drill:"Draw a height line-up of 4 pretend people: tallest, medium, small, tiny — using heads to measure. 10 minutes.",
+ guided:["Draw a ground line and place your family's stick figures by height.","Dress the sticks in shape-clothes: dresses flare, trousers split.","Add hair shapes and simple happy faces.","Join everyone with holding hands."],
+ task:"Draw YOUR family standing tall, in your favourite clothes, holding hands under a big smiling sun."},
+{s:3,n:9,t:"Fashion Star",mats:["HB pencil","fashion magazines or photos to admire","colour pencils"],
+ steps:[["A fashion figure is taller and dreamier — the same stick person, stretched elegant like a runway star.",'<line x1="150" y1="40" x2="150" y2="100" stroke="'+INK+'" stroke-width="2.6"/><circle cx="150" cy="27" r="12" fill="none" stroke="'+INK+'" stroke-width="2.6"/><path d="M150 56 L118 76 M150 56 L184 66 M150 100 L132 156 M150 100 L170 152" stroke="'+INK+'" stroke-width="2.6"/>'],
+ ["Design the outfit ON the figure: a gown is a waterfall triangle, sleeves are ribbons.",'<circle cx="150" cy="27" r="12" fill="#f6ddba"/><path d="M138 25 C 136 8, 164 8, 162 25 C 156 16, 144 16, 138 25Z" fill="#3c2716"/><path d="M136 48 L164 48 L188 150 L112 150Z" fill="#d94f70"/><path d="M136 52 L114 74 M164 52 L188 62" stroke="#f6ddba" stroke-width="7" stroke-linecap="round"/><path d="M138 150 L132 168 M162 150 L170 166" stroke="#f6ddba" stroke-width="7" stroke-linecap="round"/><path d="M136 74 L164 74" stroke="#c9962e" stroke-width="5"/>'],
+ ["Sparkle details, a swish of pattern, a star pose — ready for the runway!",'<circle cx="150" cy="27" r="12" fill="#f6ddba"/><path d="M138 25 C 136 8, 164 8, 162 25 C 156 16, 144 16, 138 25Z" fill="#3c2716"/><path d="M136 48 L164 48 L188 150 L112 150Z" fill="#d94f70"/><path d="M124 118 L176 118 M130 94 L170 94" stroke="#f78fb0" stroke-width="5"/><path d="M136 74 L164 74" stroke="#ffd94d" stroke-width="5"/><path d="M136 52 L112 76 M164 52 L190 60" stroke="#f6ddba" stroke-width="7" stroke-linecap="round"/><path d="M138 150 L130 170 M162 150 L172 168" stroke="#f6ddba" stroke-width="7" stroke-linecap="round"/><path d="M122 170 h14 M166 168 l14 3" stroke="'+INK+'" stroke-width="3"/><path d="M96 44 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2Z M206 84 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2Z" fill="#f4a91f"/>']],
+ trickName:"Design on the body",trick:"Fashion artists never draw clothes floating alone. The outfit is designed ON a posed figure, so the cloth falls, swishes and sparkles in the right places.",
+ drill:"Draw one stick figure in a star pose. Design 3 different outfits over the same pose on 3 pages. 10 minutes.",
+ guided:["Draw a tall, elegant stick figure in a star pose.","Draw the outfit shape over it — gown, dress, or a smart suit.","Add a belt line and sleeve shapes.","Finish with pattern, sparkles and runway shoes."],
+ task:"Design a full festival outfit for a Fashion Star — outfit, jewellery hints, hairstyle — and name your design like a real designer."},
+{s:3,n:10,t:"STAGE MASTERPIECE: My Own Character",mats:["HB & 2B pencils","colour pencils","drawing sheet"],
+ steps:[["Every great character starts as a pose with a personality: is yours a dancer, a detective, a superhero, a chef?",'<line x1="150" y1="48" x2="150" y2="106" stroke="'+INK+'" stroke-width="3"/><circle cx="150" cy="34" r="14" fill="none" stroke="'+INK+'" stroke-width="3"/><path d="M150 64 L114 44 M150 64 L188 78 M150 106 L128 152 M150 106 L174 148" stroke="'+INK+'" stroke-width="3"/>'],
+ ["Build the body in shapes, give them clothes that tell their story, and a face that shows their feeling.",'<circle cx="150" cy="34" r="14" fill="#f2c49b"/><path d="M136 32 C 134 14, 166 14, 164 32 C 158 22, 142 22, 136 32Z" fill="#22334a"/><path d="M134 52 L166 52 L172 104 L128 104Z" fill="#0e7c86"/><path d="M134 104 L172 104 L176 118 L124 118Z" fill="#f4a91f"/><path d="M136 56 L112 42 M164 56 L190 76" stroke="#f2c49b" stroke-width="8" stroke-linecap="round"/><path d="M138 118 L128 152 M162 118 L176 148" stroke="#22334a" stroke-width="9" stroke-linecap="round"/><circle cx="145" cy="34" r="1.9" fill="'+INK+'"/><circle cx="155" cy="34" r="1.9" fill="'+INK+'"/><path d="M144 41 Q150 45 156 41" stroke="#c2503f" stroke-width="1.8" fill="none"/>'],
+ ["One special prop makes them unforgettable — a magnifying glass, a magic spoon, a shining mic. Add YOUR character's treasure!",'<circle cx="150" cy="34" r="14" fill="#f2c49b"/><path d="M136 32 C 134 14, 166 14, 164 32 C 158 22, 142 22, 136 32Z" fill="#22334a"/><path d="M134 52 L166 52 L172 104 L128 104Z" fill="#0e7c86"/><path d="M134 104 L172 104 L176 118 L124 118Z" fill="#f4a91f"/><path d="M136 56 L112 42 M164 56 L190 76" stroke="#f2c49b" stroke-width="8" stroke-linecap="round"/><path d="M138 118 L128 152 M162 118 L176 148" stroke="#22334a" stroke-width="9" stroke-linecap="round"/><circle cx="145" cy="34" r="1.9" fill="'+INK+'"/><circle cx="155" cy="34" r="1.9" fill="'+INK+'"/><path d="M144 41 Q150 45 156 41" stroke="#c2503f" stroke-width="1.8" fill="none"/><circle cx="104" cy="34" r="13" fill="#bfe6ef" opacity=".7" stroke="#c9962e" stroke-width="3.4"/><line x1="112" y1="44" x2="122" y2="56" stroke="#c9962e" stroke-width="5" stroke-linecap="round"/><path d="M232 30 l2.4 6 6 2.4 -6 2.4 -2.4 6 -2.4 -6 -6 -2.4 6 -2.4Z" fill="#f4a91f"/>']],
+ trickName:"One unforgettable thing",trick:"Famous characters all carry ONE thing we never forget — a special hat, a tool, a pet, a colour. Give your character one treasure and draw it in every picture of them.",
+ drill:"Invent 3 quick characters as stick figures, each with a different treasure prop. Pick your favourite. 10 minutes.",
+ guided:["Choose who your character is and what they love doing.","Catch their pose with a stick figure.","Build shapes, clothes and a feeling-face.","Add their one unforgettable treasure, big and proud."],
+ task:"Your Stage 3 Masterpiece: a full-page character portrait — pose, outfit, face, treasure — and write their name in grand letters below."},
+
+/* ---------- STAGE 4 : PERSPECTIVE HALL ---------- */
+{s:4,n:1,t:"The Vanishing Point",mats:["ruler","HB pencil","drawing sheet"],
+ steps:[["Draw a horizon line — where earth kisses sky. Put ONE magic dot on it.",'<line x1="20" y1="80" x2="280" y2="80" stroke="#0e7c86" stroke-width="2.6"/><circle cx="150" cy="80" r="5" fill="#e2725b"/><circle cx="56" cy="46" r="13" fill="#f4a91f"/><path d="M20 178 H280" stroke="'+INK+'" stroke-width="2.5"/>'],
+ ["Road edges race from the bottom corners to meet at the magic dot.",'<line x1="20" y1="80" x2="280" y2="80" stroke="#0e7c86" stroke-width="2.6"/><circle cx="150" cy="80" r="5" fill="#e2725b"/><path d="M28 178 L150 80 L272 178" fill="#d9cba6"/><path d="M28 178 L150 80 L272 178" fill="none" stroke="'+INK+'" stroke-width="3"/><path d="M104 178 L150 108 L196 178" fill="none" stroke="#fffdf4" stroke-width="5" stroke-dasharray="14 10"/><circle cx="56" cy="46" r="13" fill="#f4a91f"/>'],
+ ["Telegraph poles shrink as they run to the dot — your road has REAL depth now.",'<line x1="20" y1="80" x2="280" y2="80" stroke="#0e7c86" stroke-width="2.6"/><path d="M28 178 L150 80 L272 178" fill="#d9cba6"/><path d="M104 178 L150 108 L196 178" fill="none" stroke="#fffdf4" stroke-width="5" stroke-dasharray="14 10"/><path d="M28 178 L150 80 L272 178" fill="none" stroke="'+INK+'" stroke-width="3"/><path d="M52 168 V96 M52 108 H84 M86 140 V98 M86 108 H106 M116 118 V92 M116 99 H130" stroke="'+INK+'" stroke-width="3.4"/><path d="M250 164 V104 M250 114 H222 M216 138 V104 M216 112 H200" stroke="'+INK+'" stroke-width="3.4"/><circle cx="56" cy="46" r="13" fill="#f4a91f"/><circle cx="150" cy="80" r="4" fill="#e2725b"/>']],
+ trickName:"All roads meet at one dot",trick:"Parallel lines in real life — road edges, rails, roof lines — all run to ONE vanishing point on the horizon. Find the dot first, and depth draws itself.",
+ drill:"Draw 3 roads, each racing to a different vanishing point: left, middle, right. 10 minutes.",
+ guided:["Draw the horizon line across your page.","Place one vanishing dot on it.","Rule two lines from the bottom corners to the dot — that is your road.","Add shrinking poles or trees along the edges."],
+ task:"Draw a railway track or a river road racing to the vanishing point, with a tiny train or boat near the dot."},
+{s:4,n:2,t:"Near Big, Far Small",mats:["HB pencil","drawing sheet"],
+ steps:[["Three trees, same kind — but look at their sizes marching away.",'<path d="M40 170 H260" stroke="'+INK+'" stroke-width="2.5"/><g><rect x="52" y="118" width="10" height="34" fill="#7a5b2e"/><circle cx="57" cy="96" r="30" fill="#58a05c"/></g>'],
+ ["The trick: everything shrinks as it walks away from your eyes, AND climbs toward the horizon.",'<path d="M40 170 H260 M40 96 H260" stroke="'+INK+'" stroke-width="2.5"/><path d="M40 96 H260" stroke="#0e7c86" stroke-width="2" stroke-dasharray="6 5"/><g><rect x="52" y="118" width="10" height="34" fill="#7a5b2e"/><circle cx="57" cy="96" r="30" fill="#58a05c"/></g><g><rect x="140" y="106" width="7" height="24" fill="#7a5b2e"/><circle cx="143" cy="90" r="21" fill="#6cb56e"/></g><g><rect x="212" y="100" width="5" height="16" fill="#7a5b2e"/><circle cx="214" cy="88" r="13" fill="#8fc98f"/></g>'],
+ ["Line them up so their feet walk in a row — a whole forest road appears.",'<path d="M40 170 H260" stroke="'+INK+'" stroke-width="2.5"/><path d="M40 96 H260" stroke="#0e7c86" stroke-width="2" stroke-dasharray="6 5" opacity=".7"/><path d="M52 152 L96 128 L150 116 L206 108 L246 102" stroke="#c9b586" stroke-width="3" stroke-dasharray="7 6"/><g><rect x="52" y="118" width="10" height="34" fill="#7a5b2e"/><circle cx="57" cy="96" r="30" fill="#58a05c"/></g><g><rect x="103" y="110" width="8" height="27" fill="#7a5b2e"/><circle cx="107" cy="92" r="24" fill="#64ac64"/></g><g><rect x="150" y="104" width="7" height="22" fill="#7a5b2e"/><circle cx="153" cy="89" r="19" fill="#6cb56e"/></g><g><rect x="196" y="99" width="6" height="18" fill="#7a5b2e"/><circle cx="199" cy="86" r="15" fill="#7fbf7f"/></g><g><rect x="232" y="96" width="4" height="13" fill="#7a5b2e"/><circle cx="234" cy="85" r="11" fill="#8fc98f"/></g>']],
+ trickName:"Shrink and climb",trick:"Far away things do TWO things: they get smaller, and they sit higher up, nearer the horizon. Shrink + climb = instant distance.",
+ drill:"Draw the same flower 5 times in a row, shrinking and climbing each time. 10 minutes.",
+ guided:["Draw a ground line and a dashed horizon line.","Draw your biggest tree near the front, feet low on the page.","Add the same tree smaller and higher, again and again.","Join their feet with a dotted path."],
+ task:"Draw a row of lamp posts or elephants walking away — near big, far small — until the last one is tiny at the horizon."},
+{s:4,n:3,t:"My Room in One-Point",mats:["ruler","HB pencil","drawing sheet"],
+ steps:[["A room is a box you stand inside. Draw its back wall as a rectangle, with the magic dot inside.",'<rect x="95" y="55" width="110" height="80" fill="none" stroke="'+INK+'" stroke-width="3"/><circle cx="150" cy="95" r="4.5" fill="#e2725b"/>'],
+ ["Rule lines from the dot to the four corners of your page — walls, floor and ceiling appear!",'<rect x="95" y="55" width="110" height="80" fill="#f7efdb" stroke="'+INK+'" stroke-width="3"/><path d="M95 55 L20 18 M205 55 L280 18 M95 135 L20 172 M205 135 L280 172" stroke="'+INK+'" stroke-width="2.6"/><circle cx="150" cy="95" r="4.5" fill="#e2725b"/>'],
+ ["Furniture obeys the same dot: bed, rug and window all lean toward it. YOUR room, in 3D!",'<rect x="95" y="55" width="110" height="80" fill="#f7efdb" stroke="'+INK+'" stroke-width="3"/><path d="M95 55 L20 18 M205 55 L280 18 M95 135 L20 172 M205 135 L280 172" stroke="'+INK+'" stroke-width="2.6"/><rect x="118" y="70" width="34" height="30" fill="#bfe6ef" stroke="'+INK+'" stroke-width="2"/><path d="M135 70 V100 M118 85 H152" stroke="'+INK+'" stroke-width="1.6"/><path d="M28 148 L96 128 L96 152 L28 168Z" fill="#e2725b"/><path d="M112 136 L188 136 L206 158 L94 158Z" fill="#f4a91f" opacity=".75"/><rect x="168" y="98" width="30" height="16" fill="#8fc98f" stroke="'+INK+'" stroke-width="1.8"/><circle cx="150" cy="95" r="4" fill="#e2725b"/>']],
+ trickName:"One dot rules the room",trick:"Inside a room, every edge that runs away from you — bed, rug, cupboard — aims at the same vanishing dot. One dot is the boss of the whole room.",
+ drill:"Draw the empty room box 3 times with the dot in different places: left, centre, high. See how the room turns! 10 minutes.",
+ guided:["Draw the back wall rectangle and place your dot.","Rule the four corner lines out to the page edges.","Add a window on the back wall and a bed leaning to the dot.","Finish with a rug whose far edge is shorter than its near edge."],
+ task:"Draw YOUR room in one-point perspective: bed, window, one favourite thing — everything obeying the dot."},
+{s:4,n:4,t:"The Shrinking Street",mats:["ruler","2B pencil","drawing sheet"],
+ steps:[["Houses along a road all aim at the vanishing dot — their roofs and feet line up on two ruler lines.",'<line x1="20" y1="72" x2="280" y2="72" stroke="#0e7c86" stroke-width="2.2"/><circle cx="238" cy="72" r="4" fill="#e2725b"/><path d="M30 72 L238 72 M30 168 L238 72" stroke="'+INK+'" stroke-width="0"/><path d="M34 168 L238 74 M34 96 L238 84" stroke="#c9b586" stroke-width="2.2" stroke-dasharray="6 5"/>'],
+ ["The nearest house is a giant. Each next house shrinks between the same two guide lines.",'<line x1="20" y1="72" x2="280" y2="72" stroke="#0e7c86" stroke-width="2.2"/><path d="M34 168 L238 74 M34 96 L238 84" stroke="#c9b586" stroke-width="2" stroke-dasharray="6 5"/><g><rect x="36" y="96" width="66" height="72" fill="#f6cf7d"/><polygon points="30,96 68,74 108,96" fill="#e2725b"/><rect x="60" y="126" width="18" height="42" fill="#7a5b2e"/></g><g><rect x="122" y="102" width="44" height="46" fill="#bfe0e5"/><polygon points="118,102 144,88 170,102" fill="#0e7c86"/><rect x="137" y="120" width="13" height="28" fill="#7a5b2e"/></g><g><rect x="180" y="102" width="28" height="30" fill="#f3b8a0"/><polygon points="178,102 194,94 210,102" fill="#c2503f"/><rect x="189" y="116" width="9" height="16" fill="#7a5b2e"/></g>'],
+ ["Windows shrink too, doors get tiny — the whole street breathes with depth.",'<line x1="20" y1="72" x2="280" y2="72" stroke="#0e7c86" stroke-width="2.2"/><path d="M34 168 L238 74 M34 96 L238 84" stroke="#c9b586" stroke-width="2" stroke-dasharray="6 5" opacity=".6"/><g><rect x="36" y="96" width="66" height="72" fill="#f6cf7d"/><polygon points="30,96 68,74 108,96" fill="#e2725b"/><rect x="44" y="106" width="14" height="14" fill="#bfe6ef" stroke="'+INK+'" stroke-width="1.6"/><rect x="80" y="106" width="14" height="14" fill="#bfe6ef" stroke="'+INK+'" stroke-width="1.6"/><rect x="60" y="126" width="18" height="42" fill="#7a5b2e"/></g><g><rect x="122" y="102" width="44" height="46" fill="#bfe0e5"/><polygon points="118,102 144,88 170,102" fill="#0e7c86"/><rect x="128" y="108" width="10" height="10" fill="#fff6d8" stroke="'+INK+'" stroke-width="1.3"/><rect x="137" y="120" width="13" height="28" fill="#7a5b2e"/></g><g><rect x="180" y="102" width="28" height="30" fill="#f3b8a0"/><polygon points="178,102 194,94 210,102" fill="#c2503f"/><rect x="189" y="116" width="9" height="16" fill="#7a5b2e"/></g><path d="M30 168 H280" stroke="'+INK+'" stroke-width="2.6"/><circle cx="238" cy="72" r="3.6" fill="#e2725b"/>']],
+ trickName:"Shrink between the rails",trick:"Draw two guide lines to the vanishing point, like rails. Every house must fit BETWEEN the rails — that is what shrinks them perfectly.",
+ drill:"Between two rails, draw 4 boxes shrinking to the dot. Then turn them into houses with roofs. 10 minutes.",
+ guided:["Draw horizon, dot, and two rails: one for rooftops, one for feet.","Draw the giant nearest house touching both rails.","Draw each next house smaller, still between the rails.","Add shrinking windows and doors, then a road below."],
+ task:"Draw your own street: at least 4 houses shrinking away, one shop with a sign, and a tiny cycle near the dot."},
+{s:4,n:5,t:"Foreground Magic",mats:["HB pencil","colour pencils","drawing sheet"],
+ steps:[["A picture has three floors: FRONT (foreground), MIDDLE, and BACK (background).",'<rect x="0" y="120" width="300" height="70" fill="#b7d977"/><rect x="0" y="66" width="300" height="54" fill="#d9ecb8"/><rect x="0" y="0" width="300" height="66" fill="#bfe6ef"/><circle cx="256" cy="30" r="14" fill="#f4a91f"/>'],
+ ["Plant something BIG and close in the front — a flower near your nose — and the picture gains a doorway to walk through.",'<rect x="0" y="120" width="300" height="70" fill="#b7d977"/><rect x="0" y="66" width="300" height="54" fill="#d9ecb8"/><rect x="0" y="0" width="300" height="66" fill="#bfe6ef"/><circle cx="256" cy="30" r="14" fill="#f4a91f"/><g transform="translate(52,128)"><circle cx="0" cy="-16" r="9" fill="#d94f70"/><circle cx="-13" cy="-6" r="8" fill="#e87a97"/><circle cx="13" cy="-6" r="8" fill="#e87a97"/><circle cx="-8" cy="8" r="8" fill="#e87a97"/><circle cx="8" cy="8" r="8" fill="#e87a97"/><circle cx="0" cy="-4" r="6.5" fill="#ffd94d"/><path d="M0 4 C 0 22, -2 34, -6 46 M0 16 C 10 20, 16 16, 20 8" stroke="#3f7d33" stroke-width="4" fill="none"/></g><g transform="translate(216,96) scale(0.55)"><rect x="-22" y="-8" width="44" height="32" fill="#f6cf7d"/><polygon points="-28,-8 0,-26 28,-8" fill="#e2725b"/></g>'],
+ ["Sharper and darker in front, softer and paler at the back — now your picture has air inside it.",'<rect x="0" y="120" width="300" height="70" fill="#a5cf5f"/><rect x="0" y="66" width="300" height="54" fill="#e2f0cd"/><rect x="0" y="0" width="300" height="66" fill="#cdeef7"/><circle cx="256" cy="30" r="14" fill="#f7bc45"/><path d="M150 84 q30 -18 62 -6" stroke="#9db8a4" stroke-width="10" fill="none" opacity=".6"/><g transform="translate(216,96) scale(0.55)"><rect x="-22" y="-8" width="44" height="32" fill="#f6cf7d"/><polygon points="-28,-8 0,-26 28,-8" fill="#e2725b"/></g><g transform="translate(52,128)"><circle cx="0" cy="-16" r="9.5" fill="#d94f70"/><circle cx="-14" cy="-6" r="8.5" fill="#e87a97"/><circle cx="14" cy="-6" r="8.5" fill="#e87a97"/><circle cx="-9" cy="9" r="8.5" fill="#e87a97"/><circle cx="9" cy="9" r="8.5" fill="#e87a97"/><circle cx="0" cy="-4" r="7" fill="#ffd94d"/><path d="M0 4 C 0 22, -2 34, -6 46 M0 16 C 10 20, 16 16, 20 8" stroke="#35702c" stroke-width="4.4" fill="none"/></g><g transform="translate(112,146) scale(0.8)"><circle cx="0" cy="-16" r="9" fill="#f4a91f"/><circle cx="-13" cy="-6" r="8" fill="#f7bc45"/><circle cx="13" cy="-6" r="8" fill="#f7bc45"/><circle cx="0" cy="-4" r="6.5" fill="#a03d2c"/><path d="M0 4 C 0 20, 2 30, 4 40" stroke="#35702c" stroke-width="4" fill="none"/></g>']],
+ trickName:"Big, sharp, near — small, soft, far",trick:"Your foreground hero must be the biggest, sharpest, most colourful thing on the page. Background friends stay smaller, softer and paler. Contrast makes depth.",
+ drill:"Draw one flower three times on one page: giant in front, medium middle, tiny far — with colour fading each time. 10 minutes.",
+ guided:["Divide your page into back, middle and front bands.","Draw your small soft background: hills and a house.","Add a middle friend: a tree or a lamp post.","Plant your giant sharp foreground flower in a bottom corner, spilling off the page edge."],
+ task:"Draw a garden picture with all three floors: foreground flowers, a middle path, background house and hills."},
+{s:4,n:6,t:"The Golden Spot",mats:["HB pencil","drawing sheet"],
+ steps:[["Divide your page into thirds, like a chocolate bar — the crossing points are magic.",'<rect x="40" y="30" width="220" height="130" fill="#fdf8ea" stroke="'+INK+'" stroke-width="2.6"/><path d="M113 30 V160 M187 30 V160 M40 73 H260 M40 117 H260" stroke="#c9962e" stroke-width="2" stroke-dasharray="6 5"/><circle cx="113" cy="73" r="5" fill="#e2725b"/><circle cx="187" cy="73" r="5" fill="#e2725b"/><circle cx="113" cy="117" r="5" fill="#e2725b"/><circle cx="187" cy="117" r="5" fill="#e2725b"/>'],
+ ["Place your hero ON a golden crossing — not dead centre. Dead centre is a traffic jam; the golden spot is a stage.",'<rect x="40" y="30" width="220" height="130" fill="#fdf8ea" stroke="'+INK+'" stroke-width="2.6"/><path d="M113 30 V160 M187 30 V160 M40 73 H260 M40 117 H260" stroke="#c9962e" stroke-width="1.6" stroke-dasharray="6 5" opacity=".7"/><g transform="translate(187,96)"><rect x="-7" y="6" width="6" height="22" fill="#7a5b2e"/><circle cx="-4" cy="-2" r="17" fill="#58a05c"/><circle cx="8" cy="-10" r="13" fill="#6cb56e"/></g><path d="M40 160 H260" stroke="#b7d977" stroke-width="7"/>'],
+ ["Give the hero space to LOOK into — a face looks toward the bigger empty side, and the picture breathes.",'<rect x="40" y="30" width="220" height="130" fill="#eaf7fb" stroke="'+INK+'" stroke-width="2.6"/><path d="M40 117 H260" stroke="#b7d977" stroke-width="6"/><g transform="translate(104,92)"><circle cx="0" cy="0" r="17" fill="#f6ddba"/><path d="M-17 -4 C -18 -22, 18 -22, 17 -4 C 10 -14, -10 -14, -17 -4Z" fill="#3c2716"/><circle cx="6" cy="0" r="2.2" fill="'+INK+'"/><path d="M2 8 Q8 11 13 8" stroke="#c2503f" stroke-width="1.8" fill="none"/></g><path d="M150 62 q14 -10 28 0 M196 46 q12 -8 24 0" stroke="#7fb2ba" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M40 160 H260" stroke="#8fc98f" stroke-width="4"/>']],
+ trickName:"Hero on the crossing",trick:"Divide the page in thirds both ways. The four crossings are the Golden Spots. Put your most important thing on one — and let it look or move INTO the bigger space.",
+ drill:"Take 3 old drawings. Lay a thirds grid over each and find where the hero sits. Re-draw one with the hero on a Golden Spot. 10 minutes to plan.",
+ guided:["Lightly draw the thirds grid on your page.","Pick ONE golden crossing for your hero — a tree, a house, a face.","Draw the hero there, not in the centre.","Fill the rest softly: sky above, ground below, one small friend far away."],
+ task:"Draw a picture of a lone hero — a tree, a lighthouse or YOU — standing proudly on a Golden Spot, looking into the open space."},
+{s:4,n:7,t:"River, Hills and Sky",mats:["HB & 2B pencils","blue colour pencil","drawing sheet"],
+ steps:[["Landscapes are layers of paper: sky at the back, then far hills — pale and blue-ish.",'<rect x="0" y="0" width="300" height="190" fill="#cdeef7"/><path d="M0 92 Q60 56 130 84 Q210 44 300 78 V190 H0Z" fill="#a9c6d8"/><circle cx="48" cy="36" r="15" fill="#f4a91f"/>'],
+ ["Middle hills come forward darker and greener, with the river winding between.",'<rect x="0" y="0" width="300" height="190" fill="#cdeef7"/><path d="M0 92 Q60 56 130 84 Q210 44 300 78 V190 H0Z" fill="#a9c6d8"/><circle cx="48" cy="36" r="15" fill="#f4a91f"/><path d="M0 128 Q80 96 170 118 Q240 132 300 112 V190 H0Z" fill="#7fae6a"/><path d="M128 190 C 150 160, 128 144, 152 124 C 168 110, 190 122, 206 112" stroke="#7fb2d9" stroke-width="13" fill="none" stroke-linecap="round"/>'],
+ ["Front grass, one near tree, tiny birds — three layers deep, and you can walk right in.",'<rect x="0" y="0" width="300" height="190" fill="#cdeef7"/><path d="M0 92 Q60 56 130 84 Q210 44 300 78 V190 H0Z" fill="#a9c6d8"/><circle cx="48" cy="36" r="15" fill="#f4a91f"/><path d="M0 128 Q80 96 170 118 Q240 132 300 112 V190 H0Z" fill="#7fae6a"/><path d="M128 190 C 150 160, 128 144, 152 124 C 168 110, 190 122, 206 112" stroke="#7fb2d9" stroke-width="13" fill="none" stroke-linecap="round"/><path d="M0 190 V148 Q100 132 300 150 V190Z" fill="#5d9c4e"/><g><rect x="36" y="112" width="8" height="30" fill="#7a5b2e"/><circle cx="40" cy="94" r="22" fill="#3f7d33"/><circle cx="56" cy="104" r="15" fill="#4c8a3e"/></g><path d="M222 52 q7 -6 14 0 M246 66 q6 -5 12 0" stroke="#44586e" stroke-width="2.6" fill="none" stroke-linecap="round"/>']],
+ trickName:"Far is pale, near is bold",trick:"Air itself is a soft blue blanket. The farther a hill is, the more blanket covers it — paler, bluer, softer. The nearer, the bolder and greener.",
+ drill:"Paint or shade the same hill shape 3 times: pale blue-grey, mid green, bold dark green. Layer them. 10 minutes.",
+ guided:["Draw the sky and the palest far hills first.","Add middle hills, a little darker and greener, with a winding river gap.","Add the front band of grass, darkest of all.","Plant one strong near tree and two tiny birds."],
+ task:"Draw a full landscape: a river winding through three layers of hills to a tiny village at the far layer."},
+{s:4,n:8,t:"The Doorway Picture",mats:["HB pencil","drawing sheet"],
+ steps:[["A picture inside a picture! Draw a big dark doorway frame near the edges of your page.",'<path d="M52 178 V64 Q150 14 248 64 V178 H206 V84 Q150 46 94 84 V178Z" fill="#5d4f33"/>'],
+ ["Through the doorway, a bright garden glows — the dark frame pushes your eye straight into the light.",'<rect x="0" y="0" width="300" height="190" fill="#fdf3da"/><path d="M94 178 V84 Q150 46 206 84 V178Z" fill="#cdeef7"/><path d="M94 140 Q150 122 206 138 V178 H94Z" fill="#8fc98f"/><circle cx="176" cy="82" r="11" fill="#f4a91f"/><g transform="translate(124,132) scale(0.7)"><circle cx="0" cy="-12" r="7" fill="#d94f70"/><circle cx="-10" cy="-4" r="6" fill="#e87a97"/><circle cx="10" cy="-4" r="6" fill="#e87a97"/><circle cx="0" cy="-3" r="5" fill="#ffd94d"/><path d="M0 0 V26" stroke="#35702c" stroke-width="3.4"/></g><path d="M52 178 V64 Q150 14 248 64 V178 H206 V84 Q150 46 94 84 V178Z" fill="#5d4f33"/><path d="M52 178 V64 Q150 14 248 64 V178" fill="none" stroke="'+INK+'" stroke-width="3"/>'],
+ ["Add a tiny figure standing in the doorway, looking in — that figure is YOU, inviting everyone to enter.",'<rect x="0" y="0" width="300" height="190" fill="#fdf3da"/><path d="M94 178 V84 Q150 46 206 84 V178Z" fill="#cdeef7"/><path d="M94 140 Q150 122 206 138 V178 H94Z" fill="#8fc98f"/><circle cx="176" cy="82" r="11" fill="#f4a91f"/><g transform="translate(124,132) scale(0.7)"><circle cx="0" cy="-12" r="7" fill="#d94f70"/><circle cx="-10" cy="-4" r="6" fill="#e87a97"/><circle cx="10" cy="-4" r="6" fill="#e87a97"/><circle cx="0" cy="-3" r="5" fill="#ffd94d"/><path d="M0 0 V26" stroke="#35702c" stroke-width="3.4"/></g><path d="M52 178 V64 Q150 14 248 64 V178 H206 V84 Q150 46 94 84 V178Z" fill="#5d4f33"/><g transform="translate(150,128)"><circle cx="0" cy="-16" r="6.5" fill="#22334a"/><path d="M0 -10 V14 M0 -4 L-10 4 M0 -4 L10 4 M0 14 L-6 34 M0 14 L6 34" stroke="#22334a" stroke-width="4.6" stroke-linecap="round"/></g><path d="M150 96 q0 -8 0 0" stroke="none"/>']],
+ trickName:"Dark frames make light glow",trick:"A dark frame around a bright scene is like a theatre curtain — everything inside the light looks brighter and more magical. Frame-in-a-frame is a master's trick.",
+ drill:"Draw a small bright scene. Then draw 3 different frames around copies: a doorway, a window, a cave mouth. 10 minutes.",
+ guided:["Draw your bright scene small, in the middle: garden, sky, sun.","Build a big dark arch or window frame around it, thick as your thumb.","Darken the frame fully — it is the shadow side.","Add a tiny dark figure standing in the frame, looking into the light."],
+ task:"Draw a doorway into your dream place: a beach, a candy shop, a garden of giant flowers — glowing inside its dark frame."},
+{s:4,n:9,t:"Festival Street",mats:["ruler","colour pencils","drawing sheet"],
+ steps:[["Start with the shrinking street you know — rails, houses, vanishing dot.",'<line x1="20" y1="70" x2="280" y2="70" stroke="#0e7c86" stroke-width="2"/><path d="M34 166 L238 74 M34 98 L238 84" stroke="#c9b586" stroke-width="2" stroke-dasharray="6 5"/><rect x="36" y="98" width="62" height="68" fill="#f6cf7d"/><polygon points="31,98 67,77 103,98" fill="#e2725b"/><rect x="120" y="103" width="42" height="44" fill="#bfe0e5"/><polygon points="117,103 141,90 165,103" fill="#0e7c86"/><rect x="178" y="103" width="27" height="29" fill="#f3b8a0"/><polygon points="176,103 191,95 207,103" fill="#c2503f"/><path d="M28 168 H282" stroke="'+INK+'" stroke-width="2.6"/>'],
+ ["String the festival lights! Cables swoop from roof to roof, and they shrink as they run away too.",'<line x1="20" y1="70" x2="280" y2="70" stroke="#0e7c86" stroke-width="2"/><rect x="36" y="98" width="62" height="68" fill="#f6cf7d"/><polygon points="31,98 67,77 103,98" fill="#e2725b"/><rect x="120" y="103" width="42" height="44" fill="#bfe0e5"/><polygon points="117,103 141,90 165,103" fill="#0e7c86"/><rect x="178" y="103" width="27" height="29" fill="#f3b8a0"/><polygon points="176,103 191,95 207,103" fill="#c2503f"/><path d="M28 168 H282" stroke="'+INK+'" stroke-width="2.6"/><path d="M38 84 Q120 116 200 82 M96 92 Q150 112 226 84" stroke="#5d4f33" stroke-width="2.2" fill="none"/><g fill="#ffd94d"><circle cx="74" cy="96" r="4.4"/><circle cx="112" cy="102" r="4"/><circle cx="150" cy="98" r="3.6"/><circle cx="182" cy="88" r="3.2"/></g><g fill="#ff8fab"><circle cx="92" cy="101" r="4.2"/><circle cx="132" cy="102" r="3.8"/><circle cx="166" cy="93" r="3.4"/></g>'],
+ ["Flags, a crowd of tiny heads, one big diya in front — the street is ALIVE.",'<line x1="20" y1="70" x2="280" y2="70" stroke="#0e7c86" stroke-width="2"/><rect x="36" y="98" width="62" height="68" fill="#f6cf7d"/><polygon points="31,98 67,77 103,98" fill="#e2725b"/><rect x="120" y="103" width="42" height="44" fill="#bfe0e5"/><polygon points="117,103 141,90 165,103" fill="#0e7c86"/><rect x="178" y="103" width="27" height="29" fill="#f3b8a0"/><polygon points="176,103 191,95 207,103" fill="#c2503f"/><path d="M38 84 Q120 116 200 82 M96 92 Q150 112 226 84" stroke="#5d4f33" stroke-width="2.2" fill="none"/><g fill="#ffd94d"><circle cx="74" cy="96" r="4.4"/><circle cx="112" cy="102" r="4"/><circle cx="150" cy="98" r="3.6"/><circle cx="182" cy="88" r="3.2"/></g><g fill="#ff8fab"><circle cx="92" cy="101" r="4.2"/><circle cx="132" cy="102" r="3.8"/><circle cx="166" cy="93" r="3.4"/></g><path d="M28 168 H282" stroke="'+INK+'" stroke-width="2.6"/><g fill="#8d5524"><circle cx="66" cy="156" r="6"/><circle cx="94" cy="159" r="5.4"/><circle cx="216" cy="152" r="4.6"/></g><g fill="#f2c49b"><circle cx="124" cy="157" r="5.6"/><circle cx="188" cy="154" r="5"/></g><path d="M138 178 C 130 162, 146 158, 150 146 C 154 158, 170 162, 162 178Z" fill="#e2725b"/><path d="M150 160 C 146 168, 154 168, 150 160Z" fill="#ffd94d"/><path d="M132 178 H168" stroke="#c9962e" stroke-width="3.4"/>']],
+ trickName:"Shrink the decorations too",trick:"Festival lights, flags and people must obey perspective as strictly as houses do. Big near the front, tiny near the dot — one rule for EVERYTHING.",
+ drill:"Draw one swooping cable with 7 bulbs shrinking along it. Then a row of flags shrinking likewise. 10 minutes.",
+ guided:["Build the shrinking street with rails and 3 houses.","Swoop two cables of festival lights between the roofs.","Hang shrinking bulbs and flags along the cables.","Add tiny crowd heads below and one big proud diya in the foreground."],
+ task:"Your own festival street: pick your festival, fill the street with its colours, lights and people — all shrinking to the dot."},
+{s:4,n:10,t:"STAGE MASTERPIECE: My Dream Street",mats:["ruler","2B pencil","colour pencils","your best drawing sheet"],
+ steps:[["Plan like a master: horizon, dot, golden spot for the hero building, three floors of depth.",'<rect x="26" y="24" width="248" height="142" fill="#fdf8ea" stroke="'+INK+'" stroke-width="2.4"/><path d="M109 24 V166 M183 24 V166 M26 71 H274 M26 119 H274" stroke="#c9962e" stroke-width="1.6" stroke-dasharray="6 5"/><line x1="26" y1="88" x2="274" y2="88" stroke="#0e7c86" stroke-width="2"/><circle cx="196" cy="88" r="4.4" fill="#e2725b"/><circle cx="183" cy="119" r="5" fill="#c9962e"/>'],
+ ["Build the street: houses between the rails, the hero building standing on the golden crossing.",'<rect x="26" y="24" width="248" height="142" fill="#eaf7fb" stroke="'+INK+'" stroke-width="2.4"/><path d="M40 166 L196 92 M40 104 L196 96" stroke="#c9b586" stroke-width="1.8" stroke-dasharray="5 5" opacity=".7"/><rect x="42" y="104" width="58" height="62" fill="#f6cf7d"/><polygon points="37,104 71,84 105,104" fill="#e2725b"/><rect x="150" y="92" width="66" height="74" fill="#ffd9a8"/><polygon points="144,92 183,66 222,92" fill="#c2503f"/><path d="M170 128 h26 v38 h-26Z" fill="#7a5b2e"/><rect x="160" y="102" width="14" height="14" fill="#bfe6ef"/><rect x="192" y="102" width="14" height="14" fill="#bfe6ef"/><rect x="228" y="100" width="30" height="38" fill="#bfe0e5"/><polygon points="226,100 243,92 260,100" fill="#0e7c86"/><path d="M30 166 H272" stroke="'+INK+'" stroke-width="2.6"/>'],
+ ["Festival it, people it, foreground it — sign it. This is the street from your dreams, drawn like a master.",'<rect x="26" y="24" width="248" height="142" fill="#eaf7fb" stroke="'+INK+'" stroke-width="2.4"/><rect x="42" y="104" width="58" height="62" fill="#f6cf7d"/><polygon points="37,104 71,84 105,104" fill="#e2725b"/><rect x="52" y="114" width="13" height="13" fill="#bfe6ef"/><rect x="150" y="92" width="66" height="74" fill="#ffd9a8"/><polygon points="144,92 183,66 222,92" fill="#c2503f"/><path d="M170 128 h26 v38 h-26Z" fill="#7a5b2e"/><rect x="160" y="102" width="14" height="14" fill="#bfe6ef"/><rect x="192" y="102" width="14" height="14" fill="#bfe6ef"/><rect x="228" y="100" width="30" height="38" fill="#bfe0e5"/><polygon points="226,100 243,92 260,100" fill="#0e7c86"/><path d="M44 92 Q130 118 236 92" stroke="#5d4f33" stroke-width="2" fill="none"/><g fill="#ffd94d"><circle cx="86" cy="103" r="3.8"/><circle cx="128" cy="107" r="3.4"/><circle cx="172" cy="103" r="3.2"/><circle cx="210" cy="96" r="2.8"/></g><path d="M30 166 H272" stroke="'+INK+'" stroke-width="2.6"/><g transform="translate(58,142) scale(0.62)"><circle cx="0" cy="-12" r="7" fill="#d94f70"/><circle cx="-10" cy="-4" r="6" fill="#e87a97"/><circle cx="10" cy="-4" r="6" fill="#e87a97"/><circle cx="0" cy="-3" r="5" fill="#ffd94d"/><path d="M0 0 V24" stroke="#35702c" stroke-width="3.4"/></g><text x="216" y="158" font-size="11" font-style="italic" fill="#5d4f33">by Sreshta</text>']],
+ trickName:"Plan first, party later",trick:"A masterpiece is planned in light pencil first — dot, rails, golden spot, three floors — and only decorated when the bones are strong. Planning IS the professional part.",
+ drill:"Make 3 tiny thumbnail plans of your dream street — different dot positions, different hero spots. Choose the strongest. 10 minutes of pure planning.",
+ guided:["Choose your best thumbnail plan and rule its bones onto the big sheet.","Build houses between the rails; place the hero building on a golden spot.","Add depth: foreground flower, middle street, far tiny houses.","Decorate: lights, people, signs — then sign your name, master artist."],
+ task:"Your Stage 4 Masterpiece: the full Dream Street — planned, perspectived, golden-spotted, and signed."},
+
+/* ---------- STAGE 5 : PAINTING GALLERY ---------- */
+{s:5,n:1,t:"The Colour Wheel",mats:["colour pencils or paints","compass or a plate to trace","drawing sheet"],
+ steps:[["A pie cut into six — the home of every colour you will ever mix.",'<circle cx="150" cy="95" r="62" fill="#fdf8ea" stroke="'+INK+'" stroke-width="3"/><path d="M150 95 L150 33 M150 95 L204 126 M150 95 L96 126" stroke="'+INK+'" stroke-width="2"/>'],
+ ["Three PARENT colours move in first: red, yellow, blue — nobody can make them; they make everything else.",'<circle cx="150" cy="95" r="62" fill="#fdf8ea" stroke="'+INK+'" stroke-width="3"/><path d="M150 95 L150 33 A62 62 0 0 1 204 126Z" fill="#e23b2e"/><path d="M150 95 L204 126 A62 62 0 0 1 96 126Z" fill="#f7d117"/><path d="M150 95 L96 126 A62 62 0 0 1 150 33Z" fill="#2456c8"/><path d="M150 95 L150 33 M150 95 L204 126 M150 95 L96 126" stroke="'+INK+'" stroke-width="2"/>'],
+ ["Between each pair, their child is born: orange, green, purple. The wheel is complete — memorise this family!",'<circle cx="150" cy="95" r="64" fill="#fdf8ea" stroke="'+INK+'" stroke-width="3"/><path d="M150 95 L150 31 A64 64 0 0 1 182 40Z" fill="#e23b2e"/><path d="M150 95 L182 40 A64 64 0 0 1 206 127Z" fill="#f08a1d"/><path d="M150 95 L206 127 A64 64 0 0 1 150 159Z" fill="#f7d117"/><path d="M150 95 L150 159 A64 64 0 0 1 94 127Z" fill="#58a05c"/><path d="M150 95 L94 127 A64 64 0 0 1 118 40Z" fill="#2456c8"/><path d="M150 95 L118 40 A64 64 0 0 1 150 31Z" fill="#7b4fa6"/><circle cx="150" cy="95" r="64" fill="none" stroke="'+INK+'" stroke-width="3"/><path d="M150 95 L150 31 M150 95 L182 40 M150 95 L206 127 M150 95 L150 159 M150 95 L94 127 M150 95 L118 40" stroke="'+INK+'" stroke-width="1.6"/>']],
+ trickName:"Three parents, three children",trick:"Red, yellow and blue are the parents. Every other colour is their child: red+yellow=orange, yellow+blue=green, blue+red=purple. Own the wheel, own every colour.",
+ drill:"Draw a mini wheel from memory — no peeking! Then check it against the demo and fix gently. Twice. 10 minutes.",
+ guided:["Draw a big circle and cut it into 6 slices.","Place red, yellow, blue with one empty slice between each pair.","Mix (or choose) the child colour for each gap.","Label every slice in your neatest writing."],
+ task:"Paint a Colour Wheel poster for your studio wall — bright, labelled, with the three parents wearing tiny crowns."},
+{s:5,n:2,t:"Warm Sun, Cool Moon",mats:["colour pencils or paints","drawing sheet"],
+ steps:[["Warm colours step FORWARD like sunshine: red, orange, yellow, pink.",'<rect x="30" y="36" width="110" height="120" fill="#fff3da" stroke="'+INK+'" stroke-width="2.4"/><circle cx="85" cy="80" r="24" fill="#f4a91f"/><path d="M85 44 v-10 M85 116 v10 M49 80 h-10 M121 80 h10 M60 55 l-7 -7 M110 55 l7 -7 M60 105 l-7 7 M110 105 l7 7" stroke="#f4a91f" stroke-width="4" stroke-linecap="round"/><path d="M48 138 Q85 122 122 138 V156 H48Z" fill="#e2725b"/>'],
+ ["Cool colours step BACK like shade and water: blues, greens, purples.",'<rect x="30" y="36" width="110" height="120" fill="#fff3da" stroke="'+INK+'" stroke-width="2.4"/><circle cx="85" cy="80" r="24" fill="#f4a91f"/><path d="M85 44 v-10 M85 116 v10 M49 80 h-10 M121 80 h10 M60 55 l-7 -7 M110 55 l7 -7 M60 105 l-7 7 M110 105 l7 7" stroke="#f4a91f" stroke-width="4" stroke-linecap="round"/><path d="M48 138 Q85 122 122 138 V156 H48Z" fill="#e2725b"/><rect x="160" y="36" width="110" height="120" fill="#eaf4fb" stroke="'+INK+'" stroke-width="2.4"/><path d="M232 52 A26 26 0 1 0 232 108 A21 21 0 1 1 232 52Z" fill="#f7e7a8"/><path d="M178 138 Q215 122 252 138 V156 H178Z" fill="#7fb2d9"/>'],
+ ["One picture can hold both: a warm diya glowing inside a cool blue night. The fight between warm and cool is pure drama!",'<rect x="30" y="30" width="240" height="132" fill="#22334a"/><path d="M52 48 l1.8 4.4 4.4 1.8 -4.4 1.8 -1.8 4.4 -1.8 -4.4 -4.4 -1.8 4.4 -1.8Z M238 52 l1.8 4.4 4.4 1.8 -4.4 1.8 -1.8 4.4 -1.8 -4.4 -4.4 -1.8 4.4 -1.8Z" fill="#cfe6f5"/><path d="M96 142 C 96 118, 128 112, 150 96 C 172 112, 204 118, 204 142 C 204 158, 96 158, 96 142Z" fill="#7fb2d9" opacity=".5"/><path d="M118 148 C 110 128, 136 122, 150 106 C 164 122, 190 128, 182 148 C 174 158, 126 158, 118 148Z" fill="#e2725b"/><path d="M150 116 C 144 128, 156 128, 150 116Z" fill="#ffd94d"/><ellipse cx="150" cy="150" rx="34" ry="5" fill="#f4a91f" opacity=".65"/>']],
+ trickName:"Warm jumps out, cool steps back",trick:"Your eyes cannot help it: warm colours leap forward, cool colours sink away. Paint the hero warm and the background cool, and your picture gets depth for free.",
+ drill:"Draw the same house twice: once warm against cool, once cool against warm. Feel the difference. 10 minutes.",
+ guided:["Divide your page: a cool blue night sky fills everything.","Paint a big warm moon-window or a glowing diya in the middle.","Add cool hills sleeping below in blues and purples.","Let ONE warm spark — a window, a lamp — glow against the cool."],
+ task:"Paint Day and Night on one page split down the middle: warm sunrise world vs cool moonlight world."},
+{s:5,n:3,t:"Colour Mixing Lab",mats:["red, yellow, blue paints","palette","two brushes","water cup"],
+ steps:[["The lab opens: three parent colours in their dishes, ready for experiments.",'<circle cx="80" cy="70" r="24" fill="#e23b2e"/><circle cx="150" cy="52" r="24" fill="#f7d117"/><circle cx="220" cy="70" r="24" fill="#2456c8"/><circle cx="80" cy="70" r="24" fill="none" stroke="'+INK+'" stroke-width="2.4"/><circle cx="150" cy="52" r="24" fill="none" stroke="'+INK+'" stroke-width="2.4"/><circle cx="220" cy="70" r="24" fill="none" stroke="'+INK+'" stroke-width="2.4"/>'],
+ ["First experiments: red meets yellow — orange! Yellow meets blue — green!",'<circle cx="80" cy="70" r="24" fill="#e23b2e"/><circle cx="150" cy="52" r="24" fill="#f7d117"/><circle cx="220" cy="70" r="24" fill="#2456c8"/><circle cx="112" cy="122" r="22" fill="#f08a1d"/><circle cx="188" cy="122" r="22" fill="#58a05c"/><path d="M92 88 Q104 100 106 104 M162 74 Q176 92 180 100" stroke="'+INK+'" stroke-width="2.2" fill="none" stroke-dasharray="4 4"/><text x="100" y="168" font-size="13" font-weight="bold" fill="'+INK+'">ORANGE</text><text x="172" y="168" font-size="13" font-weight="bold" fill="'+INK+'">GREEN</text>'],
+ ["Blue meets red — purple! And the brave experiment: a dot of the OPPOSITE colour calms a too-bright mix down.",'<circle cx="80" cy="70" r="24" fill="#e23b2e"/><circle cx="150" cy="52" r="24" fill="#f7d117"/><circle cx="220" cy="70" r="24" fill="#2456c8"/><circle cx="112" cy="122" r="22" fill="#f08a1d"/><circle cx="188" cy="122" r="22" fill="#58a05c"/><circle cx="150" cy="146" r="22" fill="#7b4fa6"/><circle cx="256" cy="146" r="16" fill="#a8643c"/><text x="100" y="172" font-size="12.5" font-weight="bold" fill="'+INK+'">ORANGE</text><text x="174" y="172" font-size="12.5" font-weight="bold" fill="'+INK+'">GREEN</text><text x="128" y="128" font-size="12.5" font-weight="bold" fill="#fff"></text><text x="126" y="186" font-size="0" fill="'+INK+'"></text><text x="228" y="172" font-size="12" font-weight="bold" fill="'+INK+'">EARTH</text>']],
+ trickName:"Opposites calm colours",trick:"A screaming-bright green becomes a real leaf colour when you stir in a tiny dot of red, its opposite. Pros rarely use colour straight from the tube — they calm it first.",
+ drill:"Mix the 3 children (orange, green, purple). Then calm each one with a dot of its opposite. Keep a swatch page of every discovery. 10 minutes.",
+ guided:["Put red, yellow and blue in your palette dishes.","Mix orange between red and yellow. Paint a swatch.","Mix green, then purple. Swatch each one.","Calm each child with a dot of its opposite and swatch the grown-up version beside it."],
+ task:"Create your personal Mixing Lab chart: parents, children, and calmed earth versions — labelled like a scientist-artist."},
+{s:5,n:4,t:"Skin-Tone Garden",mats:["paints or colour pencils: red, yellow, blue, white, brown","palette","drawing sheet"],
+ steps:[["Skin is not one colour from a box. It is a garden — and it grows from the same three parents plus white and a touch of brown.",'<circle cx="70" cy="66" r="17" fill="#f7d117"/><circle cx="118" cy="52" r="17" fill="#e23b2e"/><circle cx="166" cy="66" r="17" fill="#2456c8"/><circle cx="214" cy="52" r="17" fill="#ffffff" stroke="'+INK+'" stroke-width="2"/><circle cx="252" cy="68" r="17" fill="#8d5524"/><text x="52" y="102" font-size="11.5" font-weight="bold" fill="'+INK+'">yellow</text><text x="102" y="86" font-size="11.5" font-weight="bold" fill="'+INK+'">red</text><text x="152" y="102" font-size="11.5" font-weight="bold" fill="'+INK+'">blue</text><text x="198" y="86" font-size="11.5" font-weight="bold" fill="'+INK+'">white</text><text x="234" y="102" font-size="11.5" font-weight="bold" fill="'+INK+'">brown</text>'],
+ ["Mix a spoon of yellow, a pea of red, a whisper of blue, warm it with brown — the garden starts to bloom.",'<rect x="52" y="112" width="42" height="34" rx="8" fill="#f2c49b"/><rect x="102" y="112" width="42" height="34" rx="8" fill="#e0ac82"/><rect x="152" y="112" width="42" height="34" rx="8" fill="#c68863"/><rect x="202" y="112" width="42" height="34" rx="8" fill="#a06844"/><text x="56" y="162" font-size="11.5" font-weight="bold" fill="'+INK+'">+white</text><text x="112" y="162" font-size="11.5" font-weight="bold" fill="'+INK+'">sunny</text><text x="158" y="162" font-size="11.5" font-weight="bold" fill="'+INK+'">+brown</text><text x="206" y="162" font-size="11.5" font-weight="bold" fill="'+INK+'">deep</text>'],
+ ["Every family's garden is different and every one is beautiful. Paint a row of friends, each with their own true tone.",'<g><circle cx="66" cy="72" r="20" fill="#f6ddba"/><path d="M46 68 C 44 50, 88 50, 86 68 C 80 58, 52 58, 46 68Z" fill="#3c2716"/><circle cx="59" cy="72" r="2.2" fill="'+INK+'"/><circle cx="73" cy="72" r="2.2" fill="'+INK+'"/><path d="M60 80 Q66 84 72 80" stroke="#c2503f" stroke-width="2" fill="none"/></g><g><circle cx="128" cy="72" r="20" fill="#e8b98d"/><path d="M108 68 C 106 48, 150 48, 148 68 C 142 56, 114 56, 108 68Z" fill="#14100c"/><circle cx="121" cy="72" r="2.2" fill="'+INK+'"/><circle cx="135" cy="72" r="2.2" fill="'+INK+'"/><path d="M122 80 Q128 84 134 80" stroke="#c2503f" stroke-width="2" fill="none"/></g><g><circle cx="190" cy="72" r="20" fill="#c68863"/><path d="M170 70 C 168 50, 212 50, 210 70 L210 84 L204 84 V66 M176 66 V84 L170 84Z" fill="#22334a"/><circle cx="183" cy="72" r="2.2" fill="'+INK+'"/><circle cx="197" cy="72" r="2.2" fill="'+INK+'"/><path d="M184 80 Q190 84 196 80" stroke="#7c2d1e" stroke-width="2" fill="none"/></g><g><circle cx="248" cy="72" r="20" fill="#8d5524"/><path d="M228 66 C 228 48, 268 48, 268 66 C 260 56, 236 56, 228 66Z" fill="#0d0a08"/><circle cx="241" cy="72" r="2.2" fill="#fff"/><circle cx="255" cy="72" r="2.2" fill="#fff"/><circle cx="241" cy="72" r="1.2" fill="'+INK+'"/><circle cx="255" cy="72" r="1.2" fill="'+INK+'"/><path d="M242 80 Q248 84 254 80" stroke="#5d2f14" stroke-width="2" fill="none"/></g><path d="M40 128 H268" stroke="#b7d977" stroke-width="6"/><path d="M40 148 H268" stroke="#8fc98f" stroke-width="4"/>']],
+ trickName:"Skin = yellow + red + a whisper of blue",trick:"Start with lots of yellow, add red slowly, then the tiniest whisper of blue to make it real. White makes it lighter, brown makes it deeper. Adjust drop by drop — you are a gardener, not a button-presser.",
+ drill:"Mix 4 skin tones in a row: light, sunny, warm, deep. Paint 4 thumbprint swatches and write the recipe under each. 10 minutes.",
+ guided:["Mix your base: yellow, then red drop by drop.","Add the blue whisper and stir well.","Make a lighter twin with white and a deeper twin with brown.","Paint a simple smiling face using YOUR chosen tone, with a shaded side."],
+ task:"Paint a Friends Row: 4 faces side by side, each with a different true skin tone you mixed yourself, each with its recipe written under it."},
+{s:5,n:5,t:"Painting a Sunset",mats:["paints (red, yellow, blue, white)","wide brush","thick sheet"],
+ steps:[["A sunset is painted in BANDS, top to bottom: deep blue-violet at the very top…",'<rect x="30" y="28" width="240" height="134" fill="#4b3a78"/><rect x="30" y="28" width="240" height="134" fill="none" stroke="'+INK+'" stroke-width="2.4"/>'],
+ ["…then rose, then orange, then golden yellow hugging the horizon. Blend each border while it is still wet.",'<rect x="30" y="28" width="240" height="134" fill="#4b3a78"/><rect x="30" y="62" width="240" height="30" fill="#b84a6e"/><rect x="30" y="88" width="240" height="30" fill="#e2703a"/><rect x="30" y="114" width="240" height="26" fill="#f7b733"/><rect x="30" y="136" width="240" height="26" fill="#7a4a21"/><rect x="30" y="28" width="240" height="134" fill="none" stroke="'+INK+'" stroke-width="2.4"/>'],
+ ["The sun is a pale gold coin sitting ON the horizon, and dark land sleeps below. Wet blending did the magic.",'<defs><linearGradient id="sunG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4b3a78"/><stop offset="34%" stop-color="#b84a6e"/><stop offset="56%" stop-color="#e2703a"/><stop offset="76%" stop-color="#f7b733"/><stop offset="77%" stop-color="#7a4a21"/><stop offset="100%" stop-color="#5d3a1a"/></linearGradient></defs><rect x="30" y="28" width="240" height="134" fill="url(#sunG)"/><circle cx="150" cy="128" r="17" fill="#ffe89a"/><path d="M30 140 Q80 128 130 138 Q190 126 270 140 V162 H30Z" fill="#2e2015"/><path d="M66 132 q4 -14 2 -22 M64 116 q-8 -4 -12 -12 M70 116 q8 -4 12 -12" stroke="#2e2015" stroke-width="3.4" fill="none"/><rect x="30" y="28" width="240" height="134" fill="none" stroke="'+INK+'" stroke-width="2.4"/>']],
+ trickName:"Paint bands, blend wet",trick:"Skies are not coloured in — they are laid in horizontal bands, dark at top, bright at the horizon, and blended where they kiss while the paint is still wet.",
+ drill:"On a scrap strip, paint 4 sky bands and blend the joins with a dry brush while wet. Twice — speed matters! 10 minutes.",
+ guided:["Paint the top band deep violet-blue. Do not let it dry.","Lay rose below it, blending the join with soft horizontal strokes.","Add orange, then gold at the bottom of the sky.","While it dries, add the dark land shape and the pale sun coin on the horizon."],
+ task:"Paint a full sunset over water or hills, with one dark tree or boat silhouette standing in the gold."},
+{s:5,n:6,t:"Water and Reflections",mats:["blue paints","wide brush","thick sheet"],
+ steps:[["Water is painted with FLAT horizontal strokes — never round and round.",'<rect x="36" y="40" width="228" height="112" fill="#a8d4e8"/><path d="M52 70 H180 M70 92 H230 M56 116 H200 M92 134 H248" stroke="#5f97b8" stroke-width="5" stroke-linecap="round"/>'],
+ ["Whatever stands beside water repeats below it, upside-down and wobbly.",'<rect x="36" y="40" width="228" height="112" fill="#a8d4e8"/><path d="M36 84 H264" stroke="#3d7ca3" stroke-width="2.4"/><g><rect x="66" y="52" width="9" height="32" fill="#7a5b2e"/><circle cx="70" cy="40" r="17" fill="#58a05c"/></g><path d="M54 92 q16 -6 32 0 M58 104 q12 -5 24 0" stroke="#58a05c" stroke-width="4.4" fill="none"/><path d="M66 88 v26" stroke="#7a5b2e" stroke-width="5"/><path d="M52 70 H180 M70 122 H230 M56 140 H200" stroke="#5f97b8" stroke-width="4.4" stroke-linecap="round"/>'],
+ ["Break the reflection with white sparkle strokes — now the water MOVES.",'<rect x="36" y="40" width="228" height="112" fill="#a8d4e8"/><path d="M36 84 H264" stroke="#3d7ca3" stroke-width="2.4"/><g><rect x="66" y="52" width="9" height="32" fill="#7a5b2e"/><circle cx="70" cy="40" r="17" fill="#58a05c"/><circle cx="86" cy="48" r="12" fill="#6cb56e"/></g><path d="M50 94 q20 -7 40 0 M54 108 q16 -6 32 0" stroke="#58a05c" stroke-width="4.6" fill="none"/><path d="M66 88 v28" stroke="#7a5b2e" stroke-width="5"/><circle cx="212" cy="58" r="14" fill="#f4a91f"/><path d="M196 92 q16 -5 32 0 M190 106 q20 -6 38 0 M198 122 q14 -5 26 0" stroke="#f4a91f" stroke-width="4.4" fill="none"/><path d="M96 96 H150 M120 126 H196 M60 138 H128" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity=".85"/>']],
+ trickName:"Reflections wobble straight down",trick:"A reflection lives exactly UNDER its owner, same width, upside down — then you break it with horizontal strokes. Straight down, then wobble: that is all water ever does.",
+ drill:"Paint 3 blobs (tree, sun, house) on a bank line, then paint their wobbly twins below. 10 minutes.",
+ guided:["Paint the water all over in flat horizontal strokes.","Draw the bank line across the middle.","Paint a tree and sun standing on the bank.","Paint their reflections straight below, broken with white sparkle strokes."],
+ task:"Paint a lakeside morning: two trees, a sun, and a boat — everything doubled in wobbly water."},
+{s:5,n:7,t:"Dab, Dab Tree",mats:["paints","round brush + a cotton bud","thick sheet"],
+ steps:[["First the skeleton: trunk and branches, painted in one confident brown.",'<path d="M146 168 C 148 140, 146 118, 138 96 M146 128 C 160 116, 172 108, 184 102 M142 110 C 130 100, 122 92, 112 88" stroke="#7a5b2e" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M128 168 H168" stroke="#7a5b2e" stroke-width="5"/>'],
+ ["Now forget brushes-as-pencils: DAB the leaves on with the side of the brush — thousands of tiny leaf-kisses.",'<path d="M146 168 C 148 140, 146 118, 138 96 M146 128 C 160 116, 172 108, 184 102 M142 110 C 130 100, 122 92, 112 88" stroke="#7a5b2e" stroke-width="7" fill="none" stroke-linecap="round"/><g fill="#58a05c"><circle cx="112" cy="76" r="13"/><circle cx="140" cy="62" r="16"/><circle cx="172" cy="70" r="14"/><circle cx="188" cy="90" r="12"/><circle cx="98" cy="96" r="11"/><circle cx="126" cy="88" r="13"/><circle cx="158" cy="88" r="13"/></g>'],
+ ["Dab light green where sun kisses, dark green in the shade, and dot on fruits with a cotton bud. A tree with real leaves!",'<path d="M146 168 C 148 140, 146 118, 138 96 M146 128 C 160 116, 172 108, 184 102 M142 110 C 130 100, 122 92, 112 88" stroke="#7a5b2e" stroke-width="7" fill="none" stroke-linecap="round"/><g fill="#4c8a3e"><circle cx="112" cy="76" r="13"/><circle cx="140" cy="62" r="16"/><circle cx="172" cy="70" r="14"/><circle cx="188" cy="90" r="12"/><circle cx="98" cy="96" r="11"/><circle cx="126" cy="88" r="13"/><circle cx="158" cy="88" r="13"/></g><g fill="#7fbf5a"><circle cx="128" cy="66" r="8"/><circle cx="158" cy="58" r="8"/><circle cx="106" cy="86" r="7"/><circle cx="182" cy="80" r="7"/></g><g fill="#2e5d27"><circle cx="168" cy="92" r="8"/><circle cx="142" cy="94" r="8"/><circle cx="192" cy="98" r="6"/></g><g fill="#e23b2e"><circle cx="120" cy="72" r="3.4"/><circle cx="150" cy="80" r="3.4"/><circle cx="176" cy="66" r="3.4"/><circle cx="104" cy="90" r="3.2"/><circle cx="164" cy="98" r="3.2"/></g><path d="M104 172 H196" stroke="#58a05c" stroke-width="4.4"/>']],
+ trickName:"Dab, don't draw",trick:"Leaves are not drawn one by one — no artist alive has time for ten thousand leaves! They DAB clouds of colour: dark first, light on the sunny side, and the eye invents the leaves.",
+ drill:"Dab three leaf-clouds: one all dark, one dark+light, one with fruit dots. Compare their life. 10 minutes.",
+ guided:["Paint the trunk and branches first, and let them dry a little.","Dab the leaf cloud in mid-green over the branch ends.","Dab dark green at the bottom of the cloud, light green on top.","Dot fruits or flowers with a cotton bud."],
+ task:"Paint a whole tree of your favourite kind — mango, rain tree, or a magical candy tree — dabbed to life."},
+{s:5,n:8,t:"The Three-Colour Challenge",mats:["any 3 paints you choose","palette","thick sheet"],
+ steps:[["The challenge: pick only THREE colours — plus white. That is your whole world today.",'<circle cx="96" cy="66" r="21" fill="#0e7c86"/><circle cx="150" cy="52" r="21" fill="#f4a91f"/><circle cx="204" cy="66" r="21" fill="#e2725b"/><circle cx="150" cy="118" r="17" fill="#ffffff" stroke="'+INK+'" stroke-width="2.2"/><text x="66" y="164" font-size="13" font-weight="bold" fill="'+INK+'">TEAL</text><text x="128" y="150" font-size="12" font-weight="bold" fill="'+INK+'">+ white</text><text x="152" y="164" font-size="13" font-weight="bold" fill="'+INK+'">MARIGOLD</text><text x="196" y="164" font-size="13" font-weight="bold" fill="'+INK+'"></text><text x="222" y="100" font-size="13" font-weight="bold" fill="'+INK+'">CORAL</text>'],
+ ["From three colours, mix their children and their calmed earth cousins — a family of ten from just three parents!",'<circle cx="60" cy="52" r="15" fill="#0e7c86"/><circle cx="104" cy="52" r="15" fill="#f4a91f"/><circle cx="148" cy="52" r="15" fill="#e2725b"/><circle cx="82" cy="94" r="14" fill="#7ba23f"/><circle cx="126" cy="94" r="14" fill="#e8945a"/><circle cx="170" cy="94" r="14" fill="#8d6e63"/><circle cx="104" cy="134" r="14" fill="#5f7d5a"/><circle cx="148" cy="134" r="14" fill="#b0722e"/><circle cx="192" cy="120" r="14" fill="#5b7d8a"/><circle cx="216" cy="76" r="14" fill="#c9a227"/><circle cx="60" cy="52" r="15" fill="none" stroke="'+INK+'" stroke-width="2"/><circle cx="104" cy="52" r="15" fill="none" stroke="'+INK+'" stroke-width="2"/><circle cx="148" cy="52" r="15" fill="none" stroke="'+INK+'" stroke-width="2"/>'],
+ ["Now paint a WHOLE picture with only your family — it will feel like one world, because every colour is related.",'<rect x="44" y="36" width="212" height="122" fill="#cfe4dd"/><circle cx="212" cy="66" r="16" fill="#f4a91f"/><path d="M44 118 Q110 92 170 110 Q220 122 256 106 V158 H44Z" fill="#7ba23f"/><path d="M44 158 V132 Q140 118 256 134 V158Z" fill="#5f7d5a"/><g><rect x="76" y="98" width="7" height="24" fill="#8d6e63"/><circle cx="79" cy="84" r="15" fill="#0e7c86"/></g><path d="M120 158 L136 128 L152 158Z" fill="#e2725b"/><rect x="44" y="36" width="212" height="122" fill="none" stroke="'+INK+'" stroke-width="2.4"/>']],
+ trickName:"Few colours, one family",trick:"Great paintings often use very few colours, mixed together — so every colour in the picture is a cousin of every other. Harmony is family, not variety.",
+ drill:"From your 3 chosen colours, mix and swatch as many relatives as you can in 10 minutes. Count your family!",
+ guided:["Choose your 3 colours bravely — they must serve a whole picture.","Mix their children and earth cousins on the palette first.","Plan the picture in 3 big zones: sky, middle, front.","Paint using ONLY your family, white allowed for light."],
+ task:"Paint a complete picture — a landscape or a street — using only 3 colours + white. Write your 3 heroes' names at the back of the sheet."},
+{s:5,n:9,t:"Finish it Like a Pro",mats:["a nearly-finished painting of yours","black pen","white paint","small brush"],
+ steps:[["Take a good painting that feels… not quite done. Pros know the last 10 minutes decide everything.",'<rect x="52" y="34" width="196" height="122" fill="#eaf7fb"/><circle cx="206" cy="60" r="14" fill="#f4a91f"/><path d="M52 122 Q110 100 160 114 Q210 126 248 112 V156 H52Z" fill="#8fc98f"/><rect x="84" y="86" width="34" height="28" fill="#f6cf7d"/><polygon points="80,86 101,72 122,86" fill="#e2725b"/>'],
+ ["Step one of finishing: EDGES. A fine dark line only where things truly end — the roof, the door — never around everything.",'<rect x="52" y="34" width="196" height="122" fill="#eaf7fb"/><circle cx="206" cy="60" r="14" fill="#f4a91f"/><path d="M52 122 Q110 100 160 114 Q210 126 248 112 V156 H52Z" fill="#8fc98f"/><rect x="84" y="86" width="34" height="28" fill="#f6cf7d"/><polygon points="80,86 101,72 122,86" fill="#e2725b"/><path d="M80 86 L101 72 L122 86 M84 114 h34 M96 114 V98 h10 v16" fill="none" stroke="'+INK+'" stroke-width="2.4"/><path d="M52 156 H248" stroke="#5d9c4e" stroke-width="3"/>'],
+ ["Step two: tiny bright highlights. Step three: your SIGNATURE, small and proud in a corner. Finished!",'<rect x="52" y="34" width="196" height="122" fill="#eaf7fb"/><circle cx="206" cy="60" r="14" fill="#f4a91f"/><path d="M198 52 l1.6 4 4 1.6 -4 1.6 -1.6 4 -1.6 -4 -4 -1.6 4 -1.6Z" fill="#fff"/><path d="M52 122 Q110 100 160 114 Q210 126 248 112 V156 H52Z" fill="#8fc98f"/><rect x="84" y="86" width="34" height="28" fill="#f6cf7d"/><polygon points="80,86 101,72 122,86" fill="#e2725b"/><path d="M80 86 L101 72 L122 86 M84 114 h34 M96 114 V98 h10 v16" fill="none" stroke="'+INK+'" stroke-width="2.4"/><path d="M60 132 q6 -8 12 0 M76 138 q5 -6 10 0" stroke="#3f7d33" stroke-width="2.4" fill="none"/><circle cx="132" cy="128" r="3" fill="#d94f70"/><circle cx="146" cy="132" r="3" fill="#f4a91f"/><text x="176" y="148" font-size="12" font-style="italic" font-weight="bold" fill="#5d4f33">Sreshta ✎</text>']],
+ trickName:"Details LAST, always",trick:"Beginners start with tiny details and drown. Pros paint big shapes, then middle shapes, then — only at the very end — edges, sparkles and signature. Order is everything.",
+ drill:"Take any old unfinished drawing. Spend 10 minutes ONLY finishing: 3 edges, 2 highlights, 1 signature. Watch it wake up.",
+ guided:["Choose one of your earlier works that you like.","Walk around it slowly: where do shapes truly end? Edge only those.","Add two tiny white highlights where light would kiss.","Sign your name small in a bottom corner. Date it."],
+ task:"Rescue and finish an old favourite from your own gallery — frame it again as a Finished Edition with today's date."},
+{s:5,n:10,t:"FINAL MASTERPIECE: My Master Painting",mats:["your full painting kit","your best thick sheet","everything you have learned"],
+ steps:[["Plan your master painting like Stage 4 taught you: golden spot, three floors, one light, a small colour family.",'<rect x="30" y="26" width="240" height="138" fill="#fdf8ea" stroke="'+INK+'" stroke-width="2.4"/><path d="M110 26 V164 M190 26 V164 M30 72 H270 M30 118 H270" stroke="#c9962e" stroke-width="1.6" stroke-dasharray="6 5"/><circle cx="190" cy="72" r="5" fill="#e2725b"/><path d="M60 140 Q150 108 240 132" stroke="#7fb2ba" stroke-width="3" fill="none" stroke-dasharray="5 4"/>'],
+ ["Paint it in the pro order: sky and big shapes first, middle friends second, heroes and details last.",'<rect x="30" y="26" width="240" height="138" fill="#bfe6ef"/><path d="M30 104 Q90 78 160 96 Q220 108 270 92 V164 H30Z" fill="#8fc98f"/><circle cx="216" cy="52" r="15" fill="#f4a91f"/><g><rect x="96" y="84" width="9" height="34" fill="#7a5b2e"/><circle cx="100" cy="66" r="21" fill="#4c8a3e"/><circle cx="118" cy="76" r="14" fill="#58a05c"/></g><rect x="176" y="96" width="42" height="32" fill="#f6cf7d"/><polygon points="172,96 197,80 222,96" fill="#c2503f"/><path d="M30 164 H270" stroke="#5d9c4e" stroke-width="5"/>'],
+ ["Frame it in gold, sign it, present it at the Family Art Exhibition. You are a Young Master Artist, Sreshta!",'<rect x="22" y="18" width="256" height="154" fill="none" stroke="#c9962e" stroke-width="9"/><rect x="30" y="26" width="240" height="138" fill="#bfe6ef"/><path d="M30 104 Q90 78 160 96 Q220 108 270 92 V164 H30Z" fill="#8fc98f"/><circle cx="216" cy="52" r="15" fill="#f4a91f"/><g><rect x="96" y="84" width="9" height="34" fill="#7a5b2e"/><circle cx="100" cy="66" r="21" fill="#4c8a3e"/><circle cx="118" cy="76" r="14" fill="#58a05c"/></g><rect x="176" y="96" width="42" height="32" fill="#f6cf7d"/><polygon points="172,96 197,80 222,96" fill="#c2503f"/><path d="M188 112 h12 v16 h-12Z" fill="#7a5b2e"/><g transform="translate(58,128) scale(0.66)"><circle cx="0" cy="-12" r="7" fill="#d94f70"/><circle cx="-10" cy="-4" r="6" fill="#e87a97"/><circle cx="10" cy="-4" r="6" fill="#e87a97"/><circle cx="0" cy="-3" r="5" fill="#ffd94d"/><path d="M0 0 V24" stroke="#35702c" stroke-width="3.4"/></g><text x="206" y="154" font-size="11.5" font-style="italic" font-weight="bold" fill="#5d4f33">Sreshta ✎</text>']],
+ trickName:"Everything you know, one painting",trick:"A master painting is not a new trick — it is ALL your tricks holding hands: one light, three floors, a colour family, details last, and your name in the corner.",
+ drill:"Plan on a thumbnail first: mark the golden spot, the light side, and your 3-colour family. Planning is today's drill — 10 quiet minutes.",
+ guided:["Plan the thumbnail: golden spot hero, three floors, one sun.","Paint big shapes: sky, land, the hero's main shapes.","Add middle friends and the light-and-shadow story.","Finish like a pro: edges, sparkles, signature — then present it to your family."],
+ task:"Your graduation painting: any subject your heart chooses, painted with everything you know. This one gets the biggest gold frame of all."}
+];
+var BASELINE_ITEMS=[
+{id:"person",t:"A Person",hint:"Draw a full person, head to feet, all by yourself."},
+{id:"bowl",t:"A Fruit Bowl",hint:"Draw a bowl with fruits in it, just as you see it in your mind."},
+{id:"scene",t:"A House & Street",hint:"Draw a house and the street in front of it."}];
+var SKETCH_PROMPTS=["Draw your favourite shoe, looking carefully at its shape.","Draw a spoon and its shiny stripe.","Draw your hand waving hello.","Draw a leaf you find — every vein you can see.","Draw your favourite toy as a 3D star.","Draw a cup from the side, then from above.","Draw a cat using only circles and triangles, then fix it into a real cat.","Draw your breakfast before you eat it!","Draw a tree you can see from a window.","Draw your own face in the mirror — halfway line first!","Draw a fish with the most beautiful pattern you can invent.","Draw your school bag standing proudly.","Draw three keys on a table with their shadows.","Draw a rainy window with drops running down."];
+var MATERIALS_KIT=["Sketchbook A4","Pencils HB / 2B / 4B / 6B","Eraser + kneaded eraser","Sharpener","Ruler","Colour pencils","Crayons","Watercolour set","Brushes: round 2, round 6, flat 8","Mixing palette","Water cup","Poster colours","Black pen for finishing","A4 drawing sheets"];
+var REWARD_LADDER=["A brand-new sketchbook","Pro pencil set (HB–6B)","Shading & blending kit","Colour pencil master set","Watercolour pan set + brushes","Her own painting kit box"];
+
+/* ================= STATE ================= */
+var KEY="artstudio_v1";
+function defState(){return {v:1,baseline:null,lessons:{},works:[],stars:0,sketch:{pages:0,dates:[]},activity:[],nextReward:REWARD_LADDER[0],praise:[],exhibition:{done:false,date:""},materials:{},seq:0};}
+var S;
+try{var raw=localStorage.getItem(KEY);S=raw?Object.assign(defState(),JSON.parse(raw)):defState();}catch(e){S=defState();}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function todayStr(d){d=d||new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function markActivity(){var t=todayStr();if(S.activity.indexOf(t)<0){S.activity.push(t);}}
+function lessonId(l){return "s"+l.s+"l"+l.n;}
+function findLesson(s,n){for(var i=0;i<LESSONS.length;i++)if(LESSONS[i].s===s&&LESSONS[i].n===n)return LESSONS[i];return null;}
+function stageDoneCount(s){var c=0;for(var i=0;i<LESSONS.length;i++)if(LESSONS[i].s===s&&S.lessons[lessonId(LESSONS[i])])c++;return c;}
+function stageComplete(s){return stageDoneCount(s)>=10;}
+function stageUnlocked(s){if(s===1)return true;return stageComplete(s-1);}
+function titleIndex(){var idx=0;for(var s=1;s<=5;s++)if(stageComplete(s))idx=s;return idx;}
+function artistTitle(){return TITLES[titleIndex()];}
+function piaLevel(){return titleIndex();}
+function nextLesson(){if(!S.baseline)return null;for(var s=1;s<=5;s++){if(!stageUnlocked(s))break;for(var n=1;n<=10;n++){var l=findLesson(s,n);if(!S.lessons[lessonId(l)])return l;}}return null;}
+function workThumb(l){var steps=l.steps;return demoWrap(steps[steps.length-1][1]);}
+/* ================= PHOTO STORE (IndexedDB, memory fallback) ================= */
+var PhotoStore=(function(){
+  var mem={},db=null,ready=null;
+  function open(){if(ready)return ready;ready=new Promise(function(res){
+    if(!("indexedDB" in window)||!window.indexedDB){res(null);return;}
+    try{var rq=indexedDB.open("artstudio_photos",1);
+      rq.onupgradeneeded=function(){rq.result.createObjectStore("photos");};
+      rq.onsuccess=function(){db=rq.result;res(db);};
+      rq.onerror=function(){res(null);};
+    }catch(e){res(null);}});return ready;}
+  return {
+    put:function(id,dataUrl){mem[id]=dataUrl;return open().then(function(d){if(!d)return false;return new Promise(function(res){try{var tx=d.transaction("photos","readwrite");tx.objectStore("photos").put(dataUrl,id);tx.oncomplete=function(){res(true)};tx.onerror=function(){res(false)};}catch(e){res(false);}});});},
+    get:function(id){if(mem[id])return Promise.resolve(mem[id]);return open().then(function(d){if(!d)return null;return new Promise(function(res){try{var rq=d.transaction("photos").objectStore("photos").get(id);rq.onsuccess=function(){if(rq.result)mem[id]=rq.result;res(rq.result||null);};rq.onerror=function(){res(null)};}catch(e){res(null);}});});},
+    del:function(id){delete mem[id];return open().then(function(d){if(!d)return;try{d.transaction("photos","readwrite").objectStore("photos").delete(id);}catch(e){}});}
+  };
+})();
+function downscaleImage(file,cb){var rd=new FileReader();rd.onload=function(){var img=new Image();img.onload=function(){var max=820,sc=Math.min(1,max/Math.max(img.width,img.height));var cv=document.createElement("canvas");cv.width=Math.round(img.width*sc);cv.height=Math.round(img.height*sc);cv.getContext("2d").drawImage(img,0,0,cv.width,cv.height);cb(cv.toDataURL("image/jpeg",0.82));};img.src=rd.result;};rd.readAsDataURL(file);}
+/* ================= NAV ================= */
+function show(id){var scrs=document.querySelectorAll(".scr");for(var i=0;i<scrs.length;i++)scrs[i].classList.remove("on");document.getElementById(id).classList.add("on");window.scrollTo(0,0);}
+function esc(t){return String(t==null?"":t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function piaInto(id){var el=document.getElementById(id);if(el)el.innerHTML=piaSVG(piaLevel());}
+var PIA_TAPS=0;
+function piaTap(el){PIA_TAPS++;el.classList.remove("hop");void el.offsetWidth;el.classList.add("hop");var line=PIA_LINES[PIA_TAPS%PIA_LINES.length];var b=document.querySelector(".scr.on .bubble");if(b)b.textContent=line;}
+function wirePia(){var wraps=document.querySelectorAll(".piaWrap");for(var i=0;i<wraps.length;i++)(function(w){w.onclick=function(){piaTap(w);};})(wraps[i]);}
+/* ================= PIN ================= */
+var pinMode=null,pinBuf="";
+function buildPad(){var pad=document.getElementById("pinPad");if(pad.childElementCount)return;["1","2","3","4","5","6","7","8","9","","0","⌫"].forEach(function(k){var b=document.createElement("button");b.textContent=k;b.onclick=function(){pinKey(k);};pad.appendChild(b);});}
+function openPin(mode){pinMode=mode;pinBuf="";document.getElementById("pinTitle").textContent=mode==="child"?"Sreshta's PIN":"Parents' PIN";document.getElementById("pinMsg").textContent="";buildPad();paintDots();show("scr-pin");}
+function paintDots(){var ds=document.querySelectorAll("#pinDots span");for(var i=0;i<ds.length;i++)ds[i].className= i<pinBuf.length?"f":"";}
+function pinKey(k){if(k==="⌫"){pinBuf=pinBuf.slice(0,-1);}else if(k===""||pinBuf.length>=4){return;}else{pinBuf+=k;}
+  paintDots();
+  if(pinBuf.length===4){var want=pinMode==="child"?"2017":"2208";
+    if(pinBuf===want){if(pinMode==="child"){goHome();}else{renderDash("ov");show("scr-dash");}}
+    else{document.getElementById("pinMsg").textContent="Hmm, that PIN did not match. Try again, slowly.";pinBuf="";setTimeout(paintDots,60);}}}
+/* ================= CHILD HOME ================= */
+function goHome(){
+  piaInto("piaHome");
+  document.getElementById("homeStars").textContent="⭐ "+S.stars;
+  var unseen=[];for(var i=0;i<S.praise.length;i++)if(!S.praise[i].seen)unseen.push(S.praise[i]);
+  var bub=document.getElementById("homeBubble");
+  if(unseen.length){bub.innerHTML="Pia has brought you a message! 💌 Tap <b>Read My Message</b> below to hear it.";}
+  else{var nl=nextLesson();if(!S.baseline)bub.textContent="Welcome to your Golden Gallery, Sreshta! First, we frame your Day 1 drawings — three of them, all by yourself.";else if(nl)bub.textContent="Hello, Artist Sreshta! Today we enter the "+STAGES[nl.s-1].name+" for: "+nl.t+". My tail is already excited!";else bub.textContent="You did it, Sreshta — every room, every masterpiece! You are a Young Master Artist. Paint something new whenever your heart wishes.";}
+  var pc=document.getElementById("praiseCard");
+  if(unseen.length){pc.innerHTML='<button class="btn terra" onclick="readPraise()">💌 Read My Message from '+esc(unseen[0].from)+'</button>';}
+  else pc.innerHTML="";
+  var bc=document.getElementById("baselineCard");
+  if(!S.baseline){bc.innerHTML='<div class="card" style="border:3px solid var(--marigold)"><div class="baloo" style="font-size:18px">🌟 Day 1: My First Three Drawings</div><p style="font-weight:700;margin:6px 0">Every great artist keeps their very first drawings forever. Draw a Person, a Fruit Bowl, and a House &amp; Street — all by yourself, no help!</p><button class="btn gold" onclick="openBaseline()">🎨 Start My First Three</button></div>';}
+  else bc.innerHTML="";
+  var tp=document.getElementById("todayPoster"),nl2=nextLesson();
+  if(!S.baseline){tp.innerHTML='<h3>⭐ FIRST — DAY 1</h3><div class="ct">My First Three Drawings</div><div class="sub">A Person • A Fruit Bowl • A House &amp; Street</div><button onclick="openBaseline()">Begin</button>';}
+  else if(nl2){tp.innerHTML='<h3>🎨 TODAY\'S LESSON — '+STAGES[nl2.s-1].name.toUpperCase()+'</h3><div class="ct">'+esc(nl2.t)+'</div><div class="sub">Lesson '+nl2.n+' of 10 • Pro Trick: '+esc(nl2.trickName)+'</div><button onclick="openLesson('+nl2.s+','+nl2.n+')">Start Lesson</button>';}
+  else{tp.innerHTML='<h3>👑 THE WHOLE GALLERY IS YOURS</h3><div class="ct">Young Master Artist!</div><div class="sub">All 50 lessons framed. Revisit any room, any time.</div>';}
+  document.getElementById("statTitle").textContent=artistTitle();
+  document.getElementById("statFrames").textContent=S.works.length;
+  renderWall();
+  renderRooms();
+  renderSketch();
+  renderWeek();
+  document.getElementById("rewardCard").innerHTML='<div class="baloo" style="font-size:17px">🎁 My Next Reward</div><p style="font-weight:800;margin:5px 0;font-size:16px">'+esc(S.nextReward)+'</p><p style="font-weight:700;color:var(--mut);margin:0;font-size:13px">Real art treasures, earned masterpiece by masterpiece.</p>';
+  show("scr-home");
+}
+function renderWall(){
+  var g=document.getElementById("wallGrid");var html="";
+  var show4=S.works.slice(-4).reverse();
+  for(var i=0;i<4;i++){var w=show4[i];
+    if(w){html+='<div class="gframe" data-ph="'+w.id+'"><div class="mat"><div class="art thumbArt">'+(w.hasPhoto?'<img alt="">':workThumbById(w))+'</div><div class="cap">'+esc(w.title)+'</div></div></div>';}
+    else{html+='<div class="gframe empty"><div class="mat"><div class="art">A gold frame is<br>waiting… ✨</div><div class="cap">Coming soon</div></div></div>';}}
+  g.innerHTML=html;hydratePhotos(g);
+}
+function workThumbById(w){if(w.kind==="baseline"){return '<div style="font-size:44px;padding:22px 0">🖼️</div>';}var l=null;for(var i=0;i<LESSONS.length;i++)if(lessonId(LESSONS[i])===w.lessonId)l=LESSONS[i];return l?workThumb(l):'<div style="font-size:44px;padding:22px 0">🎨</div>';}
+function hydratePhotos(root){var els=root.querySelectorAll("[data-ph]");els.forEach(function(el){var id=el.getAttribute("data-ph");var w=null;for(var i=0;i<S.works.length;i++)if(S.works[i].id===id)w=S.works[i];if(!w||!w.hasPhoto)return;PhotoStore.get(id).then(function(url){if(url){var art=el.querySelector(".art");if(art)art.innerHTML='<img alt="">';var img=art?art.querySelector("img"):null;if(img)img.src=url;}});});}
+function renderRooms(){
+  var el=document.getElementById("roomList");var html="";
+  for(var s=1;s<=5;s++){var st=STAGES[s-1];var done=stageDoneCount(s);var un=stageUnlocked(s);
+    html+='<button class="room '+(un?"":"lock")+' '+(un&&done<10?"act":"")+'" '+(un?'onclick="openStage('+s+')"':'')+'><span class="ic">'+(un?st.icon:"🔒")+'</span><span style="flex:1"><span class="nm">'+st.name+'</span><br><span class="rk">'+st.sub+'</span><span class="bar"><i style="width:'+(done*10)+'%"></i></span></span><span class="rk">'+done+'/10</span></button>';}
+  el.innerHTML=html;
+}
+function sketchPrompt(){var now=new Date();var doy=Math.floor((now-new Date(now.getFullYear(),0,0))/864e5);return SKETCH_PROMPTS[doy%SKETCH_PROMPTS.length];}
+function renderSketch(){
+  var doneToday=S.sketch.dates.indexOf(todayStr())>=0;
+  document.getElementById("sketchCard").innerHTML='<div class="baloo" style="font-size:16.5px">Today\'s 10-minute sketch:</div><p style="font-weight:800;margin:6px 0">'+esc(sketchPrompt())+'</p><p style="font-weight:700;color:var(--mut);margin:4px 0;font-size:13px">Sketchbook pages so far: <b>'+S.sketch.pages+'</b> 📓</p>'+(doneToday?'<div class="pill">Today\'s page is done ⭐ Lovely!</div>':'<button class="btn" onclick="doSketch()">✅ I Did My Sketch</button>');
+}
+function doSketch(){if(S.sketch.dates.indexOf(todayStr())>=0)return;S.sketch.dates.push(todayStr());S.sketch.pages++;markActivity();save();renderSketch();renderWeek();}
+function renderWeek(){
+  var el=document.getElementById("weekRow");var now=new Date();var dow=(now.getDay()+6)%7;var mon=new Date(now);mon.setDate(now.getDate()-dow);
+  var names=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];var html="";
+  for(var i=0;i<7;i++){var d=new Date(mon);d.setDate(mon.getDate()+i);var on=S.activity.indexOf(todayStr(d))>=0;
+    html+='<div class="dayDot '+(on?"on":"")+'"><div class="d">'+(on?"🎨":"·")+'</div><div class="dl">'+names[i]+'</div></div>';}
+  el.innerHTML=html;
+}
+function readPraise(){for(var i=0;i<S.praise.length;i++){if(!S.praise[i].seen){S.praise[i].seen=true;document.getElementById("homeBubble").innerHTML="💌 "+esc(S.praise[i].from)+" says: “"+esc(S.praise[i].text)+"”";document.getElementById("praiseCard").innerHTML="";save();return;}}}
+/* ================= BASELINE ================= */
+var basePending={};
+function openBaseline(){piaInto("piaBase");basePending={};
+  var el=document.getElementById("baseList");var html="";
+  if(S.baseline){html='<div class="card">Your First Three are framed forever in your Portfolio. ⭐</div>';}
+  else{BASELINE_ITEMS.forEach(function(it,ix){
+    html+='<div class="card"><div class="baloo" style="font-size:18px">'+(ix+1)+'. '+it.t+'</div><p style="font-weight:700;margin:5px 0">'+it.hint+'</p><label class="lbl">📷 Add a photo of my drawing</label><input type="file" accept="image/*" onchange="basePhoto(\''+it.id+'\',this)"><div id="baseStat-'+it.id+'" style="font-weight:800;margin-top:6px;color:var(--mut)">Not yet — draw it first, artist!</div><button class="btn ghost" onclick="basePaper(\''+it.id+'\')">✅ Done on Paper</button></div>';});}
+  el.innerHTML=html;paintBaseFinish();show("scr-baseline");
+}
+function basePhoto(id,input){var f=input.files&&input.files[0];if(!f)return;downscaleImage(f,function(url){basePending[id]={mode:"photo",url:url};paintBaseItem(id,"Photo added 📷 — beautiful!");paintBaseFinish();});}
+function basePaper(id){basePending[id]={mode:"paper"};paintBaseItem(id,"Done on paper ✅ — wonderful!");paintBaseFinish();}
+function paintBaseItem(id,msg){var el=document.getElementById("baseStat-"+id);if(el){el.textContent=msg;el.style.color="var(--green)";}}
+function baseAllDone(){return BASELINE_ITEMS.every(function(it){return basePending[it.id];});}
+function paintBaseFinish(){var b=document.getElementById("baseFinish");if(b)b.disabled=!baseAllDone();}
+function finishBaseline(){
+  if(S.baseline||!baseAllDone())return;
+  S.baseline={date:todayStr()};var framed=[];
+  BASELINE_ITEMS.forEach(function(it){S.seq++;var w={id:"w"+S.seq,kind:"baseline",lessonId:null,stage:0,title:"Day 1: "+it.t,date:todayStr(),hasPhoto:basePending[it.id].mode==="photo",review:null};S.works.push(w);framed.push(w);if(basePending[it.id].url)PhotoStore.put(w.id,basePending[it.id].url);});
+  markActivity();save();
+  piaInto("piaCeleb");document.getElementById("celebTitle").textContent="Your First Three Are Framed!";
+  document.getElementById("celebBubble").textContent="These are your Day 1 drawings, Sreshta — the very start of your artist story. One day we will stand them beside your masterpieces and smile!";
+  document.getElementById("celebFrame").innerHTML='<div class="wallGrid">'+framed.map(function(w){return '<div class="gframe" data-ph="'+w.id+'"><div class="mat"><div class="art">'+(w.hasPhoto?'<img alt="">':'<div style="font-size:44px;padding:22px 0">🖼️</div>')+'</div><div class="cap">'+esc(w.title)+'</div></div></div>';}).join("")+"</div>";
+  hydratePhotos(document.getElementById("celebFrame"));
+  document.getElementById("celebStamp").textContent="DAY 1 ⭐ IN THE GALLERY";
+  show("scr-celeb");
+}
+
+/* ================= STAGE & LESSON ================= */
+function openStage(s){
+  if(!stageUnlocked(s))return;
+  document.getElementById("stageCrumb").textContent=STAGES[s-1].name;
+  document.getElementById("stageTitle").textContent=STAGES[s-1].icon+" "+STAGES[s-1].name;
+  document.getElementById("stageSub").textContent=STAGES[s-1].sub+" • "+stageDoneCount(s)+" of 10 framed";
+  var html="";
+  for(var n=1;n<=10;n++){var l=findLesson(s,n);var done=!!S.lessons[lessonId(l)];
+    var prevDone=n===1||!!S.lessons[lessonId(findLesson(s,n-1))];
+    var can=done||prevDone;
+    html+='<button class="lesRow '+(done?"done":"")+' '+(n===10?"master":"")+' '+(can?"":"lock")+'" '+(can?'onclick="openLesson('+s+','+n+')"':'')+'><span class="no">'+n+'</span><span class="tt">'+esc(l.t)+(n===10?' 👑':'')+'</span><span class="st">'+(done?"⭐":(can?"▶️":"🔒"))+'</span></button>';}
+  document.getElementById("lesList").innerHTML=html;show("scr-stage");
+}
+var FLOW=["See the Pro","Pro Trick","Drill","Guided Drawing","My Masterpiece"];
+var cur=null; /* {lesson, step, demoStep, drillDone, title, photoUrl, paper} */
+function openLesson(s,n){
+  var l=findLesson(s,n);if(!l)return;
+  if(!S.baseline){openBaseline();return;}
+  if(!stageUnlocked(s))return;
+  if(n>1&&!S.lessons[lessonId(findLesson(s,n-1))]&&!S.lessons[lessonId(l)])return;
+  cur={lesson:l,step:0,demoStep:0,drillDone:false,title:"",photoUrl:null,paper:false};
+  document.getElementById("lesCrumb").textContent=STAGES[s-1].name+" • Lesson "+n;
+  document.getElementById("lesTitle").textContent=l.t;
+  document.getElementById("lesBack").onclick=function(){openStage(s);};
+  renderLesson();show("scr-lesson");
+}
+function renderLesson(){
+  var l=cur.lesson;
+  var dots=document.getElementById("stepDots");var dh="";
+  FLOW.forEach(function(f,i){dh+='<span class="'+(i===cur.step?"cur":(i<cur.step?"done":""))+'">'+f+'</span>';});
+  dots.innerHTML=dh;
+  var b=document.getElementById("lesBody");var html="";
+  if(cur.step===0){
+    var st=l.steps[cur.demoStep];
+    html+='<div class="demoBox">'+demoWrap(st[1])+'<div class="demoCap">'+esc(st[0])+'</div></div>';
+    html+='<p style="font-weight:800;text-align:center;color:var(--mut)">Step '+(cur.demoStep+1)+' of '+l.steps.length+' — watch the drawing being built!</p>';
+    html+='<div class="navRow">'+(cur.demoStep>0?'<button class="btn ghost" onclick="demoMove(-1)">← Back</button>':"")+(cur.demoStep<l.steps.length-1?'<button class="btn" onclick="demoMove(1)">Next Step →</button>':'<button class="btn gold" onclick="flowGo(1)">I Watched the Pro ✨</button>')+'</div>';
+    html+='<div class="card"><div class="baloo" style="font-size:16px">🧺 You will need:</div><p style="font-weight:800;margin:4px 0">'+l.mats.map(esc).join(" • ")+'</p></div>';
+  }else if(cur.step===1){
+    html+='<div class="card" style="border:3px solid var(--marigold)"><div class="baloo" style="font-size:19px">💡 Pro Trick: '+esc(l.trickName)+'</div><p style="font-weight:800;font-size:16.5px;line-height:1.45;margin:7px 0">'+esc(l.trick)+'</p></div>';
+    html+='<div class="navRow"><button class="btn ghost" onclick="flowGo(0)">← See the Pro Again</button><button class="btn gold" onclick="flowGo(2)">Got It — To the Drill!</button></div>';
+  }else if(cur.step===2){
+    html+='<div class="card"><div class="baloo" style="font-size:19px">⏱️ The 10-Minute Drill</div><p style="font-weight:800;font-size:16px;line-height:1.45;margin:7px 0">'+esc(l.drill)+'</p><label class="chk '+(cur.drillDone?"done":"")+'"><input type="checkbox" '+(cur.drillDone?"checked":"")+' onchange="toggleDrill(this.checked)"><span>I did my drill — my artist muscles are warming up!</span></label></div>';
+    html+='<div class="navRow"><button class="btn ghost" onclick="flowGo(1)">← Pro Trick</button><button class="btn gold" id="drillNext" '+(cur.drillDone?"":"disabled")+' onclick="flowGo(3)">Guided Drawing →</button></div>';
+  }else if(cur.step===3){
+    html+='<div class="card"><div class="baloo" style="font-size:19px">✏️ Guided Drawing — follow Pia, step by step</div>'+l.guided.map(function(g,i){return '<p style="font-weight:800;font-size:15.5px;margin:9px 0;line-height:1.4"><b style="color:var(--deep)">'+(i+1)+'.</b> '+esc(g)+'</p>';}).join("")+'</div>';
+    html+='<div class="demoBox">'+demoWrap(l.steps[l.steps.length-1][1])+'<div class="demoCap">Your guide picture — the finished Pro version</div></div>';
+    html+='<div class="navRow" style="margin-top:10px"><button class="btn ghost" onclick="flowGo(2)">← Drill</button><button class="btn gold" onclick="flowGo(4)">Now My Masterpiece →</button></div>';
+  }else if(cur.step===4){
+    html+='<div class="card" style="border:3px solid var(--gold)"><div class="baloo" style="font-size:19px">👑 My Masterpiece</div><p style="font-weight:800;font-size:16px;line-height:1.45;margin:7px 0">'+esc(l.task)+'</p><label class="lbl">Give your masterpiece a title, Artist:</label><input type="text" id="mpTitle" placeholder="e.g. The Singing Apple" value="'+esc(cur.title)+'"><label class="lbl">📷 Add a photo of my drawing</label><input type="file" accept="image/*" onchange="mpPhoto(this)"><div id="mpStat" style="font-weight:800;margin:7px 0;color:var(--mut)">'+(cur.photoUrl?"Photo added 📷":(cur.paper?"Done on paper ✅":"Add a photo — or tick Done on Paper below."))+'</div><button class="btn ghost" onclick="mpPaper()">✅ Done on Paper</button><button class="btn gold" id="frameBtn" onclick="frameMasterpiece()" '+((cur.photoUrl||cur.paper)?"":"disabled")+'>🖼️ Frame It in Gold!</button></div>';
+    html+='<div class="navRow"><button class="btn ghost" onclick="flowGo(3)">← Guided Drawing</button></div>';
+  }
+  b.innerHTML=html;
+  var t=document.getElementById("mpTitle");if(t)t.oninput=function(){cur.title=t.value;};
+}
+function demoMove(d){cur.demoStep+=d;renderLesson();}
+function flowGo(s){cur.step=s;renderLesson();window.scrollTo(0,0);}
+function toggleDrill(v){cur.drillDone=v;var nb=document.getElementById("drillNext");if(nb)nb.disabled=!v;var chk=document.querySelector("#lesBody .chk");if(chk)chk.classList.toggle("done",v);}
+function mpPhoto(input){var f=input.files&&input.files[0];if(!f)return;downscaleImage(f,function(url){cur.photoUrl=url;var st=document.getElementById("mpStat");if(st){st.textContent="Photo added 📷 — it looks golden already!";st.style.color="var(--green)";}var fb=document.getElementById("frameBtn");if(fb)fb.disabled=false;});}
+function mpPaper(){cur.paper=true;var st=document.getElementById("mpStat");if(st){st.textContent="Done on paper ✅ — a real paper masterpiece!";st.style.color="var(--green)";}var fb=document.getElementById("frameBtn");if(fb)fb.disabled=false;}
+function frameMasterpiece(){
+  var l=cur.lesson;var id=lessonId(l);var already=!!S.lessons[id];
+  var title=(cur.title||"").trim()||l.t;
+  if(!already){
+    S.seq++;var w={id:"w"+S.seq,kind:l.n===10?"masterpiece":"lesson",lessonId:id,stage:l.s,title:title,date:todayStr(),hasPhoto:!!cur.photoUrl,review:null};
+    S.works.push(w);S.lessons[id]={date:todayStr(),title:title};S.stars+= l.n===10?3:1;
+    if(cur.photoUrl)PhotoStore.put(w.id,cur.photoUrl);
+    markActivity();save();
+    piaInto("piaCeleb");
+    document.getElementById("celebTitle").textContent=l.n===10?"Stage Masterpiece Framed! 👑":"Framed in Gold!";
+    document.getElementById("celebBubble").textContent=l.n===10?("You finished the whole "+STAGES[l.s-1].name+", Sreshta! Your new title is "+artistTitle()+"! Pia's tail is dancing!"):("“"+title+"” is in the Golden Gallery, Sreshta! See how far your pro trick carried you today?");
+    document.getElementById("celebFrame").innerHTML=frameHTML(w);
+    hydratePhotos(document.getElementById("celebFrame"));
+    document.getElementById("celebStamp").textContent=l.n===10?"👑 "+artistTitle().toUpperCase():"IN THE GALLERY ⭐";
+    show("scr-celeb");
+  }else{
+    goHome();
+  }
+}
+function frameHTML(w){return '<div class="gframe big" data-ph="'+w.id+'"><div class="mat"><div class="art thumbArt">'+(w.hasPhoto?'<img alt="">':workThumbById(w))+'</div><div class="cap">'+esc(w.title)+' • '+esc(w.date)+'</div></div></div>';}
+/* ================= GALLERY ================= */
+function openGallery(){
+  var fl=document.getElementById("firstLatest");
+  if(S.works.length){
+    var first=S.works[0];var latest=S.works[S.works.length-1];
+    fl.innerHTML='<div class="secttl">🌱 My First vs My Latest</div><div class="wallGrid"><div><div class="pill">FIRST — '+esc(first.date)+'</div>'+frameHTML(first)+'</div><div><div class="pill">LATEST — '+esc(latest.date)+'</div>'+frameHTML(latest)+'</div></div><p style="font-weight:800;color:var(--mut);text-align:center">Look how the artist is growing! 🌱 → 🌳</p>';
+  }else fl.innerHTML='<div class="card">No frames yet — your Day 1 drawings will be the first treasures here.</div>';
+  var g=document.getElementById("galGrid");var html="";
+  var rev=S.works.slice().reverse();
+  rev.forEach(function(w){html+='<div onclick="openView(\''+w.id+'\')" style="cursor:pointer">'+frameHTML(w)+'</div>';});
+  if(!rev.length)html='<div class="card">The gallery wall is waiting for its first gold frame.</div>';
+  g.innerHTML=html;hydratePhotos(fl);hydratePhotos(g);show("scr-gallery");
+}
+function openView(id){
+  var w=null;for(var i=0;i<S.works.length;i++)if(S.works[i].id===id)w=S.works[i];if(!w)return;
+  document.getElementById("viewCrumb").textContent=w.title;
+  var stageName=w.kind==="baseline"?"Day 1 — Baseline":(w.stage?STAGES[w.stage-1].name:"");
+  var html=frameHTML(w);
+  html+='<div class="card"><div class="baloo" style="font-size:17px">'+esc(w.title)+'</div><p style="font-weight:800;color:var(--mut);margin:4px 0">'+stageName+' • '+esc(w.date)+(w.kind==="masterpiece"?" • 👑 Stage Masterpiece":(w.kind==="baseline"?" • 🌱 First drawing":""))+'</p>';
+  if(w.review){html+='<p style="font-weight:800;margin:8px 0">🏅 Pro Review — Lines: '+w.review.lines+' • Shading: '+w.review.shading+' • Proportion: '+w.review.proportion+' • Finishing: '+w.review.finishing+'</p>';if(w.review.praise)html+='<div class="bubble" style="border-color:var(--terra)">💌 Praise: “'+esc(w.review.praise)+'”</div>';if(w.review.tip)html+='<p style="font-weight:800;margin:8px 0">💡 Artist tip: '+esc(w.review.tip)+'</p>';}
+  else html+='<p style="font-weight:700;color:var(--mut)">Waiting for its Pro Review in the Parent Dashboard.</p>';
+  html+='</div>';
+  document.getElementById("viewBody").innerHTML=html;hydratePhotos(document.getElementById("viewBody"));show("scr-view");
+}
+/* ================= PARENT DASHBOARD ================= */
+var DIMS=["lines","shading","proportion","finishing"];
+var DIM_LABEL={lines:"Lines",shading:"Shading",proportion:"Proportion",finishing:"Finishing"};
+var RATES=["Growing","Good","Pro"];
+var rateSel={};
+function dashGo(t){
+  var tabs=document.querySelectorAll("#dashTabs button");tabs.forEach(function(b){b.classList.toggle("cur",b.getAttribute("data-t")===t);});
+  ["ov","rev","skills","exhib","ctrl"].forEach(function(x){document.getElementById("dsec-"+x).classList.toggle("on",x===t);});
+  renderDash(t);
+}
+function renderDash(t){t=t||"ov";if(t==="ov")dashOverview();if(t==="rev")dashReviews();if(t==="skills")dashSkills();if(t==="exhib")dashExhib();if(t==="ctrl")dashControls();}
+function dashOverview(){
+  var done=Object.keys(S.lessons).length;
+  var bars="";for(var s=1;s<=5;s++){bars+='<p style="font-weight:800;margin:8px 0 2px">'+STAGES[s-1].icon+' '+STAGES[s-1].name+' — '+stageDoneCount(s)+'/10</p><div class="bar"><i style="width:'+(stageDoneCount(s)*10)+'%"></i></div>';}
+  var latest=S.works.slice(-3).reverse().map(function(w){return '<span class="pill">'+esc(w.title)+' • '+esc(w.date)+'</span>';}).join("");
+  document.getElementById("dsec-ov").innerHTML='<div class="grid2"><div class="stat"><div class="n">'+done+' / 50</div><div class="l">Lessons Completed</div></div><div class="stat"><div class="n">'+S.works.length+'</div><div class="l">Framed Works</div></div><div class="stat"><div class="n">'+esc(artistTitle())+'</div><div class="l">Current Title</div></div><div class="stat"><div class="n">'+S.stars+' ⭐</div><div class="l">Stars (never deducted)</div></div></div><div class="card"><div class="baloo" style="font-size:17px">Journey Progress</div>'+bars+'<p style="font-weight:800;margin:8px 0 2px">Baseline: '+(S.baseline?("done on "+esc(S.baseline.date)+" ✅"):"not done yet — Lesson 1 waits for it")+'</p><p style="font-weight:800;margin:2px 0">Sketchbook pages: '+S.sketch.pages+' 📓</p><p style="font-weight:800;margin:6px 0 2px">Latest works:</p>'+(latest||'<span class="pill">none yet</span>')+'</div>';
+}
+function dashReviews(){
+  var queue=S.works.filter(function(w){return !w.review;});
+  var doneList=S.works.filter(function(w){return w.review;});
+  var html='<div class="baloo" style="font-size:17px">📝 Review Queue ('+queue.length+' waiting)</div>';
+  if(!queue.length)html+='<div class="card">All caught up — every framed work has its Pro Review. 🎉</div>';
+  queue.forEach(function(w){
+    html+='<div class="card" data-ph="'+w.id+'"><div class="art thumbArt" style="max-width:170px">'+(w.hasPhoto?'<img alt="" style="width:100%;border-radius:8px">':workThumbById(w))+'</div><div class="baloo" style="font-size:16.5px;margin-top:6px">'+esc(w.title)+'</div><p style="font-weight:800;color:var(--mut);margin:2px 0;font-size:13px">'+esc(w.date)+(w.kind==="baseline"?" • Day 1 baseline":" • "+(w.stage?STAGES[w.stage-1].name:""))+'</p>';
+    DIMS.forEach(function(d){html+='<label class="lbl" style="margin:7px 0 2px">'+DIM_LABEL[d]+'</label><div class="rateRow" id="rate-'+w.id+'-'+d+'">'+RATES.map(function(r){return '<button onclick="pickRate(\''+w.id+'\',\''+d+'\',\''+r+'\')">'+r+'</button>';}).join("")+'</div>';});
+    html+='<label class="lbl">💌 ONE praise (Pia will deliver these words)</label><input type="text" id="praise-'+w.id+'" placeholder="e.g. Your shading on the apple glows!"><label class="lbl">💡 ONE tip for next time</label><input type="text" id="tip-'+w.id+'" placeholder="e.g. Make the far edge a touch darker"><button class="btn" onclick="saveReview(\''+w.id+'\')">Save Pro Review</button></div>';});
+  if(doneList.length){html+='<div class="secttl">Reviewed ✅</div>'+doneList.map(function(w){return '<div class="card"><b>'+esc(w.title)+'</b><br><span style="font-weight:800;color:var(--mut);font-size:13px">Lines '+w.review.lines+' • Shading '+w.review.shading+' • Proportion '+w.review.proportion+' • Finishing '+w.review.finishing+'</span>'+(w.review.praise?'<br>💌 “'+esc(w.review.praise)+'”':"")+(w.review.tip?'<br>💡 '+esc(w.review.tip):"")+'</div>';}).join("");}
+  document.getElementById("dsec-rev").innerHTML=html;hydratePhotos(document.getElementById("dsec-rev"));
+}
+function pickRate(wid,dim,val){rateSel[wid+":"+dim]=val;var row=document.getElementById("rate-"+wid+"-"+dim);if(row){var bs=row.querySelectorAll("button");bs.forEach(function(b){b.classList.toggle("sel",b.textContent===val);});}}
+function saveReview(wid){
+  var w=null;for(var i=0;i<S.works.length;i++)if(S.works[i].id===wid)w=S.works[i];if(!w||w.review)return;
+  var rev={};DIMS.forEach(function(d){rev[d]=rateSel[wid+":"+d]||"Growing";});
+  rev.praise=(document.getElementById("praise-"+wid).value||"").trim();
+  rev.tip=(document.getElementById("tip-"+wid).value||"").trim();
+  rev.date=todayStr();w.review=rev;
+  if(rev.praise)S.praise.push({from:"Amma & Nanna",text:rev.praise,date:todayStr(),seen:false});
+  save();dashReviews();
+}
+function dashSkills(){
+  var html='<div class="baloo" style="font-size:17px">🗺️ Skill Map</div>';
+  for(var s=1;s<=5;s++){html+='<div class="card"><div class="baloo" style="font-size:16.5px">'+STAGES[s-1].icon+' '+STAGES[s-1].name+' — '+STAGES[s-1].skill+' ('+stageDoneCount(s)+'/10)</div>';
+    for(var n=1;n<=10;n++){var l=findLesson(s,n);var d=!!S.lessons[lessonId(l)];html+='<p style="font-weight:800;margin:5px 0;font-size:14px">'+(d?"✅":"⬜")+' '+esc(l.t)+' <span style="color:var(--mut)">— skill: '+esc(l.trickName)+'</span></p>';}
+    html+='</div>';}
+  document.getElementById("dsec-skills").innerHTML=html;
+}
+function monthKey(d){return d.slice(0,7);}
+function dashExhib(){
+  var mk=monthKey(todayStr());
+  var thisMonth=S.works.filter(function(w){return monthKey(w.date)===mk;});
+  var counts={};DIMS.forEach(function(d){counts[d]={Growing:0,Good:0,Pro:0};});
+  S.works.forEach(function(w){if(w.review)DIMS.forEach(function(d){counts[d][w.review[d]]++;});});
+  function score(d){return counts[d].Pro*2+counts[d].Good;}
+  var strongest=null,focus=null;DIMS.forEach(function(d){if(strongest===null||score(d)>score(strongest))strongest=d;if(focus===null||score(d)<score(focus))focus=d;});
+  var anyReview=S.works.some(function(w){return w.review;});
+  document.getElementById("dsec-exhib").innerHTML='<div class="card"><div class="baloo" style="font-size:17px">🏛️ Monthly Exhibition Report — '+mk+'</div><p style="font-weight:800;margin:6px 0">Works framed this month: <b>'+thisMonth.length+'</b></p><p style="font-weight:800;margin:4px 0">Total portfolio: <b>'+S.works.length+'</b> framed works • Title: <b>'+esc(artistTitle())+'</b> • Sketchbook pages: <b>'+S.sketch.pages+'</b></p>'+(anyReview?'<p style="font-weight:800;margin:4px 0">🌟 Strongest dimension: <b>'+DIM_LABEL[strongest]+'</b></p><p style="font-weight:800;margin:4px 0">🎯 Next focus: <b>'+DIM_LABEL[focus]+'</b></p>':'<p style="font-weight:800;margin:4px 0">Review some works to unlock strongest-dimension insights.</p>')+'<label class="chk '+(S.exhibition.done?"done":"")+'"><input type="checkbox" id="exhibDone" '+(S.exhibition.done?"checked":"")+' onchange="exhibTick(this.checked)"><span>Family Art Exhibition held this month 🎉</span></label><label class="lbl">Exhibition date</label><input type="date" id="exhibDate" value="'+esc(S.exhibition.date||"")+'" onchange="S.exhibition.date=this.value;save();"><p style="font-weight:700;color:var(--mut);font-size:13px">Once a month, hang the month\'s best frames, invite the family (video call counts!), and let the artist present her own work.</p></div>';
+}
+function exhibTick(v){S.exhibition.done=v;save();}
+function dashControls(){
+  var kit=MATERIALS_KIT.map(function(m,i){var got=!!S.materials["k"+i];return '<label class="kitRow"><input type="checkbox" '+(got?"checked":"")+' onchange="kitTick('+i+',this.checked)"><span>'+esc(m)+'</span></label>';}).join("");
+  document.getElementById("dsec-ctrl").innerHTML='<div class="card"><div class="baloo" style="font-size:17px">🎁 Next Reward (real art supplies)</div><label class="lbl">Shown on Sreshta\'s home</label><input type="text" id="nrInput" value="'+esc(S.nextReward)+'"><div class="baloo" style="font-size:14.5px;margin-top:8px">Reward ladder guide</div><p style="font-weight:700;font-size:13.5px;margin:4px 0">'+REWARD_LADDER.map(function(r,i){return (i===0?"Baseline: ":("Stage "+i+": "))+esc(r);}).join("<br>")+'</p><button class="btn" onclick="saveReward()">Save Next Reward</button></div>'
+  +'<div class="card"><div class="baloo" style="font-size:17px">💌 Nanna\'s Praise</div><p style="font-weight:700;font-size:13.5px">Write a message and Pia will deliver it on Sreshta\'s home screen — your words only.</p><input type="text" id="nannaMsg" placeholder="e.g. Nanna played your gallery today — the fruit bowl glows!"><button class="btn terra" onclick="sendNannaPraise()">Send via Pia</button></div>'
+  +'<div class="card"><div class="baloo" style="font-size:17px">🧺 Materials Kit Checklist</div>'+kit+'</div>'
+  +'<div class="card"><div class="baloo" style="font-size:17px">♻️ Reset Progress</div><p style="font-weight:700;font-size:13.5px">Clears lesson progress, stars and sketchbook. <b>The Day 1 baseline and all framed portfolio works are preserved.</b></p><button class="btn terra" id="resetBtn" onclick="armReset()">Reset Progress</button></div>';
+}
+function kitTick(i,v){S.materials["k"+i]=v;save();}
+function saveReward(){var v=(document.getElementById("nrInput").value||"").trim();if(v){S.nextReward=v;save();}}
+function sendNannaPraise(){var v=(document.getElementById("nannaMsg").value||"").trim();if(!v)return;S.praise.push({from:"Nanna",text:v,date:todayStr(),seen:false});save();document.getElementById("nannaMsg").value="";}
+var resetArmed=false;
+function armReset(){var b=document.getElementById("resetBtn");
+  if(!resetArmed){resetArmed=true;b.textContent="Tap again to confirm reset";setTimeout(function(){resetArmed=false;var bb=document.getElementById("resetBtn");if(bb)bb.textContent="Reset Progress";},4000);return;}
+  resetArmed=false;doReset();}
+function doReset(){
+  var keepBaseline=S.baseline,keepWorks=S.works,keepNext=S.nextReward;
+  S=defState();S.baseline=keepBaseline;S.works=keepWorks;S.nextReward=keepNext;S.seq=keepWorks.length;
+  keepWorks.forEach(function(w){var m=/^w(\d+)$/.exec(w.id);if(m)S.seq=Math.max(S.seq,parseInt(m[1],10));});
+  save();dashOverview();dashGo("ov");
+}
+/* ================= BOOT ================= */
+piaInto("piaAccess");piaInto("piaHome");piaInto("piaBase");piaInto("piaCeleb");
+wirePia();
+show("scr-access");
+</script>
+</body>
+</html>
