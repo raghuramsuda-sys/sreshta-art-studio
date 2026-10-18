@@ -699,7 +699,7 @@ var REWARD_LADDER=["A brand-new sketchbook","Pro pencil set (HB–6B)","Shading 
 
 /* ================= STATE ================= */
 var KEY="artstudio_v1";
-function defState(){return {v:1,baseline:null,lessons:{},works:[],stars:0,sketch:{pages:0,dates:[]},activity:[],nextReward:REWARD_LADDER[0],praise:[],exhibition:{done:false,date:""},materials:{},seq:0};}
+function defState(){return {v:1,baseline:null,lessons:{},works:[],stars:0,sketch:{pages:0,dates:[]},activity:[],nextReward:REWARD_LADDER[0],praise:[],exhibition:{done:false,date:""},materials:{},seq:0,runs:{},basePend:{}};}
 var S;
 try{var raw=localStorage.getItem(KEY);S=raw?Object.assign(defState(),JSON.parse(raw)):defState();}catch(e){S=defState();}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
@@ -765,7 +765,7 @@ function goHome(){
   else bc.innerHTML="";
   var tp=document.getElementById("todayPoster"),nl2=nextLesson();
   if(!S.baseline){tp.innerHTML='<h3>⭐ FIRST — DAY 1</h3><div class="ct">My First Three Drawings</div><div class="sub">A Person • A Fruit Bowl • A House &amp; Street</div><button onclick="openBaseline()">Begin</button>';}
-  else if(nl2){tp.innerHTML='<h3>🎨 TODAY\'S LESSON — '+STAGES[nl2.s-1].name.toUpperCase()+'</h3><div class="ct">'+esc(nl2.t)+'</div><div class="sub">Lesson '+nl2.n+' of 10 • Pro Trick: '+esc(nl2.trickName)+'</div><button onclick="openLesson('+nl2.s+','+nl2.n+')">Start Lesson</button>';}
+  else if(nl2){tp.innerHTML='<h3>🎨 TODAY\'S LESSON — '+STAGES[nl2.s-1].name.toUpperCase()+'</h3><div class="ct">'+esc(nl2.t)+'</div><div class="sub">Lesson '+nl2.n+' of 10 • Pro Trick: '+esc(nl2.trickName)+'</div><button onclick="openLesson('+nl2.s+','+nl2.n+')">'+(hasRun(nl2)?"↩️ Continue My Lesson":"Start Lesson")+'</button>';}
   else{tp.innerHTML='<h3>👑 THE WHOLE GALLERY IS YOURS</h3><div class="ct">Young Master Artist!</div><div class="sub">All 50 lessons framed. Revisit any room, any time.</div>';}
   document.getElementById("statTitle").textContent=artistTitle();
   document.getElementById("statFrames").textContent=S.works.length;
@@ -808,15 +808,17 @@ function renderWeek(){
 function readPraise(){for(var i=0;i<S.praise.length;i++){if(!S.praise[i].seen){S.praise[i].seen=true;document.getElementById("homeBubble").innerHTML="💌 "+esc(S.praise[i].from)+" says: “"+esc(S.praise[i].text)+"”";document.getElementById("praiseCard").innerHTML="";save();return;}}}
 /* ================= BASELINE ================= */
 var basePending={};
-function openBaseline(){piaInto("piaBase");basePending={};
+function openBaseline(){piaInto("piaBase");basePending=S.basePend||(S.basePend={});
   var el=document.getElementById("baseList");var html="";
   if(S.baseline){html='<div class="card">Your First Three are framed forever in your Portfolio. ⭐</div>';}
   else{BASELINE_ITEMS.forEach(function(it,ix){
     html+='<div class="card"><div class="baloo" style="font-size:18px">'+(ix+1)+'. '+it.t+'</div><p style="font-weight:700;margin:5px 0">'+it.hint+'</p><label class="lbl">📷 Add a photo of my drawing</label><input type="file" accept="image/*" onchange="basePhoto(\''+it.id+'\',this)"><div id="baseStat-'+it.id+'" style="font-weight:800;margin-top:6px;color:var(--mut)">Not yet — draw it first, artist!</div><button class="btn ghost" onclick="basePaper(\''+it.id+'\')">✅ Done on Paper</button></div>';});}
-  el.innerHTML=html;paintBaseFinish();show("scr-baseline");
+  el.innerHTML=html;
+  BASELINE_ITEMS.forEach(function(it){var p=basePending[it.id];if(p)paintBaseItem(it.id,p.mode==="photo"?"Photo added 📷 — beautiful!":"Done on paper ✅ — wonderful!");});
+  paintBaseFinish();show("scr-baseline");
 }
-function basePhoto(id,input){var f=input.files&&input.files[0];if(!f)return;downscaleImage(f,function(url){basePending[id]={mode:"photo",url:url};paintBaseItem(id,"Photo added 📷 — beautiful!");paintBaseFinish();});}
-function basePaper(id){basePending[id]={mode:"paper"};paintBaseItem(id,"Done on paper ✅ — wonderful!");paintBaseFinish();}
+function basePhoto(id,input){var f=input.files&&input.files[0];if(!f)return;downscaleImage(f,function(url){basePending[id]={mode:"photo",url:url};save();paintBaseItem(id,"Photo added 📷 — beautiful!");paintBaseFinish();});}
+function basePaper(id){basePending[id]={mode:"paper"};save();paintBaseItem(id,"Done on paper ✅ — wonderful!");paintBaseFinish();}
 function paintBaseItem(id,msg){var el=document.getElementById("baseStat-"+id);if(el){el.textContent=msg;el.style.color="var(--green)";}}
 function baseAllDone(){return BASELINE_ITEMS.every(function(it){return basePending[it.id];});}
 function paintBaseFinish(){var b=document.getElementById("baseFinish");if(b)b.disabled=!baseAllDone();}
@@ -824,6 +826,7 @@ function finishBaseline(){
   if(S.baseline||!baseAllDone())return;
   S.baseline={date:todayStr()};var framed=[];
   BASELINE_ITEMS.forEach(function(it){S.seq++;var w={id:"w"+S.seq,kind:"baseline",lessonId:null,stage:0,title:"Day 1: "+it.t,date:todayStr(),hasPhoto:basePending[it.id].mode==="photo",review:null};S.works.push(w);framed.push(w);if(basePending[it.id].url)PhotoStore.put(w.id,basePending[it.id].url);});
+  S.basePend={};basePending=S.basePend;
   markActivity();save();
   piaInto("piaCeleb");document.getElementById("celebTitle").textContent="Your First Three Are Framed!";
   document.getElementById("celebBubble").textContent="These are your Day 1 drawings, Sreshta — the very start of your artist story. One day we will stand them beside your masterpieces and smile!";
@@ -843,17 +846,24 @@ function openStage(s){
   for(var n=1;n<=10;n++){var l=findLesson(s,n);var done=!!S.lessons[lessonId(l)];
     var prevDone=n===1||!!S.lessons[lessonId(findLesson(s,n-1))];
     var can=done||prevDone;
-    html+='<button class="lesRow '+(done?"done":"")+' '+(n===10?"master":"")+' '+(can?"":"lock")+'" '+(can?'onclick="openLesson('+s+','+n+')"':'')+'><span class="no">'+n+'</span><span class="tt">'+esc(l.t)+(n===10?' 👑':'')+'</span><span class="st">'+(done?"⭐":(can?"▶️":"🔒"))+'</span></button>';}
+    var run=hasRun(l);
+    html+='<button class="lesRow '+(done?"done":"")+' '+(n===10?"master":"")+' '+(can?"":"lock")+'" '+(can?'onclick="openLesson('+s+','+n+')"':'')+'><span class="no">'+n+'</span><span class="tt">'+esc(l.t)+(n===10?' 👑':'')+(run?'<br><span style="font-size:12.5px;color:var(--terra)">↩️ Saved where you left it — tap to continue!</span>':'')+'</span><span class="st">'+(done?"⭐":(can?(run?"▶️ Continue":"▶️"):"🔒"))+'</span></button>';}
   document.getElementById("lesList").innerHTML=html;show("scr-stage");
 }
 var FLOW=["See the Pro","Pro Trick","Drill","Guided Drawing","My Masterpiece"];
 var cur=null; /* {lesson, step, demoStep, drillDone, title, photoUrl, paper} */
+/* ---- auto-save: the in-progress lesson run lives in S.runs[lessonId], saved on EVERY change,
+   so an accidental exit (Island button, back, closed tab) never loses her work ---- */
+function saveRun(){if(!cur||!cur.lesson)return;if(!S.runs)S.runs={};S.runs[lessonId(cur.lesson)]={step:cur.step,demoStep:cur.demoStep,drillDone:cur.drillDone,title:cur.title,photoUrl:cur.photoUrl,paper:cur.paper};save();}
+function clearRun(id){if(S.runs&&S.runs[id]){delete S.runs[id];save();}}
+function hasRun(l){return !!(S.runs&&S.runs[lessonId(l)]&&!S.lessons[lessonId(l)]);}
 function openLesson(s,n){
   var l=findLesson(s,n);if(!l)return;
   if(!S.baseline){openBaseline();return;}
   if(!stageUnlocked(s))return;
   if(n>1&&!S.lessons[lessonId(findLesson(s,n-1))]&&!S.lessons[lessonId(l)])return;
-  cur={lesson:l,step:0,demoStep:0,drillDone:false,title:"",photoUrl:null,paper:false};
+  var savedRun=(S.runs&&S.runs[lessonId(l)])||null;
+  cur={lesson:l,step:savedRun?savedRun.step:0,demoStep:savedRun?savedRun.demoStep:0,drillDone:savedRun?!!savedRun.drillDone:false,title:savedRun?(savedRun.title||""):"",photoUrl:savedRun?(savedRun.photoUrl||null):null,paper:savedRun?!!savedRun.paper:false};
   document.getElementById("lesCrumb").textContent=STAGES[s-1].name+" • Lesson "+n;
   document.getElementById("lesTitle").textContent=l.t;
   document.getElementById("lesBack").onclick=function(){openStage(s);};
@@ -886,15 +896,16 @@ function renderLesson(){
     html+='<div class="navRow"><button class="btn ghost" onclick="flowGo(3)">← Guided Drawing</button></div>';
   }
   b.innerHTML=html;
-  var t=document.getElementById("mpTitle");if(t)t.oninput=function(){cur.title=t.value;};
+  var t=document.getElementById("mpTitle");if(t)t.oninput=function(){cur.title=t.value;saveRun();};
 }
-function demoMove(d){cur.demoStep+=d;renderLesson();}
-function flowGo(s){cur.step=s;renderLesson();window.scrollTo(0,0);}
-function toggleDrill(v){cur.drillDone=v;var nb=document.getElementById("drillNext");if(nb)nb.disabled=!v;var chk=document.querySelector("#lesBody .chk");if(chk)chk.classList.toggle("done",v);}
-function mpPhoto(input){var f=input.files&&input.files[0];if(!f)return;downscaleImage(f,function(url){cur.photoUrl=url;var st=document.getElementById("mpStat");if(st){st.textContent="Photo added 📷 — it looks golden already!";st.style.color="var(--green)";}var fb=document.getElementById("frameBtn");if(fb)fb.disabled=false;});}
-function mpPaper(){cur.paper=true;var st=document.getElementById("mpStat");if(st){st.textContent="Done on paper ✅ — a real paper masterpiece!";st.style.color="var(--green)";}var fb=document.getElementById("frameBtn");if(fb)fb.disabled=false;}
+function demoMove(d){cur.demoStep+=d;saveRun();renderLesson();}
+function flowGo(s){cur.step=s;saveRun();renderLesson();window.scrollTo(0,0);}
+function toggleDrill(v){cur.drillDone=v;saveRun();var nb=document.getElementById("drillNext");if(nb)nb.disabled=!v;var chk=document.querySelector("#lesBody .chk");if(chk)chk.classList.toggle("done",v);}
+function mpPhoto(input){var f=input.files&&input.files[0];if(!f)return;downscaleImage(f,function(url){cur.photoUrl=url;saveRun();var st=document.getElementById("mpStat");if(st){st.textContent="Photo added 📷 — it looks golden already!";st.style.color="var(--green)";}var fb=document.getElementById("frameBtn");if(fb)fb.disabled=false;});}
+function mpPaper(){cur.paper=true;saveRun();var st=document.getElementById("mpStat");if(st){st.textContent="Done on paper ✅ — a real paper masterpiece!";st.style.color="var(--green)";}var fb=document.getElementById("frameBtn");if(fb)fb.disabled=false;}
 function frameMasterpiece(){
   var l=cur.lesson;var id=lessonId(l);var already=!!S.lessons[id];
+  clearRun(id);
   var title=(cur.title||"").trim()||l.t;
   if(!already){
     S.seq++;var w={id:"w"+S.seq,kind:l.n===10?"masterpiece":"lesson",lessonId:id,stage:l.s,title:title,date:todayStr(),hasPhoto:!!cur.photoUrl,review:null};
